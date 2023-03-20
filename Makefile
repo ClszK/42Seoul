@@ -12,13 +12,15 @@ B_SRCS	=	./ft_lstnew_bonus.c	./ft_lstadd_front_bonus.c	./ft_lstsize_bonus.c\
 			./ft_lstlast_bonus.c	./ft_lstadd_back_bonus.c	./ft_lstdelone_bonus.c\
 			./ft_lstclear_bonus.c	./ft_lstiter_bonus.c	./ft_lstmap_bonus.c
 
+B_TEST = $(B_SRCS:_bonus.c=.o)
 B_OBJS	= $(B_SRCS:.c=.o)
+
 HEADER 	= .
 CC	= gcc
 CFLAGS = -Wall -Wextra -Werror -c
 
 ifdef WITH_BONUS
-    OBJ_FILES = $(OBJS) $(B_OBJS)
+    OBJ_FILES = $(OBJS) $(B_TEST)
 else
     OBJ_FILES = $(OBJS)
 endif
@@ -32,7 +34,7 @@ $(NAME)	:	$(OBJ_FILES)
 	$(CC) $(CFLAGS) $< -o $@ -I$(HEADER)
 
 clean:
-	rm -rf $(OBJS) $(B_OBJS)
+	rm -rf $(OBJS) $(B_TEST)
 
 fclean: clean
 	rm -rf $(NAME)

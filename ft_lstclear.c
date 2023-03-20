@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 23:03:23 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/18 18:20:26 by jeholee          ###   ########.fr       */
+/*   Created: 2023/03/16 21:25:16 by jeholee           #+#    #+#             */
+/*   Updated: 2023/03/20 22:57:18 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
 	t_list	*node;
 
-	node = (t_list *)malloc(sizeof(t_list));
-	if (node == NULL)
-		return (NULL);
-	node->content = content;
-	node->next = NULL;
-	return (node);
+	if (del == NULL || lst == NULL)
+		return ;
+	while (*(lst))
+	{
+		node = (*(lst))->next;
+		ft_lstdelone(*(lst), del);
+		*(lst) = node;
+	}
 }

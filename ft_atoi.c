@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:43:37 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/15 00:46:02 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/03/20 23:19:37 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_atoi(const char *str)
 	if (*(str) == '-' || *(str) == '+')
 		if (*(str++) == '-')
 			sign *= -1;
-	while (*(str) >= '0' && *(str) <= '9')
+	while (*(str) && *(str) >= '0' && *(str) <= '9')
 	{
 		r_num = r_num * 10 + (*(str) - '0');
 		str++;
