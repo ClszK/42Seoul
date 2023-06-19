@@ -1,5 +1,5 @@
 NAME	= libftprintf.a
-SRCS	= 	ft_printf.c\
+SRCS	= 	ft_printf_bonus.c\
 			ft_printf_c_d.c\
 			ft_printf_u_x.c\
 			ft_printf_addr.c\
@@ -13,8 +13,8 @@ LIBFT := $(LIB_DIR)lib$(LIB_NAME).a
 
 HEADER 	= ./includes/
 CC	= gcc
-CFLAGS = -Wall -Wextra -Werror
-TESTFLAG = $(CFLAGS) -fsanitize=address -g -L . -lftprintf
+CFLAGS = -Wall -Wextra -Werror -g
+TESTFLAG = -fsanitize=address -g -L . -lftprintf
 
 all:	$(NAME)
 

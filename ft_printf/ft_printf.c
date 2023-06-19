@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 04:21:16 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/26 23:08:49 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/03/29 21:59:53 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_format(const char *format, int *len, va_list ap)
 {
 	if (*(format) == 'c')
-		return (ft_print_c(len, ap));
+		return (ft_print_char(len, ap));
 	else if (*(format) == 's')
 		return (ft_print_s(len, ap));
 	else if (*(format) == 'p')

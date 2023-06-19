@@ -6,11 +6,12 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:53:18 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/27 00:19:15 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/03/30 01:10:29 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/ft_printf.h"
+#include "./includes/libft.h"
 
 int	norm_va_end(int ret, va_list ap)
 {
@@ -26,16 +27,54 @@ void	flag_table(char *s)
 {
 	char	*format_flag;
 
-	format_flag = "csppdiuxX%0123456789-.# +";
-	(void)ft_memst(s, 0, 128);
+	format_flag = "0#-+ .cspdiuxX%0123456789";
+	(void)ft_memset(s, 0, 128);
 	while (*format_flag)
-		s[(int)*(format_flag)] = 1;
+		s[(int)*(format_flag++)] = 1;
 }
 
-int	ft_format(const char *format, int *len, va_list ap)
+void	flag_set(const char **format, char *table, size_t *flag)
+{
+	while (table[(int)**format])
+	{
+		if (**format == '0')
+			flag[ZERO] = 1;
+		else if (**format == '#')
+			flag[SHARP] = 1;
+		else if (**format == '-')
+			flag[MINUS] = 1;
+		else if (**format == '+')
+			flag[PLUS] = 1;
+		else if (**format == ' ')
+			flag[SPACE] = 1;
+		else if (ft_isdigit(**format))
+			flag[WIDTH] = ft_atoi(format);
+		else if (**format == '.')
+		{
+			flag[POINT] = 1;
+			flag[PERCISION] = ft_atoi(format);
+		}
+		else if (ft_isalpha(**format))
+			return ;
+		++*format;
+	}
+}
+
+const char	*flag_wid_per(const char *format, char *table, int *len, va_list ap)
+{
+	size_t	flag[8];
+
+	ft_bzero(flag, 8 * sizeof(size_t));
+	flag_set(&format, table, flag);
+	ft_format(format, len, ap, flag);
+
+	return (format);
+}
+
+int	ft_format(const char *format, int *len, va_list ap, size_t *flag)
 {
 	if (*(format) == 'c')
-		return (ft_print_c(len, ap));
+		return (ft_print_char(len, ap, flag));
 	else if (*(format) == 's')
 		return (ft_print_s(len, ap));
 	else if (*(format) == 'p')
@@ -48,14 +87,13 @@ int	ft_format(const char *format, int *len, va_list ap)
 		return (ft_print_low_x(len, ap));
 	else if (*(format) == 'X')
 		return (ft_print_up_x(len, ap));
-	else if (*(format) == '%')
+	else
 	{
-		if (write(1, "%", 1) < 0)
+		if (write(1, format, 1) < 0)
 			return (-1);
 		++(*len);
 	}
-	else
-		return (-1);
+
 	return (1);
 }
 
@@ -63,10 +101,11 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		len;
-	char	ascii_table[128];
+	char	table[128];
 
 	len = 0;
 	va_start(ap, format);
+	flag_table(table);
 	while (*(format))
 	{
 		if (*(format) != '%')
@@ -77,8 +116,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			if (norm_va_end(ft_format(++format, &len, ap), ap) < 0)
-				return (-1);
+			format = flag_wid_per(++format, table, &len, ap);
 		}
 		++format;
 	}
