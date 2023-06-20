@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:57:57 by stack             #+#    #+#             */
-/*   Updated: 2023/06/19 17:49:00 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/06/20 19:47:29 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 typedef struct s_list
 {
 	char			*content;
+	ssize_t			len;
 	struct s_list	*next;
 }	t_list;
 
@@ -36,8 +37,7 @@ t_list	*ft_lstnew(char *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst);
 char	*ft_strndup(const char *src, ssize_t n);
-
-ssize_t	ft_strlen(const char *s);
+t_list	*ft_lstlast(t_list *lst);
 char	*ft_strncat(char *dest, const char *src, ssize_t nb);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/06/19 14:09:02 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/06/20 19:42:32 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 t_list	*ft_lstnew(char *content)
 {
 	t_list	*node;
+	ssize_t	i;
 
+	i = 0;
 	node = (t_list *)malloc(sizeof(t_list));
-	if (node == NULL)
+	if (node == NULL || content == NULL)
 		return (NULL);
 	node->content = content;
+	while (node->content[i])
+		i++;
+	node->len = 0;
 	node->next = NULL;
 	return (node);
 }
@@ -57,6 +62,15 @@ void	ft_lstclear(t_list **lst)
 	}
 }
 
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
 char	*ft_strndup(const char *src, ssize_t n)
 {
 	char	*r_dst;
@@ -72,25 +86,16 @@ char	*ft_strndup(const char *src, ssize_t n)
 	return (r_dst);
 }
 
-ssize_t	ft_strlen(const char *s)
-{
-	ssize_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 char	*ft_strncat(char *dest, const char *src, ssize_t nb)
 {
 	char	*r_dest;
 
+	if (dest == NULL)
+		return (NULL);
 	r_dest = dest;
 	while (*(dest))
 		dest++;
 	while (*(src) && (nb--) > 0)
 		*(dest++) = *(src++);
-	*(dest) = '\0';
 	return (r_dest);
 }

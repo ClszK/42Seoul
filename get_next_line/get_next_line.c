@@ -5,111 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 14:00:46 by stack             #+#    #+#             */
-/*   Updated: 2023/06/19 19:41:36 by jeholee          ###   ########.fr       */
+/*   Created: 2023/06/20 17:00:20 by jeholee           #+#    #+#             */
+/*   Updated: 2023/06/20 19:48:25 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"	// 에러 제거
-
-#include <stdio.h>
+#include "get_next_line.h" // 에러 제거
 
 ssize_t	find_ln_pos(char *buff, ssize_t bsize);
+int		line_in_ln(char *buff, t_list **tmp, ssize_t bsize, char **rline);
+char	*ln_ret(t_list **tmp, char *buff, ssize_t lnpos);
 
 char	*get_next_line(int fd)
 {
-	char		*buff;
-	char		*tmp;
-	t_list		*line;
-	static char	*btmp;
-	ssize_t		rsize;
-	ssize_t		lnpos;
-	ssize_t		btmp_size;
+	static t_list	*tmp;
+	char			*buff;
+	ssize_t			rsize;
+	int				inln;
 
-	ssize_t		final_size;
-	t_list		*good;
-	char		*rline;
-
-	rsize = 1;
-
-	final_size = 0;
-	btmp_size = 0;
-
-	line = NULL;
-	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-	if (buff == NULL)
-		return (NULL);
+	tmp = NULL;
 	while (true)
 	{
-		if (btmp != NULL && *btmp != '\0')
+		if (tmp != NULL)
 		{
-			btmp_size = ft_strlen(btmp);
-			lnpos = find_ln_pos(btmp, btmp_size);
-			if (lnpos != btmp_size)
+			inln = line_in_ln((ft_lstlast(tmp))->content, \
+			&tmp, ft_lstlast(tmp)->content, &buff);
+			if (inln < 0)
 			{
-				write(1, "test\n", 5);
+				if (buff != NULL)
+					free(buff);
 				return (NULL);
-			}	
-			ft_lstadd_back(&line, ft_lstnew(btmp));
-			btmp = NULL;
+			}
+			if (inln == 1)
 		}
-		rsize = read(fd, (char *)buff, (size_t)BUFFER_SIZE);
-		if (rsize == R_ERROR)		//error
-			return (NULL);
+		rsize = read(fd, (char *)buff, BUFFER_SIZE);
+		if (rsize < 0)
+			continue; //error
 		if (rsize == 0)
 		{
-			if (line == NULL)
-				return (buff);
-			good = line;
-			while (good != NULL)
-			{
-				final_size += ft_strlen(line->content);
-				good = good->next;
-			}
-			rline = (char *)malloc(sizeof(char) * (final_size + 1));
-			if (rline == NULL)
-				return (NULL);
-			good = line;
-			while (good != NULL)
-			{
-				(void)ft_strncat(rline, good->content, ft_strlen(good->content));
-				good = good->next;
-			}
-			ft_strncat(rline, buff, ft_strlen(buff));
-			ft_lstclear(&line);
-			return (rline);
+			// 파일의 끝
 		}
-		lnpos = find_ln_pos(buff, BUFFER_SIZE);
-		if (lnpos != BUFFER_SIZE)
-		{
-			btmp = ft_strndup(buff + lnpos, BUFFER_SIZE - lnpos + 1);
-			tmp = ft_strndup(buff, lnpos);
-			if (line == NULL)
-				return (tmp);
-			good = line;
-			while (good != NULL)
-			{
-				final_size += ft_strlen(line->content);
-				good = good->next;
-			}
-			rline = (char *)malloc(sizeof(char) * (final_size + 1));
-			if (rline == NULL)
-				return (NULL);
-			good = line;
-			while (good != NULL)
-			{
-				(void)ft_strncat(rline, good->content, ft_strlen(good->content));
-				good = good->next;
-			}
-			ft_strncat(rline, tmp, ft_strlen(tmp));
-			ft_lstclear(&line);
-			final_size = 0;
-			return (rline);
-		}
-		else
-			tmp = ft_strndup(buff, lnpos);
-		ft_lstadd_back(&line, ft_lstnew(tmp));
 	}
+	return (NULL);
 }
 
 ssize_t	find_ln_pos(char *buff, ssize_t bsize)
@@ -122,4 +59,57 @@ ssize_t	find_ln_pos(char *buff, ssize_t bsize)
 	while (*(buff + i) != '\n' && i != bsize - 1)
 		i++;
 	return (i + 1);
+}
+
+int	line_in_ln(char *buff, t_list **tmp, ssize_t bsize, char **rline)
+{
+	ssize_t	lnpos;
+	ssize_t	len;
+	t_list	*node;
+
+	lnpos = find_ln_pos(buff, bsize);
+	if (lnpos == bsize)
+	{
+		node = ft_lstnew(buff);
+		if (node == NULL)
+			return (NULL);
+		ft_lstadd_back(tmp, node);
+		return (0);
+	}
+	*rline = ln_ret(tmp, buff, lnpos);
+	if (*rline == NULL)
+		return (-1);
+	len = bsize - lnpos;
+	node = ft_lstnew(ft_strncat((char *)malloc(len), buff + lnpos, len));
+	if (node == NULL)
+		return (-1);
+	ft_lstadd_back(tmp, node);
+	return (1);
+}
+
+char	*ln_ret(t_list **tmp, char *buff, ssize_t lnpos)
+{
+	ssize_t	len;
+	t_list	*node;
+	char	*rline;
+
+	len = 0;
+	node = *tmp;
+	while (node != NULL)
+	{
+		len += node->len;
+		node = node->next;
+	}
+	node = *tmp;
+	rline = (char *)malloc(sizeof(char) * (len + 1));
+	if (rline == NULL)
+		return (NULL);
+	while (node != NULL)
+	{
+		(void)ft_strncat(rline, node->content, node->len);
+		node = node->next;
+	}
+	(void)ft_strncat(rline, buff, lnpos);
+	ft_lstclear(tmp);
+	return (rline);
 }

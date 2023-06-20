@@ -1,7 +1,8 @@
 {
 	"files.associations": {
 		"libftprintf.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"ios": "c"
 	},
 	"workbench.colorTheme": "Material Theme Darker High Contrast",
 	"workbench.colorCustomizations": {
