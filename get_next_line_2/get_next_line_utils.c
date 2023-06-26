@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/06/22 22:24:26 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/06/26 19:49:46 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,25 @@ t_list	*ft_lstnew(char *content)
 {
 	t_list	*node;
 	ssize_t	i;
+	ssize_t	lnpos;
 
-	i = 0;
+	i = -1;
+	lnpos = -1;
 	node = (t_list *)malloc(sizeof(t_list));
 	if (node == NULL || content == NULL)
 		return (NULL);
-	while (content[i])
-		i++;
-	node->content = ft_strncat((char *)malloc(sizeof(char) * i), content, i);
+	while (content[++i])
+		if (content[i] == '\n' && lnpos == -1)
+			lnpos = i + 1;
+	node->content = ft_strncat((char *)malloc(i + 1), content, i + 1);
+	free(content);
 	if (node->content == NULL)
 	{
 		free(node);
 		return (NULL);
 	}
 	node->len = i;
+	node->lnpos = lnpos;
 	node->next = NULL;
 	return (node);
 }
@@ -48,6 +53,7 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 	while (node->next)
 		node = node->next;
+	new->len += node->len;
 	node->next = new;
 	return (1);
 }
@@ -88,7 +94,6 @@ char	*ft_strncat(char *dest, const char *src, ssize_t nb)
 		dest++;
 	while (*(src) && (nb--) > 0)
 		*(dest++) = *(src++);
-	if (nb != 0)
-		*(dest) = '\0';
+	*(dest) = '\0';
 	return (r_dest);
 }

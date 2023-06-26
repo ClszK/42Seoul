@@ -8,11 +8,12 @@ int main()
 	char	*test = NULL;
 
 	fd = open("./test.txt", O_RDONLY);
-
+	
 	do
 	{
 		test = get_next_line(fd);
 		printf("This is get_next_line : %20s\n", test);
-	} while(test != NULL);
+		free(test);
+	} while(1);
 	return (0);
 }
