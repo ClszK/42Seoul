@@ -21,16 +21,15 @@ t_list	*ft_lstnew(char *content)
 	i = -1;
 	lnpos = -1;
 	node = (t_list *)malloc(sizeof(t_list));
-	if (node == NULL || content == NULL)
+	if (node == NULL)
 		return (NULL);
 	while (content[++i])
 		if (content[i] == '\n' && lnpos == -1)
 			lnpos = i + 1;
-	node->content = ft_strncat((char *)malloc(i + 1), content, i + 1);
-	free(content);
+	node->content = ft_strncat((char *)malloc(i + 1), content, i + 1, 1);
 	if (node->content == NULL)
 	{
-		free(node);
+		ft_lstclear(&node);
 		return (NULL);
 	}
 	node->len = i;
@@ -83,13 +82,15 @@ t_list	*ft_lstlast(t_list *lst)
 	return (lst);
 }
 
-char	*ft_strncat(char *dest, const char *src, ssize_t nb)
+char	*ft_strncat(char *dest, const char *src, ssize_t nb, int flag)
 {
 	char	*r_dest;
 
 	if (dest == NULL)
 		return (NULL);
 	r_dest = dest;
+	if (flag == 1)
+		*(dest) = '\0';
 	while (*(dest))
 		dest++;
 	while (*(src) && (nb--) > 0)

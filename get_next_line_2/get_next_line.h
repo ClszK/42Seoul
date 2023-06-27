@@ -36,6 +36,6 @@ t_list	*ft_lstnew(char *content);
 int		ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst);
 t_list	*ft_lstlast(t_list *lst);
-char	*ft_strncat(char *dest, const char *src, ssize_t nb);
+char	*ft_strncat(char *dest, const char *src, ssize_t nb, int flag);
 
 #endif

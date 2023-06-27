@@ -14,6 +14,6 @@ int main()
 		test = get_next_line(fd);
 		printf("This is get_next_line : %20s\n", test);
 		free(test);
-	} while(1);
+	} while(test != NULL);
 	return (0);
 }
