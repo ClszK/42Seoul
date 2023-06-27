@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/06/26 19:49:46 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/06/27 18:09:36 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_list	*ft_lstnew(char *content)
 	node->content = ft_strncat((char *)malloc(i + 1), content, i + 1, 1);
 	if (node->content == NULL)
 	{
-		ft_lstclear(&node);
+		free(node);
 		return (NULL);
 	}
 	node->len = i;

@@ -2,6 +2,11 @@
 #include <stdio.h>
 # include <fcntl.h> 
 
+void	check_leak(void)
+{
+	system("leaks a.out");
+}
+
 int main()
 {
 	int		fd;
@@ -12,8 +17,9 @@ int main()
 	do
 	{
 		test = get_next_line(fd);
-		printf("This is get_next_line : %20s\n", test);
+		printf("%10s", test);
 		free(test);
 	} while(test != NULL);
+	atexit(check_leak);
 	return (0);
 }
