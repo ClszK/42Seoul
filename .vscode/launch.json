@@ -9,9 +9,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/get_next_line/a.out",
+			"program": "${workspaceFolder}/get_next_line_2/a.out",
 			"args": [],
-			"cwd": "${workspaceFolder}/get_next_line"
+			"cwd": "${workspaceFolder}/get_next_line_2"
 		}
 	]
 }
