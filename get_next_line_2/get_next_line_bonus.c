@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:11:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/07/07 21:31:33 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/07 22:31:32 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"	// 에러 제거
+#include "get_next_line_bonus.h"	// 에러 제거
 
 char	*get_next_line(int fd)
 {
-	static t_list	*tmp;
+	static t_list	*tmp[OPEN_MAX];
 	char			*rline;
 	char			*buffer;
-	ssize_t			readsize;
+	ssize_t			rsize;
 
 	rline = NULL;
 	buffer = NULL;
-	if (!(BUFFER_SIZE < 0 || BUFFER_SIZE > 4294967295))
+	if (!(BUFFER_SIZE <= 0 || fd >= OPEN_MAX || fd < 0))
 		buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	ft_lstclear(&tmp, buffer);
-	readsize = 1;
-	while (buffer != NULL)
+	ft_lstclear(tmp, buffer, fd);
+	rsize = 1;
+	while (buffer != NULL && fd >= 0)
 	{
-		if (readsize == 0 || (tmp != NULL && (ft_lstlast(tmp))->lnpos != -1))
+		if (rsize == 0 || (tmp[fd] != NULL && (lstlast(tmp[fd]))->lnpos != -1))
 		{
-			rline = ft_lstcat(&tmp);
+			rline = ft_lstcat(&tmp[fd]);
+			ft_lstclear(&tmp[fd], rline, 0);
 			break ;
 		}
-		readsize = read(fd, (char *)buffer, BUFFER_SIZE);
-		if (read_line(&tmp, buffer, readsize) < 0)
+		rsize = read(fd, (char *)buffer, BUFFER_SIZE);
+		if (read_line(&tmp[fd], buffer, rsize) < 0)
 			break ;
 	}
-	ft_lstclear(&tmp, rline);
 	free(buffer);
 	return (rline);
 }
@@ -45,7 +45,7 @@ int	read_line(t_list **tmp, char *buffer, ssize_t readsize)
 {
 	if (readsize < 0)
 	{
-		ft_lstclear(tmp, NULL);
+		ft_lstclear(tmp, NULL, 0);
 		return (-1);
 	}
 	if (readsize == 0)
@@ -53,7 +53,7 @@ int	read_line(t_list **tmp, char *buffer, ssize_t readsize)
 	buffer[readsize] = '\0';
 	if (ft_lstadd_back(tmp, ft_lstnew(buffer)) == -1)
 	{
-		ft_lstclear(tmp, NULL);
+		ft_lstclear(tmp, NULL, 0);
 		return (-1);
 	}
 	return (1);
@@ -67,7 +67,7 @@ char	*ft_lstcat(t_list **tmp)
 
 	if (*tmp == NULL || (*tmp)->len == 0)
 		return (NULL);
-	node = ft_lstlast(*tmp);
+	node = lstlast(*tmp);
 	nlen = node->totallen;
 	if (node->lnpos != -1)
 		nlen = nlen - node->len + node->lnpos;
@@ -95,7 +95,7 @@ char	*ft_lstcat_2(t_list **tmp, t_list *node, char *str)
 		nlen = node->len - node->lnpos + 1;
 		(void)ft_strncat(str, node->content, node->lnpos, 0);
 		stmp = ft_strncat(malloc(nlen), node->content + node->lnpos, nlen, 1);
-		ft_lstclear(tmp, NULL);
+		ft_lstclear(tmp, NULL, 0);
 		if (stmp == NULL || ft_lstadd_back(tmp, ft_lstnew(stmp)) == -1)
 		{
 			free(str);
@@ -106,7 +106,7 @@ char	*ft_lstcat_2(t_list **tmp, t_list *node, char *str)
 	else
 	{
 		(void)ft_strncat(str, node->content, node->len, 0);
-		ft_lstclear(tmp, NULL);
+		ft_lstclear(tmp, NULL, 0);
 	}
 	return (str);
 }

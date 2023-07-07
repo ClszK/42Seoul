@@ -17,9 +17,11 @@ int main()
 	do
 	{
 		test = get_next_line(fd);
-		printf("%10s", test);
+		if (test == NULL)
+			printf("\n");
+		printf("%100s", test);
 		free(test);
 	} while(test != NULL);
-	atexit(check_leak);
+	// atexit(check_leak);
 	return (0);
 }

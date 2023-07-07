@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/07/07 19:20:37 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/07 22:03:43 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"	// 에러 제거
+#include "get_next_line_bonus.h"	// 에러 제거
 
 t_list	*ft_lstnew(char *content)
 {
@@ -58,23 +58,23 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 	return (1);
 }
 
-void	ft_lstclear(t_list **lst, char *str)
+void	ft_lstclear(t_list **lst, char *str, int fd)
 {
 	t_list	*node;
 
-	if (lst == NULL || str != NULL)
+	if (fd < 0 || lst == NULL || str != NULL)
 		return ;
-	while (*(lst))
+	while (*(lst + fd))
 	{
-		node = (*(lst))->next;
-		free((*(lst))->content);
-		(*(lst))->content = NULL;
-		free(*(lst));
-		*(lst) = node;
+		node = (*(lst + fd))->next;
+		free((*(lst + fd))->content);
+		(*(lst + fd))->content = NULL;
+		free(*(lst + fd));
+		*(lst + fd) = node;
 	}
 }
 
-t_list	*ft_lstlast(t_list *lst)
+t_list	*lstlast(t_list *lst)
 {
 	if (lst == NULL)
 		return (NULL);
