@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:11:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/07/09 16:28:04 by ljh              ###   ########.fr       */
+/*   Updated: 2023/07/10 18:45:17 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 char	*get_next_line(int fd)
 {
-	static t_list	*tmp[OPEN_MAX];
+	static t_list	*tmp[OPEN_MAX + 1];
 	char			*rline;
 	char			buffer[BUFFER_SIZE + 1];
 	ssize_t			rsize;
 
 	rline = NULL;
-	if (fd >= OPEN_MAX || fd < 0)
+	if (fd >= OPEN_MAX || fd < 0 || BUFFER_SIZE == 0 || OPEN_MAX == 0)
 		return (NULL);
 	rsize = 1;
 	while (1)
 	{
-		if (rsize == 0 || (tmp[fd] != NULL && (gnl_lstlast(tmp[fd]))->lnpos != -1))
+		if (rsize == 0 || (tmp[fd] != NULL \
+		&& (gnl_lstlast(tmp[fd]))->lnpos != -1))
 		{
 			rline = gnl_lstcat(&tmp[fd]);
 			gnl_lstclear(&tmp[fd], rline, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:11:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/07/09 16:06:29 by ljh              ###   ########.fr       */
+/*   Updated: 2023/07/10 20:57:57 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 char	*get_next_line(int fd)
 {
-	static t_list	*tmp;
+	static t_list	*tmp[OPEN_MAX + 1];
 	char			*rline;
 	char			buffer[BUFFER_SIZE + 1];
-	ssize_t			readsize;
+	ssize_t			rsize;
 
 	rline = NULL;
-	if (BUFFER_SIZE < 0 || BUFFER_SIZE > 4294967295 || fd < 0)
+	if (fd >= OPEN_MAX || fd < 0 || BUFFER_SIZE == 0 || OPEN_MAX == 0)
 		return (NULL);
-	readsize = 1;
+	rsize = 1;
 	while (1)
 	{
-		if (readsize == 0 || (tmp != NULL && (ft_lstlast(tmp))->lnpos != -1))
+		if (rsize == 0 || (tmp[fd] != NULL && (gnl_lstlast(tmp[fd]))->lnpos != -1))
 		{
-			rline = ft_lstcat(&tmp);
-			ft_lstclear(&tmp, rline);
+			rline = gnl_lstcat(&tmp[fd]);
+			gnl_lstclear(&tmp[fd], rline);
 			break ;
 		}
-		readsize = read(fd, (char *)buffer, BUFFER_SIZE);
-		if (read_line(&tmp, buffer, readsize) < 0)
+		rsize = read(fd, buffer, BUFFER_SIZE);
+		if (read_line(&tmp[fd], buffer, rsize) < 0)
 			break ;
 	}
 	return (rline);
@@ -42,29 +42,29 @@ int	read_line(t_list **tmp, char *buffer, ssize_t readsize)
 {
 	if (readsize < 0)
 	{
-		ft_lstclear(tmp, NULL);
+		gnl_lstclear(tmp, NULL);
 		return (-1);
 	}
 	if (readsize == 0)
 		return (1);
 	buffer[readsize] = '\0';
-	if (ft_lstadd_back(tmp, ft_lstnew(buffer)) == -1)
+	if (gnl_lstadd_back(tmp, gnl_lstnew(buffer)) == -1)
 	{
-		ft_lstclear(tmp, NULL);
+		gnl_lstclear(tmp, NULL);
 		return (-1);
 	}
 	return (1);
 }
 
-char	*ft_lstcat(t_list **tmp)
+char	*gnl_lstcat(t_list **tmp)
 {
 	char	*str;
 	t_list	*node;
 	size_t	nlen;
 
-	if (*tmp == NULL || (*tmp)->len == 0)
+	if (*tmp == NULL)
 		return (NULL);
-	node = ft_lstlast(*tmp);
+	node = gnl_lstlast(*tmp);
 	nlen = node->totallen;
 	if (node->lnpos != -1)
 		nlen = nlen - node->len + node->lnpos;
@@ -75,14 +75,14 @@ char	*ft_lstcat(t_list **tmp)
 	node = (*tmp);
 	while (node->next != NULL)
 	{
-		(void)ft_strncat(str, node->content, node->len, 0);
+		(void)gnl_strncat(str, node->content, node->len, 0);
 		node = node->next;
 	}
-	str = ft_lstcat_2(tmp, node, str);
+	str = gnl_lstcat_2(tmp, node, str);
 	return (str);
 }
 
-char	*ft_lstcat_2(t_list **tmp, t_list *node, char *str)
+char	*gnl_lstcat_2(t_list **tmp, t_list *node, char *str)
 {
 	size_t	nlen;
 	char	*stmp;
@@ -90,10 +90,10 @@ char	*ft_lstcat_2(t_list **tmp, t_list *node, char *str)
 	if (node->lnpos != -1 && node->content[node->lnpos] != '\0')
 	{
 		nlen = node->len - node->lnpos + 1;
-		(void)ft_strncat(str, node->content, node->lnpos, 0);
-		stmp = ft_strncat(malloc(nlen), node->content + node->lnpos, nlen, 1);
-		ft_lstclear(tmp, NULL);
-		if (stmp == NULL || ft_lstadd_back(tmp, ft_lstnew(stmp)) == -1)
+		(void)gnl_strncat(str, node->content, node->lnpos, 0);
+		stmp = gnl_strncat(malloc(nlen), node->content + node->lnpos, nlen, 1);
+		gnl_lstclear(tmp, NULL);
+		if (stmp == NULL || gnl_lstadd_back(tmp, gnl_lstnew(stmp)) == -1)
 		{
 			free(str);
 			str = NULL;
@@ -102,8 +102,8 @@ char	*ft_lstcat_2(t_list **tmp, t_list *node, char *str)
 	}
 	else
 	{
-		(void)ft_strncat(str, node->content, node->len, 0);
-		ft_lstclear(tmp, NULL);
+		(void)gnl_strncat(str, node->content, node->len, 0);
+		gnl_lstclear(tmp, NULL);
 	}
 	return (str);
 }

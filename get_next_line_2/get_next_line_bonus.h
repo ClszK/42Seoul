@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:57:57 by stack             #+#    #+#             */
-/*   Updated: 2023/07/09 16:28:46 by ljh              ###   ########.fr       */
+/*   Updated: 2023/07/10 18:50:21 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 
 # if BUFFER_SIZE > 4294967295
 #  undef BUFFER_SIZE
-#  define BUFFER_SIZE -1
+#  define BUFFER_SIZE 0
+# elif BUFFER_SIZE < 0
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 0
 # endif
 
 # ifndef OPEN_MAX
@@ -28,7 +31,10 @@
 
 # if OPEN_MAX <= 0
 #  undef OPEN_MAX
-#  define OPEN_MAX 49152
+#  define OPEN_MAX 0
+# elif OPEN_MAX >= 2147483647
+#  undef OPEN_MAX
+#  define OPEN_MAX 0
 # endif
 
 # include <stdlib.h>
@@ -37,9 +43,9 @@
 typedef struct s_list
 {
 	char			*content;
-	ssize_t			len;
-	ssize_t			lnpos;
-	ssize_t			totallen;
+	long long		len;
+	long long		lnpos;
+	size_t			totallen;
 	struct s_list	*next;
 }	t_list;
 
