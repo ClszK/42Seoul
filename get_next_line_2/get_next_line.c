@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:11:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/07/07 21:31:33 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:06:29 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,25 @@ char	*get_next_line(int fd)
 {
 	static t_list	*tmp;
 	char			*rline;
-	char			*buffer;
+	char			buffer[BUFFER_SIZE + 1];
 	ssize_t			readsize;
 
 	rline = NULL;
-	buffer = NULL;
-	if (!(BUFFER_SIZE < 0 || BUFFER_SIZE > 4294967295))
-		buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	ft_lstclear(&tmp, buffer);
+	if (BUFFER_SIZE < 0 || BUFFER_SIZE > 4294967295 || fd < 0)
+		return (NULL);
 	readsize = 1;
-	while (buffer != NULL)
+	while (1)
 	{
 		if (readsize == 0 || (tmp != NULL && (ft_lstlast(tmp))->lnpos != -1))
 		{
 			rline = ft_lstcat(&tmp);
+			ft_lstclear(&tmp, rline);
 			break ;
 		}
 		readsize = read(fd, (char *)buffer, BUFFER_SIZE);
 		if (read_line(&tmp, buffer, readsize) < 0)
 			break ;
 	}
-	ft_lstclear(&tmp, rline);
-	free(buffer);
 	return (rline);
 }
 

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/07/07 22:03:43 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:28:56 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"	// 에러 제거
 
-t_list	*ft_lstnew(char *content)
+t_list	*gnl_lstnew(char *content)
 {
-	t_list	*node;
-	ssize_t	i;
-	ssize_t	lnpos;
+	t_list		*node;
+	long long	i;
+	long long	lnpos;
 
 	i = -1;
 	lnpos = -1;
@@ -26,7 +26,7 @@ t_list	*ft_lstnew(char *content)
 	while (content[++i])
 		if (content[i] == '\n' && lnpos == -1)
 			lnpos = i + 1;
-	node->content = ft_strncat((char *)malloc(i + 1), content, i + 1, 1);
+	node->content = gnl_strncat((char *)malloc(i + 1), content, i + 1, 1);
 	if (node->content == NULL)
 	{
 		free(node);
@@ -39,7 +39,7 @@ t_list	*ft_lstnew(char *content)
 	return (node);
 }
 
-int	ft_lstadd_back(t_list **lst, t_list *new)
+int	gnl_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*node;
 
@@ -58,7 +58,7 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 	return (1);
 }
 
-void	ft_lstclear(t_list **lst, char *str, int fd)
+void	gnl_lstclear(t_list **lst, char *str, int fd)
 {
 	t_list	*node;
 
@@ -74,7 +74,7 @@ void	ft_lstclear(t_list **lst, char *str, int fd)
 	}
 }
 
-t_list	*lstlast(t_list *lst)
+t_list	*gnl_lstlast(t_list *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -83,7 +83,7 @@ t_list	*lstlast(t_list *lst)
 	return (lst);
 }
 
-char	*ft_strncat(char *dest, const char *src, ssize_t nb, int flag)
+char	*gnl_strncat(char *dest, const char *src, ssize_t nb, int flag)
 {
 	char	*r_dest;
 
