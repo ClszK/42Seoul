@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/07/09 16:28:56 by ljh              ###   ########.fr       */
+/*   Updated: 2023/07/13 18:50:17 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ int	gnl_lstadd_back(t_list **lst, t_list *new)
 	return (1);
 }
 
-void	gnl_lstclear(t_list **lst, char *str, int fd)
+void	gnl_lstclear(t_list **lst, char *str)
 {
 	t_list	*node;
 
-	if (fd < 0 || lst == NULL || str != NULL)
+	if (lst == NULL || str != NULL)
 		return ;
-	while (*(lst + fd))
+	while (*(lst))
 	{
-		node = (*(lst + fd))->next;
-		free((*(lst + fd))->content);
-		(*(lst + fd))->content = NULL;
-		free(*(lst + fd));
-		*(lst + fd) = node;
+		node = (*(lst))->next;
+		free((*(lst))->content);
+		(*(lst))->content = NULL;
+		free(*(lst));
+		*(lst) = node;
 	}
 }
 

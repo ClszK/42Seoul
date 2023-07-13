@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:11:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/07/10 18:45:17 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/13 18:50:19 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_next_line(int fd)
 		&& (gnl_lstlast(tmp[fd]))->lnpos != -1))
 		{
 			rline = gnl_lstcat(&tmp[fd]);
-			gnl_lstclear(&tmp[fd], rline, 0);
+			gnl_lstclear(&tmp[fd], rline);
 			break ;
 		}
 		rsize = read(fd, buffer, BUFFER_SIZE);
@@ -43,7 +43,7 @@ int	read_line(t_list **tmp, char *buffer, ssize_t readsize)
 {
 	if (readsize < 0)
 	{
-		gnl_lstclear(tmp, NULL, 0);
+		gnl_lstclear(tmp, NULL);
 		return (-1);
 	}
 	if (readsize == 0)
@@ -51,7 +51,7 @@ int	read_line(t_list **tmp, char *buffer, ssize_t readsize)
 	buffer[readsize] = '\0';
 	if (gnl_lstadd_back(tmp, gnl_lstnew(buffer)) == -1)
 	{
-		gnl_lstclear(tmp, NULL, 0);
+		gnl_lstclear(tmp, NULL);
 		return (-1);
 	}
 	return (1);
@@ -93,7 +93,7 @@ char	*gnl_lstcat_2(t_list **tmp, t_list *node, char *str)
 		nlen = node->len - node->lnpos + 1;
 		(void)gnl_strncat(str, node->content, node->lnpos, 0);
 		stmp = gnl_strncat(malloc(nlen), node->content + node->lnpos, nlen, 1);
-		gnl_lstclear(tmp, NULL, 0);
+		gnl_lstclear(tmp, NULL);
 		if (stmp == NULL || gnl_lstadd_back(tmp, gnl_lstnew(stmp)) == -1)
 		{
 			free(str);
@@ -104,7 +104,7 @@ char	*gnl_lstcat_2(t_list **tmp, t_list *node, char *str)
 	else
 	{
 		(void)gnl_strncat(str, node->content, node->len, 0);
-		gnl_lstclear(tmp, NULL, 0);
+		gnl_lstclear(tmp, NULL);
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:57:57 by stack             #+#    #+#             */
-/*   Updated: 2023/07/10 18:50:21 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/13 18:48:59 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*gnl_lstcat_2(t_list **tmp, t_list *node, char *str);
 
 t_list	*gnl_lstnew(char *content);
 int		gnl_lstadd_back(t_list **lst, t_list *new);
-void	gnl_lstclear(t_list **lst, char *str, int fd);
+void	gnl_lstclear(t_list **lst, char *str);
 t_list	*gnl_lstlast(t_list *lst);
 char	*gnl_strncat(char *dest, const char *src, ssize_t nb, int flag);
 

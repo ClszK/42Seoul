@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:11:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/07/10 20:57:57 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/13 18:48:27 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*get_next_line(int fd)
 	rsize = 1;
 	while (1)
 	{
-		if (rsize == 0 || (tmp[fd] != NULL && (gnl_lstlast(tmp[fd]))->lnpos != -1))
+		if (rsize == 0 || (tmp[fd] != NULL \
+		&& (gnl_lstlast(tmp[fd]))->lnpos != -1))
 		{
 			rline = gnl_lstcat(&tmp[fd]);
 			gnl_lstclear(&tmp[fd], rline);
