@@ -15,7 +15,7 @@ B_SRCS	=	./ft_lstnew_bonus.c	./ft_lstadd_front_bonus.c	./ft_lstsize_bonus.c\
 B_OBJS	= $(B_SRCS:.c=.o)
 
 HEADER 	= ../includes
-CC	= gcc
+CC	= cc
 CFLAGS = -Wall -Wextra -Werror -c -g
 
 ifdef WITH_BONUS

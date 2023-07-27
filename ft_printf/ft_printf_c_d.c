@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_c_d.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 03:44:54 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/30 01:10:51 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/28 05:02:54 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/libft.h"
 #include "./includes/ft_printf.h"
 
-int	ft_print_char(int *len, va_list ap, size_t *flag)
+int	ft_print_char(int *len, va_list ap)
 {
 	char	c;
 
 	c = (char)va_arg(ap, int);
-	(void)flag;
 	if (write(1, &c, 1) < 0)
 		return (-1);
 	++(*len);

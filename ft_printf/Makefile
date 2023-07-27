@@ -12,7 +12,7 @@ LIB_DIR := ./lib$(LIB_NAME)/
 LIBFT := $(LIB_DIR)lib$(LIB_NAME).a
 
 HEADER 	= ./includes/
-CC	= gcc
+CC	= cc
 CFLAGS = -Wall -Wextra -Werror -g
 TESTFLAG = -fsanitize=address -g -L . -lftprintf
 

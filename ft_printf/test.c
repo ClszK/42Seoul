@@ -4,7 +4,7 @@
 int main()
 {
 	printf("\n\n");
-	printf("%+#-.-0#+5kk\n",1);
+	ft_printf("%c%c%c%c", 'a', '\t', 'b');
 	// ft_printf("%+#-.-0#2kk\n",1);
 
 	return 0;

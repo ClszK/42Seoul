@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:53:18 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/30 01:10:29 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/28 05:05:25 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ const char	*flag_wid_per(const char *format, char *table, int *len, va_list ap)
 
 	ft_bzero(flag, 8 * sizeof(size_t));
 	flag_set(&format, table, flag);
-	ft_format(format, len, ap, flag);
+	ft_format(format, len, ap);
 
 	return (format);
 }
 
-int	ft_format(const char *format, int *len, va_list ap, size_t *flag)
+int	ft_format(const char *format, int *len, va_list ap)
 {
 	if (*(format) == 'c')
-		return (ft_print_char(len, ap, flag));
+		return (ft_print_char(len, ap));
 	else if (*(format) == 's')
 		return (ft_print_s(len, ap));
 	else if (*(format) == 'p')

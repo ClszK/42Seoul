@@ -4,7 +4,8 @@
 		"get_next_line.h": "c",
 		"ios": "c",
 		"limits.h": "c",
-		"get_next_line_bonus.h": "c"
+		"get_next_line_bonus.h": "c",
+		"ft_printf.h": "c"
 	},
 	"workbench.colorTheme": "Material Theme Darker High Contrast",
 	"workbench.colorCustomizations": {

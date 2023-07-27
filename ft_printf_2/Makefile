@@ -1,44 +1,43 @@
 NAME	= libftprintf.a
 SRCS	= 	ft_printf.c\
-			ft_printf_c_d.c\
-			ft_printf_u_x.c\
-			ft_printf_addr.c\
-			ft_putnbr_base.c
-			
-OBJS	= $(SRCS:.c=.o)
+			ft_format_s.c\
+			ft_format_c.c\
+			ft_format_p.c\
+			ft_format_di.c\
+			ft_format_u.c\
+			ft_format_xX.c
 
-LIB_NAME := ft
-LIB_DIR := ./lib$(LIB_NAME)
-LIBFT := $(LIB_DIR)/lib$(LIB_NAME).a
+OBJS	= $(SRCS:.c=.o)
 
 HEADER 	= ./includes/
 CC	= gcc
-CFLAGS = -Wall -Wextra -Werror -g
-TESTFLAG = -fsanitize=address -g -L . -lftprintf
+CFLAGS = -Wall -Wextra -Werror
+TESTFLAG = -fsanitize=address -lftprintf -L.
 
 all:	$(NAME)
 
-$(NAME)	:	$(LIBFT) $(OBJS)
-	make -C ./libft
-	cp $(LIBFT) $(NAME)
-	ar rcus $@ $?
+$(NAME)	:	$(OBJS)
+	ar rcs $@ $?
+	make clean
 
 %.o	:	%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 clean:
-	$(MAKE) clean -C ./libft
 	rm -rf $(OBJS)
 
 fclean: clean
-	$(MAKE) fclean -C ./libft
 	rm -rf $(NAME)
 
 re: 
 	make fclean
 	make all
 
-test:	re
+test:
 	$(CC) $(TESTFLAG) test.c
+	./a.out
+
+excute:
+	./a.out
 
 .PHONY: all clean fclean re test

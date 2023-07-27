@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 04:07:33 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/30 01:12:55 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/28 05:04:45 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 int		ft_printf(const char *format, ...);
 int		ft_format(const char *format, int *len, va_list ap, size_t *flag);
-int		ft_print_char(int *len, va_list ap, size_t *flag);
+int		ft_print_char(int *len, va_list ap);
 int		ft_print_s(int *len, va_list ap);
 int		ft_print_p(int *len, va_list ap);
 int		ft_print_d_i(int *len, va_list ap);
