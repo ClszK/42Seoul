@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 18:05:35 by stack             #+#    #+#             */
-/*   Updated: 2023/07/13 18:51:35 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/07/13 18:50:17 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"	// 에러 제거
+#include "get_next_line_bonus.h"	// 에러 제거
 
 t_list	*gnl_lstnew(char *content)
 {
