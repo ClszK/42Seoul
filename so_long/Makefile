@@ -2,26 +2,24 @@ NAME	= so_long
 SRCS	= test.c
 OBJS	= $(SRCS:.c=.o)
 
-HEADER 	= .
-FT_PRINTF_DIR = ./ft_printf
+HEADER 	= ./includes
 LIBFT_DIR = ./libft
-MLX_DIR = ./minilibx_mms_20200219
-CC	= cc
+MLX_DIR = ./minilibx_opengl_20191021
+CC	= gcc
 CFLAGS = -Wall -Wextra -Werror -g
+CLIB = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
 all:	$(NAME)
 
 $(NAME)	: $(OBJS)
-	make -C $(FT_PRINTF_DIR)
 	make -C $(LIBFT_DIR)
 	@make -C $(MLX_DIR)
-	$(CC) $(OBJS) $(CFLAGS) -L$(FT_PRINTF_DIR) -lftprintf -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(CLIB) -L$(LIBFT_DIR) -lft -o $(NAME)
 
 %.o	:	%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 clean:
-	make -C $(FT_PRINTF_DIR) clean
 	make -C $(LIBFT_DIR) clean
 	@make -C $(MLX_DIR) clean
 	rm -rf $(OBJS)

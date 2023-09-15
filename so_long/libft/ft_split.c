@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 19:52:32 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/21 22:29:09 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/15 07:37:44 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ int	r_str_fill(char **r_str, char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char				**r_str;
-	int					i;
 
-	i = 0;
 	if (s == NULL)
 		return (NULL);
 	r_str = (char **)malloc(sizeof(char *) * (ft_word_cnt(s, c) + 1));
