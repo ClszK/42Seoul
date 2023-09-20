@@ -1,12 +1,12 @@
 NAME	= so_long
-SRCS	= test.c
+SRCS	= so_long.c	so_long_map.c
 OBJS	= $(SRCS:.c=.o)
 
 HEADER 	= ./includes
 LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx_opengl_20191021
 CC	= gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 CLIB = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
 all:	$(NAME)
