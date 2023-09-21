@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:42:28 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/20 19:55:27 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/21 17:03:33 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int main(int argc, char **argv)
 	vars = (t_vars*)malloc(sizeof(t_vars));
 	if (img == NULL || vars == NULL)
 		return (-1);
-	map = map_gnl(argv[1]);
+	map = map_generate(argv[1]);
+
+	(void)map;
 	
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, 500, 500, "hello World!");

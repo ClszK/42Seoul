@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 03:11:25 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/20 19:46:39 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/21 20:45:53 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,13 @@ typedef struct s_data {
 
 typedef struct s_map {
 	char	**map;
+	size_t	p_cnt;
+	size_t	c_cnt;
+	size_t	e_cnt;
 	size_t	x;
 	size_t	y;
+	size_t	pos_x;
+	size_t	pos_y;
 }	t_map;
 
 typedef struct s_vars
@@ -54,7 +59,7 @@ typedef struct s_vars
 }	t_vars;
 
 
-t_map *map_gnl(char *path);
+t_map *map_generate(char *path);
 
 #endif
 
