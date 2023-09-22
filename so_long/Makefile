@@ -1,6 +1,12 @@
-NAME	= so_long
-SRCS	= so_long.c	so_long_map.c
-OBJS	= $(SRCS:.c=.o)
+NAME	= 	so_long
+SRCS	=	so_long.c\
+			so_long_map.c\
+			so_long_map_2.c\
+			so_long_error.c\
+			so_long_img.c\
+			so_long_key.c
+
+OBJS	=	$(SRCS:.c=.o)
 
 HEADER 	= ./includes
 LIBFT_DIR = ./libft

@@ -4,6 +4,8 @@
 		"get_next_line.h": "c",
 		"so_long.h": "c",
 		"ft_printf.h": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"errno.h": "c",
+		"__locale": "c"
 	}
 }
