@@ -12,7 +12,7 @@ HEADER 	= ./includes
 LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx_opengl_20191021
 CC	= gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 CLIB = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
 all:	$(NAME)

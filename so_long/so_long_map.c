@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:28:28 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/22 18:49:15 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/23 18:01:18 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	map_height(t_map *m_cfg, char *path)
 		free(str);
 		m_cfg->y++;
 		str = get_next_line(fd);
-		if (str == NULL && errno != 3)
+		if (str == NULL && errno != ERRNO_OK)
 			close_fd(m_cfg, fd);
 	}
 	m_cfg->map = (char **)malloc(sizeof(char *) * (m_cfg->y));
@@ -66,7 +66,7 @@ void	map_read(t_map *m_cfg, char *path)
 	{
 		m_cfg->map[i++] = str;
 		str = get_next_line(fd);
-		if (str == NULL && errno != 3)
+		if (str == NULL && errno != ERRNO_OK)
 		{
 			m_cfg->y = --i;
 			close_fd(m_cfg, fd);
@@ -90,7 +90,5 @@ t_map	*node_map_generate()
 	node->y = 0;
 	node->pos_x = 0;
 	node->pos_y = 0;
-	node->img = NULL;
-	node->vars = NULL;
 	return (node);
 }

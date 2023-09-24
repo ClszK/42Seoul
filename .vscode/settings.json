@@ -5,7 +5,8 @@
 		"ios": "c",
 		"limits.h": "c",
 		"get_next_line_bonus.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"so_long.h": "c"
 	},
 	"workbench.colorTheme": "Material Theme Darker High Contrast",
 	"workbench.colorCustomizations": {
