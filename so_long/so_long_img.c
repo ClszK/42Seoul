@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_img.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:57:48 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/23 22:44:23 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/24 12:06:59 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ void	img_save_ptr(t_game *game)
 	int	img_height;
 	t_img	*img;
 
-	int	bits_per_pixel;
-	int size_line;
-	int endian;
-	void	*img_data;
-
-
 	img = game->img;
 	img->tile_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/background.xpm", &img_width, &img_height);
 	img->down_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/down.xpm", &img_width, &img_height);
@@ -43,9 +37,8 @@ void	img_save_ptr(t_game *game)
 	img->left_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/left.xpm", &img_width, &img_height);
 	img->right_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/right.xpm", &img_width, &img_height);
 	img->enemy_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/down.xpm", &img_width, &img_height);
+	img->test = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/test2.xpm", &img_width, &img_height);
 
-	img_data = mlx_get_data_addr(img->up_ptr, &bits_per_pixel, &size_line, &endian);
-	ft_printf("%s\n", img_data);
 }
 
 void	img_push(t_game *game)

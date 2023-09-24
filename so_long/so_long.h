@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 03:11:25 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/23 19:32:34 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/24 13:48:13 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define ERRNO_OK 1
+# define ERRNO_OK 3
 
 # define KEY_W 13 
 # define KEY_A 0
@@ -47,7 +47,19 @@ typedef struct s_img {
 	void	*exit_ptr;
 	void	*enemy_ptr;
 	void	*collect_ptr;
+	void	*test;
 }	t_img;
+
+typedef struct s_imgdata {
+	char			*img_data;
+	int 			bpp;
+	int 			line;
+	int				endian;
+	int				x;
+	int				y;
+	int 			pixel_pos;
+	unsigned int	pixel_data;
+}	t_imgdata;
 
 typedef struct s_map {
 	char	**map;
@@ -60,11 +72,21 @@ typedef struct s_map {
 	size_t	pos_y;
 }	t_map;
 
+typedef struct s_key {
+	int	w_flag;
+	int	a_flag;
+	int	s_flag;
+	int	d_flag;
+	int pos_cnt;
+	int	rock;
+}	t_key;
+
 typedef struct s_game {
 	t_map	*m_cfg;
 	t_img	*img;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_key	key_flag;
 }	t_game;
 
 
