@@ -4,7 +4,9 @@ SRCS	=	so_long.c\
 			so_long_map_2.c\
 			so_long_error.c\
 			so_long_img.c\
-			so_long_key.c
+			so_long_key.c\
+			so_long_utils.c\
+			so_long_node.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -12,7 +14,7 @@ HEADER 	= ./includes
 LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx_opengl_20191021
 CC	= gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -g3
 CLIB = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
 all:	$(NAME)

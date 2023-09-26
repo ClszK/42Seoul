@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_img.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:57:48 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/24 12:06:59 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/26 15:48:39 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_img	*node_img_generate();
-
 void	img_generate(t_game *game)
 {
+	t_map	*m_cfg;
+
+	m_cfg = game->m_cfg;
 	game->img = node_img_generate();
 	img_save_ptr(game);
 	img_push(game);
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img->down_ptr , WIDTH * m_cfg->pos_x, HEIGHT * m_cfg->pos_y);
 }
 
 void	img_save_ptr(t_game *game)
@@ -28,17 +30,13 @@ void	img_save_ptr(t_game *game)
 	t_img	*img;
 
 	img = game->img;
-	img->tile_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/background.xpm", &img_width, &img_height);
+	img->tile_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/tile.xpm", &img_width, &img_height);
 	img->down_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/down.xpm", &img_width, &img_height);
 	img->wall_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/wall.xpm", &img_width, &img_height);
 	img->exit_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/exit.xpm", &img_width, &img_height);
 	img->collect_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/collect.xpm", &img_width, &img_height);
-	img->up_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/up.xpm", &img_width, &img_height);
-	img->left_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/left.xpm", &img_width, &img_height);
-	img->right_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/right.xpm", &img_width, &img_height);
 	img->enemy_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/down.xpm", &img_width, &img_height);
-	img->test = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/test2.xpm", &img_width, &img_height);
-
+	img->character = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/character.xpm", &img_width, &img_height);
 }
 
 void	img_push(t_game *game)
@@ -61,29 +59,7 @@ void	img_push(t_game *game)
 				img_tmp = game->img->exit_ptr;
 			else if (game->m_cfg->map[y][x] == 'C')
 				img_tmp = game->img->collect_ptr;
-			else if (game->m_cfg->map[y][x] == 'P')
-				img_tmp = game->img->down_ptr;
 			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, img_tmp, WIDTH * x, HEIGHT * y);
 		}
 	}
 }
-
-t_img	*node_img_generate()
-{
-	t_img	*node;
-
-	node = (t_img*)malloc(sizeof(t_img));
-	if (node == NULL)
-		error_msg(NULL,NULL);	
-	node->tile_ptr = NULL;
-	node->up_ptr = NULL;
-	node->down_ptr = NULL;
-	node->left_ptr = NULL;
-	node->right_ptr = NULL;
-	node->wall_ptr = NULL;
-	node->exit_ptr = NULL;
-	node->enemy_ptr = NULL;
-	node->collect_ptr = NULL;
-	return (node);
-}
-

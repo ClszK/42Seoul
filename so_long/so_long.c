@@ -3,65 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:42:28 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/24 14:23:07 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/26 12:38:24 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void process_and_put_image(t_game *game)
+void	check_leak(void)
 {
-	t_imgdata	i_cfg;
-	t_img	*img;
-	t_map	*m_cfg;
-
-	img = game->img;
-	m_cfg = game->m_cfg;
-    i_cfg.img_data = mlx_get_data_addr(img->test, &i_cfg.bpp, &i_cfg.line, &i_cfg.endian);
-	i_cfg.x = -1;
-	i_cfg.y = -1;
-	while (++i_cfg.y < HEIGHT)
-	{
-		while (++i_cfg.x < WIDTH)
-		{
-			i_cfg.pixel_pos = (i_cfg.y * i_cfg.line + i_cfg.x * (i_cfg.bpp / 8));
-			i_cfg.pixel_data = *(unsigned int *)(i_cfg.img_data + i_cfg.pixel_pos);
-			if (i_cfg.pixel_data != 0x00000000)
-				mlx_pixel_put(game->mlx_ptr, game->win_ptr, i_cfg.x + WIDTH * m_cfg->pos_x, i_cfg.y + HEIGHT * m_cfg->pos_y - game->key_flag.pos_cnt , i_cfg.pixel_data);
-		}
-		i_cfg.x = 0;
-	}
-	game->key_flag.pos_cnt += 4;
-}
-
-t_game	*node_game_generate();
-
-int	test(t_game *game)
-{
-	t_key	key_flag;
-	t_map	*m_cfg;
-	t_img	*img;
-
-	key_flag = game->key_flag;
-	m_cfg = game->m_cfg;
-	img = game->img;
-	if (key_flag.w_flag == 1)
-	{
-		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, img->tile_ptr, WIDTH * m_cfg->pos_x, HEIGHT * m_cfg->pos_y);
-		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, img->tile_ptr, WIDTH * m_cfg->pos_x, HEIGHT * (m_cfg->pos_y - 1));
-		process_and_put_image(game);
-	}
-	if (game->key_flag.pos_cnt == 64)
-	{
-		game->key_flag.pos_cnt = 0;
-		game->key_flag.w_flag = 0;
-		game->key_flag.rock = 0;
-		m_cfg->pos_y--;
-	}
-	return (0);
+	system("leaks so_long");
 }
 
 int main(int argc, char **argv)
@@ -81,32 +34,59 @@ int main(int argc, char **argv)
 
 	img_generate(game);
 
-	// for (size_t i = 0 ; i < m_cfg->y; i++)
-	// 	ft_printf("%s", m_cfg->map[i]);
-	// mlx_put_image_to_window(vars->mlx, vars->win, img->img_ptr, 48, 48);
 	mlx_key_hook(game->win_ptr, key_hook, game);
-	mlx_loop_hook(game->mlx_ptr,test,game);
+	mlx_hook(game->win_ptr, KEY_EXIT, 0, close_program, game);
+	mlx_loop_hook(game->mlx_ptr,loop_hook,game);
 	mlx_loop(game->mlx_ptr); // loop를 돌면서 event를 기다리고, 생성한 윈도우를 Rendering한다.
 
-	return 0;
+	return (0);
 }
 
-t_game	*node_game_generate()
+int	loop_hook(t_game *game)
 {
-	t_game *node;
+	t_key	*key_flag;
+	t_map	*m_cfg;
+	int		state;
 
-	node = (t_game*)malloc(sizeof(t_game));
-	if (node == NULL)
-		error_msg(NULL, NULL);
-	node->img = NULL;
-	node->m_cfg = NULL;
-	node->mlx_ptr = NULL;
-	node->win_ptr = NULL;
-	node->key_flag.w_flag = 0;
-	node->key_flag.a_flag = 0;
-	node->key_flag.s_flag = 0;
-	node->key_flag.d_flag = 0;
-	node->key_flag.pos_cnt = 0;
-	node->key_flag.rock = 0;
-	return (node);
+	key_flag = &game->key_flag;
+	m_cfg = game->m_cfg;
+	if (key_flag->rock == 1)
+	{
+		if (key_flag->pos_cnt < 24 || key_flag->pos_cnt > 48)
+			state = MOVE_1;
+		else
+			state = MOVE_2;
+		splite_move(game, state);
+		if (m_cfg->map[m_cfg->pos_y][m_cfg->pos_x] == 'E')
+		{
+			ft_printf("!!Game Complete!!\n");
+			atexit(check_leak);
+			exit(1);
+		}
+	}
+	return (0);
+}
+
+void	splite_move(t_game *game, int state)
+{
+	t_map	*m_cfg;
+	t_key	*key_flag;
+
+	m_cfg = game->m_cfg;
+	key_flag = &game->key_flag;
+	character_move(game, key_flag->flag, state);
+	if (key_flag->pos_cnt == 60)
+	{
+		if (m_cfg->map[m_cfg->pos_y + next_y(key_flag->flag)][m_cfg->pos_x + next_x(key_flag->flag)] == 'C')
+		{
+			m_cfg->map[m_cfg->pos_y + next_y(key_flag->flag)][m_cfg->pos_x + next_x(key_flag->flag)] = '0';
+			m_cfg->c_cnt--;
+		}
+		character_move(game, key_flag->flag, STOP);
+		key_flag->pos_cnt = 0;
+		m_cfg->pos_x += next_x(key_flag->flag);
+		m_cfg->pos_y += next_y(key_flag->flag);
+		ft_printf("Current x : %d  y : %d\n", m_cfg->pos_x, m_cfg->pos_y);
+		key_flag->rock = 0;
+	}
 }

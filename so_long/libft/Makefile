@@ -19,7 +19,7 @@ B_OBJS	= $(B_SRCS:.c=.o)
 
 HEADER 	= .
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror -c
+CFLAGS = -Wall -Wextra -Werror -g3 -c
 
 ifdef WITH_BONUS
     OBJ_FILES = $(OBJS) $(B_OBJS)

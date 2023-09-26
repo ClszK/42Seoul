@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:49:18 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/23 17:53:36 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/26 10:58:10 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	error_msg(t_map *m_cfg,char *msg)
 		ft_printf("Error\n%s\n", strerror(errno));
 	else
 		ft_printf("Error\n%s\n", msg);
+	atexit(check_leak);
 	exit(1);
 }
 
@@ -35,19 +36,4 @@ void	close_fd(t_map *m_cfg, int fd)
 {
 	close(fd);
 	error_msg(m_cfg, NULL);
-}
-
-char	*map_empty_check(t_map *m_cfg, int fd)
-{
-	char	*str;
-
-	str = get_next_line(fd);
-	if (str == NULL)
-	{
-		if (errno != 3)
-			close_fd(m_cfg, fd);
-		else
-			error_msg(m_cfg, "Empty File");
-	}
-	return (str);
 }
