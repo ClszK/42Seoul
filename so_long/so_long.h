@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 03:11:25 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/26 17:10:00 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/27 06:18:01 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define ERRNO_OK 1
+# define ERRNO_OK 3
 
 # define KEY_W 13 
 # define KEY_A 0
@@ -36,6 +36,9 @@
 # define MOVE_1 2
 # define MOVE_2 3
 
+# define MANDANTORY 1
+# define BONUS 2
+
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -45,7 +48,6 @@
 # include "./minilibx_opengl_20191021/mlx.h"
 
 typedef struct s_img {
-	/* data */
 	void			*tile_ptr;
 	void			*down_ptr;
 	void			*wall_ptr;
@@ -57,14 +59,14 @@ typedef struct s_img {
 
 typedef struct s_imgdata {
 	char			*img_data;
-	int 			bpp;
-	int 			line;
+	int				bpp;
+	int				line;
 	int				endian;
 	int				x;
 	int				x_range;
 	int				y;
 	int				y_range;
-	int 			pixel_pos;
+	int				pixel_pos;
 	unsigned int	pixel_data;
 }	t_imgdata;
 
@@ -81,9 +83,10 @@ typedef struct s_map {
 
 typedef struct s_key {
 	int	flag;
-	int pos_cnt;
+	int	pos_cnt;
 	int	rock;
 	int	start;
+	int	state;
 }	t_key;
 
 typedef struct s_game {
@@ -92,16 +95,14 @@ typedef struct s_game {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_key	key_flag;
+	int		print;
+	size_t	move_cnt;
 }	t_game;
 
-// so_long.c
-int		loop_hook(t_game *game);
-void	splite_move(t_game *game, int state);
-
 // so_long_node.c
-t_game	*node_game_generate();
-t_map	*node_map_generate();
-t_img	*node_img_generate();
+t_game	*node_game_generate(void);
+t_map	*node_map_generate(void);
+t_img	*node_img_generate(void);
 
 // so_long_map.c
 t_map	*map_generate(char *path);
@@ -116,30 +117,37 @@ void	map_rectangle_check(t_map *m_cfg, char *str, size_t y);
 void	map_path_check(t_map *m_cfg);
 void	map_path_dfs(char **map, size_t x, size_t y);
 
-
 // so_long_error.c
 void	error_msg(t_map *m_cfg, char *msg);
 void	close_fd(t_map *m_cfg, int fd);
+int		close_program(t_game *game);
 
 // so_long_key.c
 int		key_hook(int keycode, t_game *vars);
 int		is_key(int keycode);
+int		key_to_flag(int keycode);
 int		move_valid(int keycode, t_game *game);
 
 // so_long_img.c
+void	img_generate(t_game *game);
 void	img_save_ptr(t_game *game);
 void	img_push(t_game *game);
-void	img_generate(t_game *game);
+void	*img_match_ptr(t_game *game, size_t x, size_t y);
 
 // so_long_utils.c
-int		next_x(int flag);
-int		next_y(int flag);
+size_t	next_x(int flag);
+size_t	next_y(int flag);
 void	my_pixel_put(t_game *game, t_imgdata i_cfg);
 void	character_move(t_game *game, int move, int state);
-int		close_program(t_game *game);
+void	clear_img(t_game *game, int move);
+
+// so_long_utils_2.c
+int		loop_hook(t_game *game);
+void	splite_move(t_game *game, int state, size_t x, size_t y);
+void	bonus_move_print(t_game *game);
+void	map_free(char **map_cpy, size_t y);
+void	my_image_destory(t_game *game);
 
 void	check_leak(void);
 
 #endif
-
-// open, close, read, write, malloc, free, perror, strerror, exit

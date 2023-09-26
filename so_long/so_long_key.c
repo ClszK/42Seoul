@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_key.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 17:49:00 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/26 16:50:14 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/27 06:22:04 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	key_hook(int keycode, t_game *game)
 		if (keycode == KEY_ESC)
 		{
 			mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-			atexit(check_leak);
-			exit(0); // 종료 테스트 이이잉
+			map_free(game->m_cfg->map, game->m_cfg->y);
+			exit(0);
 		}
-		else if(move_valid(keycode, game) > 0)
+		else if (move_valid(keycode, game) > 0)
 			return (0);
 		else
 			game->key_flag.rock = 0;
@@ -33,7 +33,8 @@ int	key_hook(int keycode, t_game *game)
 
 int	is_key(int keycode)
 {
-	if (keycode == KEY_ESC ||keycode == KEY_A || keycode == KEY_D ||keycode == KEY_S || keycode == KEY_W)
+	if (keycode == KEY_ESC || keycode == KEY_A || keycode == KEY_D || \
+		keycode == KEY_S || keycode == KEY_W)
 		return (1);
 	else
 		return (0);
@@ -67,7 +68,7 @@ int	move_valid(int keycode, t_game *game)
 	x = m_cfg->pos_x + next_x(flag);
 	y = m_cfg->pos_y + next_y(flag);
 	if (m_cfg->map[y][x] == '1' || \
-	(m_cfg->map[y][x] == 'E' && m_cfg->c_cnt != 0 ))
+	(m_cfg->map[y][x] == 'E' && m_cfg->c_cnt != 0))
 		return (0);
 	else
 	{

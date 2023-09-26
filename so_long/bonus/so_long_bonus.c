@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 18:42:28 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 06:09:46 by jeholee          ###   ########.fr       */
+/*   Created: 2023/09/26 17:10:39 by ljh               #+#    #+#             */
+/*   Updated: 2023/09/27 06:11:26 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
+#include "../so_long.h"
 
 int	main(int argc, char **argv)
 {
@@ -19,13 +20,15 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_msg(NULL, "No argument");
 	game = node_game_generate();
+	game->print = BONUS;
 	game->m_cfg = map_generate(argv[1]);
 	map_validation_check(game->m_cfg);
 	game->mlx_ptr = mlx_init();
 	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH * game->m_cfg->x, \
-									HEIGHT * game->m_cfg->y, "so_long");
+									HEIGHT * game->m_cfg->y, "hello World!");
+	enemy_generate(game, 0, 0);
 	img_generate(game);
-	ft_printf("Current move : 0\n");
+	bonus_move_print(game);
 	mlx_key_hook(game->win_ptr, key_hook, game);
 	mlx_hook(game->win_ptr, KEY_EXIT, 0, close_program, game);
 	mlx_loop_hook(game->mlx_ptr, loop_hook, game);

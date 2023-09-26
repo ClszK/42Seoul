@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:47:29 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/18 18:23:30 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/09/27 02:10:12 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(char *str);
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
 	char	*r_dest;
 

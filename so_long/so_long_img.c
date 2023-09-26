@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_img.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:57:48 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/26 15:48:39 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/27 05:33:43 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,37 @@ void	img_generate(t_game *game)
 	game->img = node_img_generate();
 	img_save_ptr(game);
 	img_push(game);
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img->down_ptr , WIDTH * m_cfg->pos_x, HEIGHT * m_cfg->pos_y);
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img->down_ptr, \
+							WIDTH * m_cfg->pos_x, HEIGHT * m_cfg->pos_y);
 }
 
 void	img_save_ptr(t_game *game)
 {
-	int	img_width;
-	int	img_height;
+	int		img_width;
+	int		img_height;
 	t_img	*img;
 
 	img = game->img;
-	img->tile_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/tile.xpm", &img_width, &img_height);
-	img->down_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/down.xpm", &img_width, &img_height);
-	img->wall_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/wall.xpm", &img_width, &img_height);
-	img->exit_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/exit.xpm", &img_width, &img_height);
-	img->collect_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/collect.xpm", &img_width, &img_height);
-	img->enemy_ptr = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/down.xpm", &img_width, &img_height);
-	img->character = mlx_xpm_file_to_image(game->mlx_ptr, "./textures/character.xpm", &img_width, &img_height);
+	img->tile_ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/tile.xpm", &img_width, &img_height);
+	img->down_ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/down.xpm", &img_width, &img_height);
+	img->wall_ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/wall.xpm", &img_width, &img_height);
+	img->exit_ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/exit.xpm", &img_width, &img_height);
+	img->collect_ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/collect.xpm", &img_width, &img_height);
+	img->character = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/character.xpm", &img_width, &img_height);
+	img->enemy_ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+						"./textures/enemy.xpm", &img_width, &img_height);
+	if (!img->tile_ptr || !img->down_ptr || !img->wall_ptr || !img->exit_ptr || \
+		!img->collect_ptr || !img->character ||!img->enemy_ptr)
+	{
+		my_image_destory(game);
+		error_msg(game->m_cfg, NULL);
+	}
 }
 
 void	img_push(t_game *game)
@@ -59,7 +73,29 @@ void	img_push(t_game *game)
 				img_tmp = game->img->exit_ptr;
 			else if (game->m_cfg->map[y][x] == 'C')
 				img_tmp = game->img->collect_ptr;
-			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, img_tmp, WIDTH * x, HEIGHT * y);
+			else if (game->m_cfg->map[y][x] == 'X')
+				img_tmp = game->img->enemy_ptr;
+			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, img_tmp, \
+			WIDTH * x, HEIGHT * y);
 		}
 	}
+}
+
+void	*img_match_ptr(t_game *game, size_t x, size_t y)
+{
+	void	*img_tmp;
+
+	if (game->m_cfg->map[y][x] == '1')
+		img_tmp = game->img->wall_ptr;
+	else if (game->m_cfg->map[y][x] == '0')
+		img_tmp = game->img->tile_ptr;
+	else if (game->m_cfg->map[y][x] == 'E')
+		img_tmp = game->img->exit_ptr;
+	else if (game->m_cfg->map[y][x] == 'C')
+		img_tmp = game->img->collect_ptr;
+	else if (game->m_cfg->map[y][x] == 'X')
+		img_tmp = game->img->enemy_ptr;
+	else
+		img_tmp = game->img->tile_ptr;
+	return (img_tmp);
 }

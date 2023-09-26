@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:28:28 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/26 16:43:45 by ljh              ###   ########.fr       */
+/*   Updated: 2023/09/27 04:53:14 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_map	*map_generate(char *path)
 		error_msg(NULL, "No Extention.");
 	map_read(m_cfg, path);
 	return (m_cfg);
-} 
+}
 
 void	map_height(t_map *m_cfg, char *path)
 {
@@ -66,15 +66,13 @@ void	map_read(t_map *m_cfg, char *path)
 	if (str == NULL)
 		close_fd(m_cfg, fd);
 	m_cfg->x = ft_strlen(str) - 1;
-	if (m_cfg->x >= 36)
-		error_msg(m_cfg, "Invalid Size");
 	while (str)
 	{
 		m_cfg->map[i++] = str;
 		str = get_next_line(fd);
 		if (str == NULL && errno != ERRNO_OK)
 		{
-			m_cfg->y = --i;
+			m_cfg->y = i;
 			close_fd(m_cfg, fd);
 		}
 	}
