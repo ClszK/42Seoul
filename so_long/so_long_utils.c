@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:43:11 by ljh               #+#    #+#             */
-/*   Updated: 2023/09/27 05:33:52 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 12:16:15 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	character_move(t_game *game, int move, int state)
 		i_cfg.x = state * WIDTH;
 	}
 	game->key_flag.pos_cnt += 8;
+	if (state == STOP)
+	{
+		game->key_flag.pos_cnt = 0;
+		game->m_cfg->pos_x += next_x(game->key_flag.flag);
+		game->m_cfg->pos_y += next_y(game->key_flag.flag);
+	}
 }
 
 void	clear_img(t_game *game, int move)

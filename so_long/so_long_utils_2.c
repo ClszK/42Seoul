@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 22:39:16 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 06:22:00 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:07:54 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,19 @@ int	loop_hook(t_game *game)
 
 	key_flag = &game->key_flag;
 	m_cfg = game->m_cfg;
+	key_flag->state = MOVE_2;
 	if (key_flag->rock == 1)
 	{
 		if (key_flag->pos_cnt < 24 || key_flag->pos_cnt > 48)
 			key_flag->state = MOVE_1;
-		else
-			key_flag->state = MOVE_2;
-		splite_move(game, key_flag->state, m_cfg->pos_x \
+		sprite_move(game, key_flag->state, m_cfg->pos_x \
 		+ next_x(key_flag->flag), m_cfg->pos_y + next_y(key_flag->flag));
-		if (m_cfg->map[m_cfg->pos_y][m_cfg->pos_x] == 'E')
-		{
-			ft_printf("!!Game Complete!!\n");
-			exit(0);
-		}
-		if (m_cfg->map[m_cfg->pos_y][m_cfg->pos_x] == 'X')
-		{
-			ft_printf("!!Game Over!!\n");
-			exit(0);
-		}
+		ft_finish_or_fail(m_cfg);
 	}
 	return (0);
 }
 
-void	splite_move(t_game *game, int state, size_t x, size_t y)
+void	sprite_move(t_game *game, int state, size_t x, size_t y)
 {
 	t_map	*m_cfg;
 	t_key	*key_flag;
@@ -57,12 +47,13 @@ void	splite_move(t_game *game, int state, size_t x, size_t y)
 			m_cfg->c_cnt--;
 		}
 		character_move(game, key_flag->flag, STOP);
-		key_flag->pos_cnt = 0;
-		m_cfg->pos_x += next_x(key_flag->flag);
-		m_cfg->pos_y += next_y(key_flag->flag);
 		game->move_cnt++;
+		errno = ERRNO_OK;
 		if (game->print == MANDANTORY)
-			ft_printf("Current move : %d\n", game->move_cnt);
+		{
+			if (ft_printf("Current move : %d\n", game->move_cnt) < 0)
+				error_msg(NULL, NULL);
+		}
 		else
 			bonus_move_print(game);
 		key_flag->rock = 0;
@@ -77,6 +68,7 @@ void	bonus_move_print(t_game *game)
 
 	x = 0;
 	ft_strcpy(str, "Currnent move : ");
+	errno = ERRNO_OK;
 	move_int = ft_itoa(game->move_cnt);
 	if (move_int == NULL)
 		error_msg(game->m_cfg, NULL);
@@ -87,15 +79,6 @@ void	bonus_move_print(t_game *game)
 	(void)mlx_string_put(game->mlx_ptr, game->win_ptr, \
 						32, 32, 0xFF0000, str);
 	free(move_int);
-}
-
-void	map_free(char **map_cpy, size_t y)
-{
-	if (map_cpy == NULL)
-		return ;
-	while (y > 0)
-		free(map_cpy[--y]);
-	free(map_cpy);
 }
 
 void	my_image_destory(t_game *game)
@@ -117,4 +100,20 @@ void	my_image_destory(t_game *game)
 		mlx_destroy_image(game->win_ptr, img->collect_ptr);
 	if (img->character != NULL)
 		mlx_destroy_image(game->win_ptr, img->character);
+}
+
+void	ft_finish_or_fail(t_map *m_cfg)
+{
+	if (m_cfg->map[m_cfg->pos_y][m_cfg->pos_x] == 'E')
+	{
+		if (ft_printf("!!Game Complete!!\n") < 0)
+			error_msg(NULL, NULL);
+		exit(0);
+	}
+	if (m_cfg->map[m_cfg->pos_y][m_cfg->pos_x] == 'X')
+	{
+		if (ft_printf("!!Game Over!!\n") < 0)
+			error_msg(NULL, NULL);
+		exit(0);
+	}
 }

@@ -26,7 +26,7 @@ HEADER 	= .
 LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx_opengl_20191021
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -g3
 CLIB = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
 ifdef WITH_BONUS

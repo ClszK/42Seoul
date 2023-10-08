@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:57:48 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 05:33:43 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/05 16:38:22 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	img_save_ptr(t_game *game)
 		!img->collect_ptr || !img->character ||!img->enemy_ptr)
 	{
 		my_image_destory(game);
-		error_msg(game->m_cfg, NULL);
+		error_msg(game->m_cfg, "Fail mlx_xpm_file_to_image!");
 	}
 }
 

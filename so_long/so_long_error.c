@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:49:18 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 06:21:37 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:08:46 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	error_msg(t_map *m_cfg, char *msg)
 {
-	size_t	y;
-
-	y = (size_t)(-1);
 	if (m_cfg != NULL)
 	{
 		map_free(m_cfg->map, m_cfg->y);
@@ -29,10 +26,12 @@ void	error_msg(t_map *m_cfg, char *msg)
 	exit(1);
 }
 
-void	close_fd(t_map *m_cfg, int fd)
+void	close_fd(t_map *m_cfg, void *malloc_check, int fd)
 {
-	close(fd);
-	error_msg(m_cfg, NULL);
+	if (close(fd) < 0)
+		error_msg(m_cfg, NULL);
+	if (malloc_check == NULL)
+		error_msg(m_cfg, NULL);
 }
 
 int	close_program(t_game *game)

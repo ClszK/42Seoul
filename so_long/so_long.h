@@ -6,14 +6,14 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 03:11:25 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 06:18:01 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:07:40 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define ERRNO_OK 3
+# define ERRNO_OK 0
 
 # define KEY_W 13 
 # define KEY_A 0
@@ -100,7 +100,7 @@ typedef struct s_game {
 }	t_game;
 
 // so_long_node.c
-t_game	*node_game_generate(void);
+void	game_generate(t_game *game);
 t_map	*node_map_generate(void);
 t_img	*node_img_generate(void);
 
@@ -116,10 +116,11 @@ void	map_component_check(t_map *m_cfg, char *str, size_t y);
 void	map_rectangle_check(t_map *m_cfg, char *str, size_t y);
 void	map_path_check(t_map *m_cfg);
 void	map_path_dfs(char **map, size_t x, size_t y);
+void	map_free(char **map_cpy, size_t y);
 
 // so_long_error.c
 void	error_msg(t_map *m_cfg, char *msg);
-void	close_fd(t_map *m_cfg, int fd);
+void	close_fd(t_map *m_cfg, void *malloc_check, int fd);
 int		close_program(t_game *game);
 
 // so_long_key.c
@@ -143,11 +144,9 @@ void	clear_img(t_game *game, int move);
 
 // so_long_utils_2.c
 int		loop_hook(t_game *game);
-void	splite_move(t_game *game, int state, size_t x, size_t y);
+void	sprite_move(t_game *game, int state, size_t x, size_t y);
 void	bonus_move_print(t_game *game);
-void	map_free(char **map_cpy, size_t y);
 void	my_image_destory(t_game *game);
-
-void	check_leak(void);
+void	ft_finish_or_fail(t_map *m_cfg);
 
 #endif

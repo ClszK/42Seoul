@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 05:59:04 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 06:01:31 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:37:41 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	**map_copy(t_map *m_cfg)
 	char	**map_cpy;
 
 	y = (size_t)(-1);
+	errno = ERRNO_OK;
 	map_cpy = (char **)malloc(sizeof(char *) * m_cfg->y);
 	if (map_cpy == NULL)
 		error_msg(m_cfg, NULL);

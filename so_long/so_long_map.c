@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:28:28 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 04:53:14 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/05 18:01:55 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void	map_height(t_map *m_cfg, char *path)
 	int		fd;
 	char	*str;
 
+	errno = ERRNO_OK;
 	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 && errno != ERRNO_OK)
 		error_msg(m_cfg, NULL);
 	str = map_empty_check(m_cfg, fd);
 	while (str)
@@ -41,15 +42,12 @@ void	map_height(t_map *m_cfg, char *path)
 		m_cfg->y++;
 		str = get_next_line(fd);
 		if (str == NULL && errno != ERRNO_OK)
-			close_fd(m_cfg, fd);
+			close_fd(m_cfg, NULL, fd);
 	}
 	if (m_cfg->y >= 20)
 		error_msg(NULL, "Invalid Size");
 	m_cfg->map = (char **)malloc(sizeof(char *) * (m_cfg->y));
-	if (m_cfg->map == NULL)
-		close_fd(m_cfg, fd);
-	if (close(fd) < 0)
-		error_msg(m_cfg, NULL);
+	close_fd(m_cfg, m_cfg->map, fd);
 }
 
 void	map_read(t_map *m_cfg, char *path)
@@ -59,12 +57,13 @@ void	map_read(t_map *m_cfg, char *path)
 	size_t	i;
 
 	i = 0;
+	errno = ERRNO_OK;
 	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 && errno != ERRNO_OK)
 		error_msg(m_cfg, NULL);
 	str = get_next_line(fd);
-	if (str == NULL)
-		close_fd(m_cfg, fd);
+	if (str == NULL && errno != ERRNO_OK)
+		close_fd(m_cfg, (void *)str, fd);
 	m_cfg->x = ft_strlen(str) - 1;
 	while (str)
 	{
@@ -73,11 +72,10 @@ void	map_read(t_map *m_cfg, char *path)
 		if (str == NULL && errno != ERRNO_OK)
 		{
 			m_cfg->y = i;
-			close_fd(m_cfg, fd);
+			close_fd(m_cfg, (void *)str, fd);
 		}
 	}
-	if (close(fd) < 0)
-		error_msg(m_cfg, NULL);
+	close_fd(m_cfg, (void *)"good", fd);
 }
 
 void	map_validation_check(t_map *m_cfg)
@@ -100,11 +98,12 @@ char	*map_empty_check(t_map *m_cfg, int fd)
 {
 	char	*str;
 
+	errno = ERRNO_OK;
 	str = get_next_line(fd);
 	if (str == NULL)
 	{
 		if (errno != ERRNO_OK)
-			close_fd(m_cfg, fd);
+			close_fd(m_cfg, (void *)str, fd);
 		else
 			error_msg(m_cfg, "Empty File");
 	}

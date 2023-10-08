@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:47:47 by jeholee           #+#    #+#             */
-/*   Updated: 2023/09/27 05:00:14 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 12:16:33 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	map_path_check(t_map *m_cfg)
 	char	**map_cpy;
 
 	y = (size_t)(-1);
+	errno = ERRNO_OK;
 	map_cpy = (char **)malloc(sizeof(char *) * m_cfg->y);
 	if (map_cpy == NULL)
 		error_msg(m_cfg, NULL);
@@ -94,4 +95,13 @@ void	map_path_dfs(char **map, size_t x, size_t y)
 	map_path_dfs(map, x, y + 1);
 	map_path_dfs(map, x - 1, y);
 	map_path_dfs(map, x + 1, y);
+}
+
+void	map_free(char **map_cpy, size_t y)
+{
+	if (map_cpy == NULL)
+		return ;
+	while (y > 0)
+		free(map_cpy[--y]);
+	free(map_cpy);
 }
