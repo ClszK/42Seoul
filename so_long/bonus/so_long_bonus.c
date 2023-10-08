@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:10:39 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/05 17:48:01 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:13:05 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	map_validation_check(game.m_cfg);
 	game.mlx_ptr = mlx_init();
 	game.win_ptr = mlx_new_window(game.mlx_ptr, WIDTH * game.m_cfg->x, \
-									HEIGHT * game.m_cfg->y, "hello World!");
+									HEIGHT * game.m_cfg->y, "so_long");
 	enemy_generate(&game, 0, 0);
 	img_generate(&game);
 	bonus_move_print(&game);
