@@ -6,12 +6,11 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 05:59:04 by jeholee           #+#    #+#             */
-/*   Updated: 2023/10/05 17:37:41 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:29:53 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-#include "../so_long.h"
 
 void	enemy_generate(t_game *game, size_t i, size_t y)
 {

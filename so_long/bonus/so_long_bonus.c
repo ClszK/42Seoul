@@ -6,12 +6,11 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:10:39 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/08 13:17:01 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:29:49 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-#include "../so_long.h"
 
 int	main(int argc, char **argv)
 {
