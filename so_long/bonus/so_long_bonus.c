@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:10:39 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/08 13:13:05 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:17:01 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	errno = ERRNO_OK;
 	if (argc != 2)
 		error_msg(NULL, "No argument");
 	game_generate(&game);
