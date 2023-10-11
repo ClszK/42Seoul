@@ -9,7 +9,7 @@ D_HEADER = double_lst.h
 HEADER = $(P_HEADER) $(D_HEADER)
 LIBFT_DIR = ./libft
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 all:	$(NAME)
 

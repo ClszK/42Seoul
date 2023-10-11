@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:37:55 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/04 11:21:26 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/10 22:18:23 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ typedef struct s_stack
     t_dlst  *head;
     t_dlst  *tail;
     t_dlst  *top;
-    t_dlst  *bottom;
 }   t_stack;
-
 
 #endif

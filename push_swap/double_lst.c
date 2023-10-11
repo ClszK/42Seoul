@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:57:30 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/04 11:12:45 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/09 20:11:57 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	dlst_init(t_dlst **head, t_dlst **tail)
 {
 	*head = dlst_node_generate(NULL);
 	*tail = dlst_node_generate(NULL);
-	if (head == NULL || tail == NULL)
+	if (*head == NULL || *tail == NULL)
 		return (-1);
 	(*head)->next = *tail;
 	(*tail)->prev = *head;
@@ -38,15 +38,10 @@ int	dlst_init(t_dlst **head, t_dlst **tail)
 int dlst_add_last(t_dlst *tail, void *element)
 {
 	t_dlst  *node;
-	t_dlst  *tail_prev;
 
-	node = (t_dlst *)malloc(sizeof(t_dlst));
-	if (node == NULL)
-		return (-1);
-	node->elem = element;
-	tail_prev = tail->prev;
-	tail_prev->next = node;
-	node->prev = tail_prev;
+	node = dlst_node_generate(element);
+	tail->prev->next = node;
+	node->prev = tail->prev;
 	node->next = tail;
 	tail->prev = node;
 	return (1);
@@ -54,13 +49,19 @@ int dlst_add_last(t_dlst *tail, void *element)
 
 void	dlst_del_last(t_dlst *tail, void (*del)(void*))
 {
-	t_dlst	*del_node;
+	// t_dlst	*del_node;
+	// t_dlst	*del_node_prev;
+
+	// del_node = tail->prev;
+	// del_node_prev = del_node->prev;
+	// del(del_node->elem);
+	// free(del_node);
+	// del_node_prev->next = tail;
+	// tail->prev = del_node_prev;
 	t_dlst	*del_node_prev;
 
-	del_node = tail->prev;
-	del_node_prev = del_node->prev;
-	del(del_node->elem);
-	free(del_node);
+	del_node_prev = tail->prev->prev;
+	del(del_node_prev->next);
 	del_node_prev->next = tail;
 	tail->prev = del_node_prev;
 }
