@@ -6,16 +6,16 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:57:30 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/09 20:11:57 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/12 17:47:34 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "double_lst.h"
 
-t_dlst  *dlst_node_generate(void *element)
+t_node  *dlst_node_generate(void *element)
 {
-	t_dlst  *node;
-	node = (t_dlst *)malloc(sizeof(t_dlst));
+	t_node  *node;
+	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
 		return (NULL);
 	node->elem = element;
@@ -24,7 +24,7 @@ t_dlst  *dlst_node_generate(void *element)
 	return (node);
 }
 
-int	dlst_init(t_dlst **head, t_dlst **tail)
+int	dlst_init(t_node **head, t_node **tail)
 {
 	*head = dlst_node_generate(NULL);
 	*tail = dlst_node_generate(NULL);
@@ -35,9 +35,9 @@ int	dlst_init(t_dlst **head, t_dlst **tail)
 	return (1);
 }
 
-int dlst_add_last(t_dlst *tail, void *element)
+int dlst_add_last(t_node *tail, void *element)
 {
-	t_dlst  *node;
+	t_node  *node;
 
 	node = dlst_node_generate(element);
 	tail->prev->next = node;
@@ -47,7 +47,7 @@ int dlst_add_last(t_dlst *tail, void *element)
 	return (1);
 }
 
-void	dlst_del_last(t_dlst *tail, void (*del)(void*))
+void	dlst_del_last(t_node *tail, void (*del)(void*))
 {
 	// t_dlst	*del_node;
 	// t_dlst	*del_node_prev;
@@ -58,7 +58,7 @@ void	dlst_del_last(t_dlst *tail, void (*del)(void*))
 	// free(del_node);
 	// del_node_prev->next = tail;
 	// tail->prev = del_node_prev;
-	t_dlst	*del_node_prev;
+	t_node	*del_node_prev;
 
 	del_node_prev = tail->prev->prev;
 	del(del_node_prev->next);
@@ -66,10 +66,10 @@ void	dlst_del_last(t_dlst *tail, void (*del)(void*))
 	tail->prev = del_node_prev;
 }
 
-void	dlst_del_all(t_dlst *head, void (*del)(void*))
+void	dlst_del_all(t_node *head, void (*del)(void*))
 {
-	t_dlst	*node;
-	t_dlst	*next;
+	t_node	*node;
+	t_node	*next;
 
 	node = head;
 	while (node)
@@ -81,15 +81,15 @@ void	dlst_del_all(t_dlst *head, void (*del)(void*))
 	}
 }
 
-void	*dlst_last_elem(t_dlst *tail)
+void	*dlst_last_elem(t_node *tail)
 {
 	return (tail->prev->elem);
 }
 
 
-void	dlst_print(t_dlst *head, void (*print)(void*))
+void	dlst_print(t_node *head, void (*print)(void*))
 {
-	t_dlst	*node;
+	t_node	*node;
 
 	node = head->next;
 	while (node->next)
@@ -99,9 +99,9 @@ void	dlst_print(t_dlst *head, void (*print)(void*))
 	}
 }
 
-void    dlst_rev_print(t_dlst *tail, void (*print)(void*))
+void    dlst_rev_print(t_node *tail, void (*print)(void*))
 {
-	t_dlst	*node;
+	t_node	*node;
 
 	node = tail->prev;
 	while (node->prev)

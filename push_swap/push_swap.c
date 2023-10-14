@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:50:47 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/09 20:25:46 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/12 19:10:22 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,58 @@ void	check_leak(void)
 	system("leaks --list push_swap");
 }
 
+void	test(t_stack *a, t_stack *b)
+{
+	int	size;
+
+	size = ft_size(a);
+
+	while (size-- > 0)
+	{
+		if (*(int *)a->top->elem <= 6)
+		{
+			if (ft_is_empty(b))
+				ft_push_other(a, b, 'b');
+			else
+			{
+				ft_push_other(a, b, 'b');
+				ft_rotate(b, 'b');
+			}
+		}
+		else if (*(int *)a->top->elem <= 12)
+			ft_push_other(a, b, 'b');
+		else
+			ft_rotate(a, 'a');
+		two_stack_print(*a, *b);
+	}
+}
+
+void	test2(t_stack *a, t_stack *b)
+{
+	int	size;
+
+	size = ft_size(a);
+
+	while (size-- > 0)
+	{
+		if (*(int *)a->top->elem <= 15)
+		{
+			if (ft_is_empty(b))
+				ft_push_other(a, b, 'b');
+			else
+			{
+				ft_push_other(a, b, 'b');
+				ft_rotate(b, 'b');
+			}
+		}
+		else if (*(int *)a->top->elem <= 17)
+			ft_push_other(a, b, 'b');
+		else
+			ft_rotate(a, 'a');
+		two_stack_print(*a, *b);
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	t_stack	stack_a;
@@ -55,14 +107,20 @@ int main(int argc, char *argv[])
 		ft_push(&stack_a, ft_atoi(argv[i++]));
 	}
 	two_stack_print(stack_a, stack_b);
+
+	test(&stack_a, &stack_b);
+	test2(&stack_a, &stack_b);
 	ft_swap(&stack_a, 'a');
-	(void)ft_push_other(&stack_a, &stack_b, 'b');
+	two_stack_print(stack_a, stack_b);
+
 
 	dlst_del_all(stack_a.head, free);	
 	dlst_del_all(stack_b.head, free);	
 	// atexit(check_leak);
     return (0);
 }
+
+
 
 int	ft_stack_init(t_stack *stack)
 {
@@ -134,7 +192,7 @@ int ft_peek(t_stack *stack)
 
 int	ft_size(t_stack *stack)
 {
-	t_dlst	*node;
+	t_node	*node;
 	int		size;
 
 	size = 0;
@@ -157,7 +215,7 @@ int ft_is_empty(t_stack *stack)
 void    ft_swap(t_stack *stack, char a_or_b)
 {
 	void	*tmp;
-	t_dlst	*last_node;
+	t_node	*last_node;
 
 	if (ft_size(stack) < 2)
 		return ;
@@ -173,10 +231,12 @@ void    ft_swap(t_stack *stack, char a_or_b)
 
 void    ft_rotate(t_stack *stack, char a_or_b)
 {
-	t_dlst	*node;
-	t_dlst	*head;
-	t_dlst	*tail;
+	t_node	*node;
+	t_node	*head;
+	t_node	*tail;
 
+	if (ft_size(stack) <= 1)
+		return ;
 	head = stack->head;
 	tail = stack->tail;
 	node = tail->prev;
@@ -195,10 +255,12 @@ void    ft_rotate(t_stack *stack, char a_or_b)
 
 void	ft_rev_rotate(t_stack *stack, char a_or_b)
 {
-	t_dlst	*node;
-	t_dlst	*head;
-	t_dlst	*tail;
+	t_node	*node;
+	t_node	*head;
+	t_node	*tail;
 
+	if (ft_size(stack) <= 1)
+		return ;
 	head = stack->head;
 	tail = stack->tail;
 	node = head->next;
@@ -220,8 +282,9 @@ void	two_stack_print(t_stack a, t_stack b)
 	int		a_size;
 	int		b_size;
 	int		i;
-	t_dlst	*a_tmp;
-	t_dlst	*b_tmp;
+	int		x;
+	t_node	*a_tmp;
+	t_node	*b_tmp;
 
 	a_size = ft_size(&a);
 	b_size = ft_size(&b);
@@ -231,29 +294,56 @@ void	two_stack_print(t_stack a, t_stack b)
 		i = a_size;
 	else
 		i = b_size;
-	printf("------------------------\n");
+	printf("------------------------------------------------\n");
 	while (i > 0)
 	{
+		// if (i == a_size)
+		// {
+		// 	printf("%10d ", *(int *)a_tmp->elem);
+		// 	a_size--;
+		// 	a_tmp = a_tmp->prev;
+		// }
+		// else
+		// 	printf("  ");
+		// if (i == b_size)
+		// {
+		// 	printf("%10d ", *(int *)b_tmp->elem);
+		// 	b_size--;
+		// 	b_tmp = b_tmp->prev;
+		// }
 		if (i == a_size)
 		{
-			printf("%10d ", *(int *)a_tmp->elem);
+			for(x = 20; x >= 0; x--)
+			{
+				if (x < *(int *)a_tmp->elem)
+					printf("*");
+				else
+					printf(" ");
+			}
 			a_size--;
 			a_tmp = a_tmp->prev;
 		}
-		else
-			printf("  ");
+		else 
+			printf("                     ");
+		printf("     ");
 		if (i == b_size)
 		{
-			printf("%10d ", *(int *)b_tmp->elem);
+			for(x = 0; x < 20; x++)
+			{
+				if (x < *(int *)b_tmp->elem)
+					printf("*");
+				else
+					printf(" ");
+			}
 			b_size--;
 			b_tmp = b_tmp->prev;
 		}
 		printf("\n");
 		i--;
 	}
-	printf("%10c %10c\n", '-', '-');
-	printf("%10c %10c\n", 'a', 'b');
-	printf("------------------------\n");
+	printf("%20c %20c\n", '-', '-');
+	printf("%20c %20c\n", 'a', 'b');
+	printf("------------------------------------------------\n");
 	printf("\n");
 }
 
