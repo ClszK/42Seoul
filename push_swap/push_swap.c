@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:50:47 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/12 19:10:22 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/16 06:53:43 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,183 @@ void	check_leak(void)
 	system("leaks --list push_swap");
 }
 
+void	ft_sort_int_tab(int *tab, int size)
+{
+	int	i;
+	int	j;
+	int tmp;
+
+	i = size;
+	while ((--i) > 0)
+	{
+		j = 0;
+		while (j < i)
+		{
+			if (tab[j] > tab[j + 1])
+			{
+				tmp = tab[j];
+				tab[j] = tab[j + 1];
+				tab[j + 1] = tmp;
+			}
+			j++;
+		}
+	}
+}
+
+int	find_top(t_stack *b, t_node *top)
+{
+	t_node	*tmp;
+	int		cnt;
+
+	cnt = 0;
+	tmp = b->top;
+	if (tmp->prev == top)
+		return (0);
+	while (tmp != top)
+	{
+		tmp = tmp->prev;
+		cnt++;
+	}
+	return (cnt);
+}
+
+int	find_bottom(t_stack *b, t_node *bottom)
+{
+	t_node	*tmp;
+	int		cnt;
+
+	cnt = 0;
+	tmp = b->head->next;
+	while (tmp != bottom)
+	{
+		tmp = tmp->next;
+		cnt++;
+	}
+	return (cnt);
+}
+
+void	top_command(t_stackset *stack, t_node *top, int *min, int *max, int *num_arr)
+{
+	if (stack->b.top->prev == top)
+		ft_swap(&stack->b, 'b');
+	else
+		while (stack->b.top != top)
+			ft_rotate(&stack->b, 'b');
+	ft_push_other(&stack->b, &stack->a, 'a');
+	if (num_arr[*max] != ft_peek(&stack->a))
+	{
+		*min += 1;
+		ft_rotate(&stack->a, 'a');
+	}
+	else
+		*max -= 1;
+}
+
+void	bottom_command(t_stackset *stack, t_node *bottom, int *min, int *max, int *num_arr)
+{
+	while (stack->b.head->next != bottom)
+		ft_rev_rotate(&stack->b, 'b');
+	ft_rev_rotate(&stack->b, 'b');
+	ft_push_other(&stack->b, &stack->a, 'a');
+	if (num_arr[*max] != ft_peek(&stack->a))
+	{
+		*min += 1;
+		ft_rotate(&stack->a, 'a');
+	}
+	else
+		*max -= 1;
+}
+
+void	greedy(t_stackset *stack, int *min, int *max, int *num_arr)
+{
+	t_node	*bottom;
+	t_node	*top;
+	int		top_find;
+	int		bottom_find;
+
+	top = stack->b.top;
+	bottom = stack->b.head->next;
+	top_find = 0;
+	bottom_find = 0;
+	while (top != bottom)
+	{
+		if (top_find == 0 &&(!(*(int *)top->elem == num_arr[*min] || *(int *)top->elem == num_arr[*max])))
+			top = top->prev;
+		else
+			top_find = 1;
+		if (bottom_find == 0 && (!(*(int *)bottom->elem == num_arr[*min] || *(int *)bottom->elem == num_arr[*max])))
+			bottom = bottom->next;
+		else
+			bottom_find = 1;
+		if (top->prev == bottom || (top_find == 1 && bottom_find == 1))
+			break ;
+	}
+	if(find_top(&stack->b, top) < find_bottom(&stack->b, bottom) + 1)
+		top_command(stack, top, min, max, num_arr);
+	else
+		bottom_command(stack, bottom, min, max, num_arr);
+}
+
+void	partition(t_stackset *stack, int start, int end, int *num_arr)
+{
+	int		size;
+	int		rb_cnt;
+	t_stack	*a;
+	t_stack	*b;
+	int		firstEnd;
+	int		secondEnd;
+
+	a = &stack->a;
+	b = &stack->b;
+	firstEnd = start + (end - start) / 3;
+	secondEnd = start + (end - start) / 3 * 2 + 1;
+	size = end - start;
+	rb_cnt = 0;
+
+	while (size-- > 0)
+	{
+		if (*(int *)a->top->elem <= num_arr[firstEnd])
+		{
+			if (ft_is_empty(b))
+				ft_push_other(a, b, 'b');
+			else
+			{
+				ft_push_other(a, b, 'b');
+				ft_rotate(b, 'b');
+				rb_cnt++;
+			}
+		}
+		else if (*(int *)a->top->elem <= num_arr[secondEnd])
+			ft_push_other(a, b, 'b');
+		else
+		{
+			ft_rotate(a, 'a');
+			rb_cnt++;
+		}
+	}
+	while (rb_cnt-- >= 0)
+		ft_push_other(a, b, 'b');
+}
+
+// void	quicksort(t_stackset *stack, int start, int end, int *num_arr)
+// {
+// 	int	firstEnd;
+// 	int	secondEnd;
+
+// 	stack->sort_cnt = 0;
+
+// 	if (end - start < 2)
+// 	// printf("%d %d\n", num_arr[start], num_arr[end]);
+// 	partition(stack, start, end ,num_arr);
+// 	firstEnd = start + (end - start) / 3;
+// 	secondEnd = start + (end - start) / 3 * 2 + 1;
+// 	printf("pos : %d %d\n", start, end);
+// 	printf("first, second : %d %d\n", firstEnd, secondEnd);
+// 	quicksort(stack, secondEnd + 1, end, num_arr);
+// 	quicksort(stack, firstEnd + 1, secondEnd, num_arr);
+// 	quicksort(stack, start, firstEnd, num_arr);
+// }
+
 void	test(t_stack *a, t_stack *b)
 {
 	int	size;
@@ -56,11 +233,35 @@ void	test(t_stack *a, t_stack *b)
 			ft_push_other(a, b, 'b');
 		else
 			ft_rotate(a, 'a');
-		two_stack_print(*a, *b);
 	}
 }
 
 void	test2(t_stack *a, t_stack *b)
+{
+	int	size;
+
+	size = ft_size(a);
+
+	while (size-- > 0)
+	{
+		if (*(int *)a->top->elem <= 15)
+		{
+			if (ft_is_empty(b))
+				ft_push_other(a, b, 'b');
+			else
+			{
+				ft_push_other(a, b, 'b');
+				ft_rotate(b, 'b');
+			}
+		}
+		else if (*(int *)a->top->elem <= 17)
+			ft_push_other(a, b, 'b');
+		else
+			ft_rotate(a, 'a');
+	}
+}
+
+void	test3(t_stack *a, t_stack *b)
 {
 	int	size;
 
@@ -88,34 +289,39 @@ void	test2(t_stack *a, t_stack *b)
 
 int main(int argc, char *argv[])
 {
-	t_stack	stack_a;
-	t_stack	stack_b;
+	t_stackset	stack;
     int     i;
+	int		*num_arr;
+	int		min;
+	int		max;
 
 	if (argc < 1)
         return (-1);
-	(void)ft_stack_init(&stack_a);
-	(void)ft_stack_init(&stack_b);
-    i = 1;
-    while (i < argc)
+	(void)ft_stack_init(&stack.a);
+	(void)ft_stack_init(&stack.b);
+    i = argc - 1;
+	min	= 0;
+	max = argc - 2;
+	num_arr = (int *)malloc(sizeof(int) * (argc - 1));
+    while (i >= 1)
 	{
 		if (ft_isnum(argv[i]) < 0)
 		{
 			ft_printf("Error\nNot num!");
 			return (-1);
 		}
-		ft_push(&stack_a, ft_atoi(argv[i++]));
+		num_arr[i - 1] = ft_atoi(argv[i]);
+		ft_push(&stack.a, ft_atoi(argv[i--]));
 	}
-	two_stack_print(stack_a, stack_b);
-
-	test(&stack_a, &stack_b);
-	test2(&stack_a, &stack_b);
-	ft_swap(&stack_a, 'a');
-	two_stack_print(stack_a, stack_b);
-
-
-	dlst_del_all(stack_a.head, free);	
-	dlst_del_all(stack_b.head, free);	
+	ft_sort_int_tab(num_arr, argc - 1);
+	partition(&stack, 0, argc - 1, num_arr);
+	i = 0;
+	while(i++ < argc - 1)
+		greedy(&stack, &min, &max, num_arr);
+	while (*(int *)stack.a.head->next->elem != num_arr[argc - 2])
+		ft_rev_rotate(&stack.a, 'a');
+	dlst_del_all(stack.a.head, free);	
+	dlst_del_all(stack.b.head, free);	
 	// atexit(check_leak);
     return (0);
 }

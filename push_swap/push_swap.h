@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:37:55 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/12 17:47:38 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/16 03:19:23 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,20 @@ typedef struct s_stack
     t_node  *tail;
     t_node  *top;
 }   t_stack;
+
+typedef struct s_stackset
+{
+    t_stack a;
+    t_stack b;
+    int     sort_cnt;
+}   t_stackset;
+
+
+typedef struct s_pivot
+{
+    int *sort_arr;
+    int start;
+    int end;
+}   t_pivot;
 
 #endif
