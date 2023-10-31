@@ -1,5 +1,13 @@
 NAME	= 	push_swap
 SRCS	=	push_swap.c\
+			push_swap_cmd.c\
+			push_swap_cmd2.c\
+			push_swap_cmd3.c\
+			push_swap_sort.c\
+			push_swap_sort2.c\
+			push_swap_stack.c\
+			push_swap_stack2.c\
+			push_swap_util.c\
 			double_lst.c
 
 OBJS	=	$(SRCS:.c=.o)
@@ -9,7 +17,7 @@ D_HEADER = double_lst.h
 HEADER = $(P_HEADER) $(D_HEADER)
 LIBFT_DIR = ./libft
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 all:	$(NAME)
 
