@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:57:30 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/12 17:47:34 by ljh              ###   ########.fr       */
+/*   Updated: 2023/10/29 17:51:08 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,11 @@ int dlst_add_last(t_node *tail, void *element)
 
 void	dlst_del_last(t_node *tail, void (*del)(void*))
 {
-	// t_dlst	*del_node;
-	// t_dlst	*del_node_prev;
-
-	// del_node = tail->prev;
-	// del_node_prev = del_node->prev;
-	// del(del_node->elem);
-	// free(del_node);
-	// del_node_prev->next = tail;
-	// tail->prev = del_node_prev;
 	t_node	*del_node_prev;
 
 	del_node_prev = tail->prev->prev;
-	del(del_node_prev->next);
+	del(del_node_prev->next->elem);
+	free(del_node_prev->next);
 	del_node_prev->next = tail;
 	tail->prev = del_node_prev;
 }
