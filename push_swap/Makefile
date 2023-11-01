@@ -33,6 +33,7 @@ clean:
 	rm -rf $(OBJS)
 
 fclean: clean
+	make -C $(LIBFT_DIR) fclean
 	rm -rf $(NAME)
 
 re: 

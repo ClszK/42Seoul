@@ -22,7 +22,7 @@ size_t	ft_strlen_f(const char *s)
 	return (i);
 }
 
-void	stack_fill(char *stack, int *n, int *top)
+void	stack_fill_f(char *stack, int *n, int *top)
 {
 	if (*(n) == 0)
 		stack[++*(top)] = '0';
@@ -47,7 +47,7 @@ char	*ft_itoa_f(int n)
 		n *= -1;
 		sign = -1;
 	}
-	stack_fill(stack, &n, &top);
+	stack_fill_f(stack, &n, &top);
 	if (sign == -1)
 		stack[++top] = '-';
 	nbr = (char *)malloc(sizeof(char) * (top + 2));
