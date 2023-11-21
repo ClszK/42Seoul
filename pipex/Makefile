@@ -21,7 +21,7 @@ $(NAME)	: $(OBJS) $(HEADER)
 	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME)
 
 %.o	:	%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -g
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	make -C $(LIBFT_DIR) clean

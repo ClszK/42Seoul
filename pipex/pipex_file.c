@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:54:22 by ljh               #+#    #+#             */
-/*   Updated: 2023/11/19 07:10:15 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/22 04:39:24 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int		open_file(char *progname, char *filename, int mode)
 	if (mode != R_OK || is_file_access(progname, filename, mode))
     {
 		errno = 0;
-		rfd = open(filename, omode);
+		if (mode == R_OK)
+			rfd = open(filename, omode);
+		else
+			rfd = open(filename, omode, 0666);
 		if (rfd == -1 && errno != 0)
 		{
 			print_strerror(progname, filename);

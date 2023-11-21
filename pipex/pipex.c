@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 02:54:20 by jeholee           #+#    #+#             */
-/*   Updated: 2023/11/21 14:06:56 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/22 05:05:33 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ char	**parse_cmd(char *progname, char *cmdline)
 		if (rstr[i] == NULL)
 			perror_exit(progname);
 		ft_strlcpy(rstr[i], str.start, str.size + 1);
-		str.start = str.end + 1;
+		ft_putstr_fd("rstr : ", 2);
+		ft_putstr_fd(rstr[i], 2);
+		ft_putchar_fd('\n', 2);
+		str.start = str.end;
 		i++;
 	}
 	rstr[i] = NULL;
@@ -115,6 +118,9 @@ char	**exec_argv(char *progname, char **path, char *cmdline, int i)
 	char	**cmd_av;
 	char	*cmd;
 
+	cmdline = ft_strtrim(cmdline, " ");
+	// ft_putstr_fd(cmdline, 2);
+	// ft_putchar_fd('\n', 2);
 	cmd = ft_substr(cmdline, 0, (size_t)(ft_strchr(cmdline, ' ') - cmdline));
 	(void)escape_process(cmd, ft_strchr(cmd, '\0'));
 	if ((access(cmd, X_OK) == 0))
@@ -122,18 +128,32 @@ char	**exec_argv(char *progname, char **path, char *cmdline, int i)
 	while (path && path[++i])
 	{
 		cmd_path = path_cmd(progname, path[i], cmd);
+		ft_putstr_fd("i : ", 2);
+		ft_putnbr_fd(i, 2);
+		ft_putstr_fd(" : ", 2);
+		ft_putstr_fd(cmd_path, 2);
+		ft_putchar_fd('\n', 2);
 		if ((access(cmd_path, X_OK) == 0))
 		{
 			free(cmd_path);
 			cmd_path = path_cmd(progname, path[i], cmdline);
+			ft_putstr_fd(cmd_path, 2);
+			ft_putchar_fd('\n', 2);
 			cmd_av = parse_cmd(progname, cmd_path);
+			// for(int z = 0; cmd_av[z]; z++)
+			// {
+			// 	ft_putstr_fd(cmd_av[z], 2);
+			// 	ft_putchar_fd('\n', 2);
+			// }
 			free(cmd_path);
+			free(cmdline);
 			return (cmd_av);
 		}
 		else
 			errno = 0;
 		free(cmd_path);
 	}
+	free(cmdline);
 	error_exit(progname, "command not found", cmd);
 	return (NULL);
 }
@@ -172,6 +192,8 @@ int main(int argc, char *argv[], char *envp[])
 
 	// if (argc != 5)
 	// 	return (0);
+	for(int z = 0; argv[z]; z++)
+		ft_printf("%s\n", argv[z]);
 	info.cmd_cnt = argc - 3;
     info.fd[0] = open_file(argv[0], argv[1], R_OK);
     info.fd[1] = open_file(argv[0], argv[argc - 1], W_OK);
