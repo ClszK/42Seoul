@@ -1,5 +1,9 @@
 NAME	= 	pipex
-SRCS	=	pipex.c
+SRCS	=	pipex.c\
+			pipex_error.c\
+			pipex_fd.c\
+			pipex_file.c\
+			pipex_cmd.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -14,10 +18,10 @@ all:	$(NAME)
 
 $(NAME)	: $(OBJS) $(HEADER)
 	make -C $(LIBFT_DIR)
-	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME)
 
 %.o	:	%.c
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -g
 
 clean:
 	make -C $(LIBFT_DIR) clean

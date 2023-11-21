@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:03:01 by jeholee           #+#    #+#             */
-/*   Updated: 2023/03/18 18:24:23 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/11/15 18:42:01 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		haystack++;
 		len--;
 	}
-	return (NULL);
+	return (0);
 }
