@@ -39,10 +39,10 @@ void	partition(t_stackset *stack, int size, int end, int *num_arr)
 		if (*(int *)stack->a.top->elem <= num_arr[end / 3 * 2])
 		{
 			ft_push_other(&stack->a, &stack->b, 'b');
-			if (ft_size(&stack->b) > 1 &&
+			if (ft_size(&stack->b) > 1 && \
 				*(int *)stack->b.top->elem < num_arr[end / 3])
 			{
-				if (*(int *)stack->a.top->elem <= num_arr[end / 3] || 
+				if (*(int *)stack->a.top->elem <= num_arr[end / 3] || \
 					*(int *)stack->a.top->elem <= num_arr[end / 3 * 2])
 					ft_rotate(&stack->b, 'b');
 				else
@@ -61,18 +61,18 @@ void	partition(t_stackset *stack, int size, int end, int *num_arr)
 void	remain_push(t_stackset *stack, int *num_arr, int end)
 {
 	t_stack	*a;
-	t_stack *b;
+	t_stack	*b;
 
 	a = &stack->a;
 	b = &stack->b;
 	while (ft_size(a) > 3)
-		{
-			if (*(int *)a->top->elem == num_arr[end] ||
-				*(int *)a->top->elem == num_arr[end - 1] ||
-				*(int *)a->top->elem == num_arr[end - 2])
-				ft_rotate(a, 'a');
-			else
-				ft_push_other(a, b,'b');
-		}
+	{
+		if (*(int *)a->top->elem == num_arr[end] || \
+			*(int *)a->top->elem == num_arr[end - 1] || \
+			*(int *)a->top->elem == num_arr[end - 2])
+			ft_rotate(a, 'a');
+		else
+			ft_push_other(a, b, 'b');
+	}
 	hard_coding(stack);
 }

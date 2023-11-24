@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:20:02 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/29 17:30:07 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/01 21:39:21 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_sort_int_tab(int *tab, int size)
 {
 	int	i;
 	int	j;
-	int tmp;
+	int	tmp;
 
 	i = size;
 	while ((--i) > 0)
@@ -41,25 +41,25 @@ void	sort_two(t_stackset *stack)
 		ft_swap(&stack->a, 'a');
 }
 
-void    sort_three(t_stack *a)
+void	sort_three(t_stack *a)
 {
-    t_node  *node;
-    int     max;
+	t_node	*node;
+	int		max;
 
-    max = INT32_MIN;
-    node = a->top;
-    while (node != a->head)
-    {
-        if (max < *(int *)node->elem)
-            max = *(int *)node->elem;
-        node = node->prev;
-    }
-    if (max == *(int *)a->top->elem)
-        ft_rotate(a, 'a');
-    else if (max == *(int *)a->top->prev->elem)
-        ft_rev_rotate(a, 'a');
-    if (*(int *)a->top->elem > *(int *)a->top->prev->elem)
-        ft_swap(a, 'a');
+	max = -2147483648;
+	node = a->top;
+	while (node != a->head)
+	{
+		if (max < *(int *)node->elem)
+			max = *(int *)node->elem;
+		node = node->prev;
+	}
+	if (max == *(int *)a->top->elem)
+		ft_rotate(a, 'a');
+	else if (max == *(int *)a->top->prev->elem)
+		ft_rev_rotate(a, 'a');
+	if (*(int *)a->top->elem > *(int *)a->top->prev->elem)
+		ft_swap(a, 'a');
 }
 
 void	last_sort(t_stack *a, int max)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_stack.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:12:22 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/29 17:17:02 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/01 22:58:53 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_push(t_stack *stack, int num)
 	return (1);
 }
 
-int ft_pop(t_stack *stack)
+int	ft_pop(t_stack *stack)
 {
 	int	num;
 

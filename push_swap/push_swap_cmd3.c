@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_cmd3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:24:00 by ljh               #+#    #+#             */
-/*   Updated: 2023/10/31 08:20:25 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/01 21:38:47 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	command_init(t_cmd *cmd)
 	cmd->rra = 0;
 	cmd->rrb = 0;
 	cmd->rrr = 0;
-	cmd->total = INT32_MAX;
+	cmd->total = 2147483647;
 }
 
 void	command_excute(t_stack *a, t_stack *b, t_cmd *cmd)
@@ -74,11 +74,33 @@ void	command_excute(t_stack *a, t_stack *b, t_cmd *cmd)
 		ft_rotate(a, 'a');
 }
 
+void	find_pos(t_stack *a, int max, int val, int *pos)
+{
+	t_node	*cmp_node;
+	t_node	*a_node;
+
+	a_node = a->top;
+	while (a_node->elem)
+	{
+		if (*(int *)a_node->elem > val)
+		{
+			if (a_node->next->elem == NULL)
+				cmp_node = a->head->next;
+			else
+				cmp_node = a_node->next;
+			if (*(int *)cmp_node->elem < val || \
+				*(int *)cmp_node->elem == max)
+				break ;
+		}
+		*pos += 1;
+		a_node = a_node->prev;
+	}
+}
+
 void	min_command(t_stackset *stack, t_node *b_node, t_cmd *min_cmd, int pos)
 {
 	t_node		*a_node;
-	t_node		*cmp_node;
-	t_cmd	    cmd;
+	t_cmd		cmd;
 	int			val;
 
 	command_init(&cmd);
@@ -90,20 +112,7 @@ void	min_command(t_stackset *stack, t_node *b_node, t_cmd *min_cmd, int pos)
 		cmd.rrb = ft_size(&stack->b) - pos;
 	cmd.pa += 1;
 	pos = 0;
-	while (a_node->elem)
-	{
-		if (*(int *)a_node->elem > val)
-		{
-			if (a_node->next->elem == NULL)
-				cmp_node = stack->a.head->next;
-			else
-				cmp_node = a_node->next;
-			if (*(int *)cmp_node->elem < val || *(int *)cmp_node->elem == stack->max)
-				break ;
-		}
-		pos++;
-		a_node = a_node->prev;
-	}
+	find_pos(&stack->a, stack->max, val, &pos);
 	if (pos < ft_size(&stack->a) - pos)
 		cmd.ra = pos;
 	else

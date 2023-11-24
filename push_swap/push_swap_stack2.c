@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-int ft_peek(t_stack *stack)
+int	ft_peek(t_stack *stack)
 {
 	return (*(int *)(stack->top->elem));
 }
 
-int ft_is_empty(t_stack *stack)
+int	ft_is_empty(t_stack *stack)
 {
 	if (ft_size(stack) == 0)
 		return (1);

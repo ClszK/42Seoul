@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 02:54:20 by jeholee           #+#    #+#             */
-/*   Updated: 2023/11/22 05:05:33 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/11/25 06:03:44 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	parse_pos(t_parse *info)
 	{
 		c = *info->start;
 		info->end = ft_strchr(++(info->start), c);
-		while (*(info->end - 1) == '\\')
+		while (*(info->end - 1) == '\\' && info->end)
 			info->end = ft_strchr(++(info->end), c);
 	}
 	else
@@ -73,7 +73,7 @@ char	**split_size(char *progname, char *cmdline)
 	while (*str.start)
 	{
 		parse_pos(&str);
-		str.start = str.end + 1;
+		str.start = str.end;
 		size++;
 	}
 	rstr = (char **)malloc(sizeof(char *) * (size + 1));
@@ -102,9 +102,11 @@ char	**parse_cmd(char *progname, char *cmdline)
 		if (rstr[i] == NULL)
 			perror_exit(progname);
 		ft_strlcpy(rstr[i], str.start, str.size + 1);
-		ft_putstr_fd("rstr : ", 2);
-		ft_putstr_fd(rstr[i], 2);
-		ft_putchar_fd('\n', 2);
+		// ft_putnbr_fd(i, 2);
+		// ft_putstr_fd("rstr : ", 2);
+		// ft_putstr_fd(rstr[i], 2);
+		// ft_putchar_fd(*str.end, 2);
+		// ft_putchar_fd('\n', 2);
 		str.start = str.end;
 		i++;
 	}
@@ -119,33 +121,32 @@ char	**exec_argv(char *progname, char **path, char *cmdline, int i)
 	char	*cmd;
 
 	cmdline = ft_strtrim(cmdline, " ");
-	// ft_putstr_fd(cmdline, 2);
-	// ft_putchar_fd('\n', 2);
 	cmd = ft_substr(cmdline, 0, (size_t)(ft_strchr(cmdline, ' ') - cmdline));
 	(void)escape_process(cmd, ft_strchr(cmd, '\0'));
 	if ((access(cmd, X_OK) == 0))
+	{
+		free(cmd);
 		return (parse_cmd(progname, cmdline));
+	}
 	while (path && path[++i])
 	{
 		cmd_path = path_cmd(progname, path[i], cmd);
-		ft_putstr_fd("i : ", 2);
-		ft_putnbr_fd(i, 2);
-		ft_putstr_fd(" : ", 2);
-		ft_putstr_fd(cmd_path, 2);
-		ft_putchar_fd('\n', 2);
 		if ((access(cmd_path, X_OK) == 0))
 		{
 			free(cmd_path);
 			cmd_path = path_cmd(progname, path[i], cmdline);
-			ft_putstr_fd(cmd_path, 2);
-			ft_putchar_fd('\n', 2);
+			// ft_putstr_fd("cmd : ", 2);
+			// ft_putstr_fd(cmd, 2);
+			// ft_putchar_fd('\n', 2);
 			cmd_av = parse_cmd(progname, cmd_path);
-			// for(int z = 0; cmd_av[z]; z++)
+			// for(int k = 0; cmd_av[k];k++)
 			// {
-			// 	ft_putstr_fd(cmd_av[z], 2);
+			// 	ft_putstr_fd("cmd_av: ", 2);
+			// 	ft_putstr_fd(cmd_av[k], 2);
 			// 	ft_putchar_fd('\n', 2);
 			// }
 			free(cmd_path);
+			free(cmd);
 			free(cmdline);
 			return (cmd_av);
 		}
@@ -190,10 +191,10 @@ int main(int argc, char *argv[], char *envp[])
 	int		i;
 	int		status;
 
-	// if (argc != 5)
-	// 	return (0);
+	if (argc != 5)
+		return (0);
 	for(int z = 0; argv[z]; z++)
-		ft_printf("%s\n", argv[z]);
+		ft_printf("argv: %s\n", argv[z]);
 	info.cmd_cnt = argc - 3;
     info.fd[0] = open_file(argv[0], argv[1], R_OK);
     info.fd[1] = open_file(argv[0], argv[argc - 1], W_OK);
@@ -215,6 +216,12 @@ int main(int argc, char *argv[], char *envp[])
 				exec_cmd = exec_argv(argv[0], NULL, argv[i + 2], -1);
 			else
 				exec_cmd = exec_argv(argv[0], info.path, argv[i + 2], -1);
+			for (int t = 0; exec_cmd[t]; t++)
+			{
+				ft_putstr_fd("exec_cmd: ", 2);
+				ft_putstr_fd(exec_cmd[t], 2);
+				ft_putchar_fd('\n', 2);
+			}
 			errno = 0;
 			execve(exec_cmd[0], exec_cmd, envp);
 			exit(EXIT_FAILURE);

@@ -7,7 +7,8 @@ SRCS	=	push_swap.c\
 			push_swap_sort2.c\
 			push_swap_stack.c\
 			push_swap_stack2.c\
-			push_swap_util.c\
+			push_swap_utils.c\
+			push_swap_utils2.c\
 			double_lst.c
 
 OBJS	=	$(SRCS:.c=.o)

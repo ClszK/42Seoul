@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void    ft_swap(t_stack *stack, char a_or_b)
+void	ft_swap(t_stack *stack, char a_or_b)
 {
 	void	*tmp;
 	t_node	*last_node;
@@ -29,7 +29,7 @@ void    ft_swap(t_stack *stack, char a_or_b)
 		ft_printf("sb\n");
 }
 
-void    ft_rotate(t_stack *stack, char a_or_b)
+void	ft_rotate(t_stack *stack, char a_or_b)
 {
 	t_node	*node;
 	t_node	*head;
