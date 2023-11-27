@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:24:57 by jeholee           #+#    #+#             */
-/*   Updated: 2023/11/21 07:38:48 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/27 10:08:51 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,47 @@
 
 typedef struct s_pinfo
 {
-    int     fd[2];
-    int     cmd_cnt;
-    int     **pfd;
-    char    **path;
-    pid_t   pid;
-}   t_pinfo;
+	int		fd[2];
+	int		cmd_cnt;
+	int		**pfd;
+	char	**path;
+	pid_t	pid;
+	pid_t	last_pid;
+	int		last_status;
+}	t_pinfo;
 
 typedef struct s_parse
 {
-    char	*start;
-    char	*end;
+	char	*start;
+	char	*end;
 	int		size;
-}   t_parse;
-
+}	t_parse;
 
 void	print_strerror(char *progname, char *str);
 void	perror_exit(char *progname);
-void	error_exit(char *progname, char *str, char *str2);
+void	error_exit(char *progname, char *str, char *str2, int code);
 
 int		**pipe_create(char *progname, int pipe_cnt);
-void	pipe_close(int **pfd, int pipe_cnt, int pos);
-void	dup_std_fd(t_pinfo *info, int i);
+void	pipe_close(char *progname, int **pfd, int pipe_cnt, int pos);
+void	dup_std_fd(char *progname, t_pinfo *info, int i);
 
-int     is_file_access(char *progname, char *filename, int mode);
+int		is_file_access(char *progname, char *filename, int mode);
 int		open_file(char *progname, char *filename, int mode);
 
 char	**find_path(char *progname, char *envp[]);
 char	*path_cmd(char *progname, char *path, char *cmd);
+char	*collect_path(char *progname, char **path, char *cmd);
+char	*cmd_location(char *progname, char **path, char *cmdline);
 
-//파일을 찾을 수 없는 경우 등, pipe 쓰기 부분을 닫아줌으로써 pipe 읽기쪽으로 EOF를 보내서 pipe 대기를 풀어버린다.
+void	pull_section(char *str);
+int		escape_process(char *str, char *end);
+void	parse_pos(t_parse *info);
+char	**split_size(char *progname, char *cmdline);
+char	**parse_cmd(char *progname, char *cmdline);
+
+void	pinfo_set(t_pinfo *info, int argc, char *argv[], char *envp[]);
+void	child_process(t_pinfo *info, int i, char *argv[], char *envp[]);
+void	wait_child(t_pinfo *info);
+void	all_close(t_pinfo *info);
 
 #endif

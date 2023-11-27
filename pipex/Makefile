@@ -3,7 +3,9 @@ SRCS	=	pipex.c\
 			pipex_error.c\
 			pipex_fd.c\
 			pipex_file.c\
-			pipex_cmd.c
+			pipex_cmd.c\
+			pipex_cmd2.c\
+			pipex_proc.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -27,7 +29,7 @@ $(NAME)	: $(OBJS) $(HEADER)
 	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME) $(TEST_FLAG)
 
 %.o	:	%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@  -g
 
 clean:
 	make -C $(LIBFT_DIR) clean

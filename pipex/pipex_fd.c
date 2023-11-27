@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:52:16 by ljh               #+#    #+#             */
-/*   Updated: 2023/11/21 13:34:22 by ljh              ###   ########.fr       */
+/*   Updated: 2023/11/27 10:16:19 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int		**pipe_create(char *progname, int pipe_cnt)
+int	**pipe_create(char *progname, int pipe_cnt)
 {
 	int	**pipefd;
 	int	i;
@@ -32,9 +32,9 @@ int		**pipe_create(char *progname, int pipe_cnt)
 	return (pipefd);
 }
 
-void	pipe_close(int **pfd, int pipe_cnt, int pos)
+void	pipe_close(char *progname, int **pfd, int pipe_cnt, int pos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	errno = 0;
@@ -47,34 +47,31 @@ void	pipe_close(int **pfd, int pipe_cnt, int pos)
 		i++;
 	}
 	if (errno != 0)
-		perror("파이프 닫기");
+		perror(progname);
 }
 
-void	dup_std_fd(t_pinfo *info, int i)
+void	dup_std_fd(char *progname, t_pinfo *info, int i)
 {
 	errno = 0;
 	if (i != 0)
 	{
 		if (dup2(info->pfd[i - 1][0], STDIN_FILENO) < 0)
-			perror_exit("test");
+			exit(EXIT_FAILURE);
 	}
 	else if (!(info->fd[0] == -1))
 	{
 		if (dup2(info->fd[0], STDIN_FILENO) < 0)
-			perror_exit("test");
+			exit(EXIT_FAILURE);
 	}
 	if (i != info->cmd_cnt - 1)
 	{
 		if (dup2(info->pfd[i][1], STDOUT_FILENO) < 0)
-			perror_exit("test");
+			exit(EXIT_FAILURE);
 	}
 	else
 	{
 		if (dup2(info->fd[1], STDOUT_FILENO) < 0)
-			perror_exit("test");
+			exit(EXIT_FAILURE);
 	}
-	pipe_close(info->pfd, info->cmd_cnt - 1, i);
+	pipe_close(progname, info->pfd, info->cmd_cnt - 1, i);
 }
-
-// if i = 0; fd[0] pfd[0][1]
-// if i = 1; pfd[0][0], fd[1]

@@ -1,0 +1,23 @@
+Process:         pipex [79686]
+Path:            /Volumes/VOLUME/*/pipex
+Load Address:    0x10fa7c000
+Identifier:      pipex
+Version:         ???
+Code Type:       X86-64
+Parent Process:  pipex [79685]
+
+Date/Time:       2023-11-27 03:07:35.855 +0900
+Launch Time:     2023-11-27 03:07:35.542 +0900
+OS Version:      Mac OS X 10.15.7 (19H15)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.3 (12C33)
+
+Physical footprint:         340K
+Physical footprint (peak):  340K
+----
+
+leaks Report Version: 3.0
+Process 79686: 180 nodes malloced for 11 KB
+Process 79686: 0 leaks for 0 total leaked bytes.
+
