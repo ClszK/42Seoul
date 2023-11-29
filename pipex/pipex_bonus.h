@@ -1,25 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:24:57 by jeholee           #+#    #+#             */
-/*   Updated: 2023/11/29 04:28:48 by jeholee          ###   ########.fr       */
+/*   Created: 2023/11/29 18:59:07 by jeholee           #+#    #+#             */
+/*   Updated: 2023/11/29 19:02:18 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-        open, close, read, write,
-        malloc, free, perror,
-        strerror, access, dup, dup2,
-        execve, exit, fork, pipe,
-        unlink, wait, waitpid
-*/
-
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -74,5 +66,13 @@ void	pinfo_set(t_pinfo *info, int argc, char *argv[], char *envp[]);
 void	child_process(t_pinfo *info, int i, char *argv[], char *envp[]);
 void	wait_child(t_pinfo *info);
 void	all_close(t_pinfo *info);
+
+char	*pinfo_set_bonus(t_pinfo *info, int argc, char *argv[], char *envp[]);
+void	stdin_heredoc(char *progname, char *end_id, int tmp_fd);
+void	child_process_bonus(t_pinfo *info, int i, char *argv[], char *envp[]);
+char	*pinfo_set_bonus(t_pinfo *info, int argc, char *argv[], char *envp[]);
+
+char	*heredoc_process(t_pinfo *info, int argc, char *argv[], char *envp[]);
+void	all_close_bonus(t_pinfo *info, char *tmp_name);
 
 #endif

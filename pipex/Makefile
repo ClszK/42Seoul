@@ -1,6 +1,6 @@
 NAME	= 	pipex
-SRCS	=	pipex.c\
-			pipex_error.c\
+
+SRCS	=	pipex_error.c\
 			pipex_fd.c\
 			pipex_file.c\
 			pipex_cmd.c\
@@ -9,6 +9,15 @@ SRCS	=	pipex.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
+M_SRCS	=	pipex.c
+
+M_OBJS	=	$(M_SRCS:.c=.o)
+
+B_SRCS	=	pipex_bonus.c\
+			pipex_bonus2.c
+
+B_OBJS	=	$(B_SRCS:.c=.o)
+
 P_HEADER = pipex.h
 HEADER = $(P_HEADER)
 LIBFT_DIR = ./libft
@@ -16,24 +25,24 @@ LIBFT_DIR = ./libft
 CC	= cc
 CFLAGS = -Wall -Wextra -Werror
 
-ifdef WITH_TEST
-    TEST_FLAG = -g -fsanitize=address
+ifdef BONUS_FLAG
+	COM_OBJS	=	$(OBJS) $(B_OBJS)
 else
-	TEST_FLAG = 
+    COM_OBJS	=	$(OBJS) $(M_OBJS)
 endif
 
 all:	$(NAME)
 
-$(NAME)	: $(OBJS) $(HEADER)
+$(NAME)	: $(COM_OBJS) $(HEADER)
 	make -C $(LIBFT_DIR)
-	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME) $(TEST_FLAG)
+	$(CC) $(COM_OBJS) -L$(LIBFT_DIR) -lft -o $(NAME) $(TEST_FLAG)
 
 %.o	:	%.c
-	$(CC) $(CFLAGS) -c $< -o $@  -g
+	$(CC) $(CFLAGS) -c $< -o $@ -g
 
 clean:
 	make -C $(LIBFT_DIR) clean
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(B_OBJS) $(M_OBJS)
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
@@ -43,8 +52,7 @@ re:
 	make fclean
 	make all
 
-test:
-	rm -rf $(NAME)
-	@make WITH_TEST=1
+bonus:
+	@make BONUS_FLAG=1 all
 
 .PHONY: all clean fclean re

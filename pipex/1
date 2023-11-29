@@ -1,0 +1,46 @@
+Process:         pipex [20370]
+Path:            /Volumes/VOLUME/*/pipex
+Load Address:    0x10cab7000
+Identifier:      pipex
+Version:         ???
+Code Type:       X86-64
+Parent Process:  pipex [20368]
+
+Date/Time:       2023-11-29 21:44:10.575 +0900
+Launch Time:     2023-11-29 21:44:10.192 +0900
+OS Version:      Mac OS X 10.15.7 (19H15)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.3 (12C33)
+
+Physical footprint:         304K
+Physical footprint (peak):  304K
+----
+
+leaks Report Version: 3.0
+Process 20370: 182 nodes malloced for 11 KB
+Process 20370: 0 leaks for 0 total leaked bytes.
+
+Process:         pipex [20370]
+Path:            /Volumes/VOLUME/*/pipex
+Load Address:    0x10cab7000
+Identifier:      pipex
+Version:         ???
+Code Type:       X86-64
+Parent Process:  pipex [20368]
+
+Date/Time:       2023-11-29 21:44:11.001 +0900
+Launch Time:     2023-11-29 21:44:10.192 +0900
+OS Version:      Mac OS X 10.15.7 (19H15)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.3 (12C33)
+
+Physical footprint:         316K
+Physical footprint (peak):  316K
+----
+
+leaks Report Version: 3.0
+Process 20370: 182 nodes malloced for 11 KB
+Process 20370: 0 leaks for 0 total leaked bytes.
+

@@ -6,7 +6,7 @@
 /*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:54:22 by ljh               #+#    #+#             */
-/*   Updated: 2023/11/26 23:47:59 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/11/29 19:28:00 by jeholee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	open_file(char *progname, char *filename, int mode)
 			rfd = open(filename, omode, 0666);
 		if (rfd == -1 && errno != 0)
 		{
-			print_strerror(progname, filename);
+			error_exit(progname, filename, strerror(errno), EXIT_FAILURE);
 			return (-1);
 		}
 		return (rfd);
