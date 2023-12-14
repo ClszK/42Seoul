@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:49:37 by ljh               #+#    #+#             */
-/*   Updated: 2023/12/14 01:24:28 by ljh              ###   ########.fr       */
+/*   Updated: 2023/12/15 05:58:46 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int    condition_set(t_condition *info, char *argv[], int option)
 
 void	init_pinfo(t_pinfo *pinfo)
 {
-	pinfo->fork = NULL;
-	pinfo->fork_stat = NULL;
-	pinfo->philo = NULL;
-	pinfo->pthread = NULL;
+	(void)memset(pinfo, 0, sizeof(t_philo));
 }
 
 void	clean_pinfo(t_pinfo *pinfo)
@@ -74,6 +71,8 @@ void	clean_pinfo(t_pinfo *pinfo)
 		{
 			if (pthread_mutex_destroy(&pinfo->fork[i]) == EBUSY)
 				printf("%d is mutex lock.\n", i);
+			if (pthread_mutex_destroy(&pinfo->pstat_m[i]) == EBUSY)
+				printf("%d is mutex lock.\n", i);
 			i++;
 		}
 		free(pinfo->fork);
@@ -89,6 +88,8 @@ int	create_pinfo(t_pinfo *pinfo)
 	num_philo = pinfo->info.num_of_philo;
 	pinfo->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
 											num_philo);
+	pinfo->pstat_m = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
+											num_philo);
 	pinfo->pthread = (pthread_t *)malloc(sizeof(pthread_t) * num_philo);	
 	pinfo->fork_stat = (int *)malloc(sizeof(int) * num_philo); 
 	pinfo->philo = (t_philo *)malloc(sizeof(t_philo) * num_philo);
@@ -100,10 +101,41 @@ int	create_pinfo(t_pinfo *pinfo)
 	{
 		if (pthread_mutex_init(&pinfo->fork[i], NULL))
 			return (0);
+		if (pthread_mutex_init(&pinfo->pstat_m[i], NULL))
+			return (0);
 		i++;
 	}
 	return (1);
 }
+
+void	set_philo(t_pinfo *pinfo)
+{
+	int		i;
+	int		num_fork_philo;
+	t_philo	*tmp;
+
+	i = 0;
+	tmp = pinfo->philo;
+	num_fork_philo = pinfo->info.num_of_philo;
+	while (i < num_fork_philo)
+	{
+		(void)memset(&tmp[i], 0, sizeof(t_philo));
+		tmp[i].left_fork = &pinfo->fork_stat[i];
+		tmp[i].left_m = &pinfo->fork[i];
+		tmp[i].right_fork = &pinfo->fork_stat[(i + 1) % num_fork_philo];
+		tmp[i].left_m = &pinfo->fork[(i + 1) % num_fork_philo];
+		tmp->info = &pinfo->info;
+		tmp[i].pstate = THINK;
+		tmp[i].pstate_m = &pinfo->pstat_m[i];
+		tmp[i].philo_idx = i;
+		i++;
+	}
+}
+
+// void	*start_philo(void *param)
+// {
+
+// }
 
 int main(int argc, char *argv[])
 {
@@ -116,6 +148,14 @@ int main(int argc, char *argv[])
 	{
 		clean_pinfo(&pinfo);
         return (1);
+	}
+	set_philo(&pinfo);
+	pinfo.fork_stat[1] = 1;
+	for (int x = 0; x < pinfo.info.num_of_philo ; x++)
+	{
+		printf("%d's philo\n", pinfo.philo[x].philo_idx);
+		printf("%d's left_fork : %d\n", x, *pinfo.philo[x].left_fork);
+		printf("%d's right_fork : %d\n",x, *pinfo.philo[x].right_fork);
 	}
 	
     return (0);

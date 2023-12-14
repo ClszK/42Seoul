@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:46:20 by ljh               #+#    #+#             */
-/*   Updated: 2023/12/14 01:21:45 by ljh              ###   ########.fr       */
+/*   Updated: 2023/12/15 05:58:48 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef enum	t_pstat {
+    EAT,
+	THINK,
+	SLEEP
+}	e_pstat;
+
 typedef struct s_condition
 {
 	int	num_of_philo;
@@ -45,15 +51,25 @@ typedef struct s_condition
 
 typedef struct s_philo
 {
-	int	philo_idx;
+	int				*left_fork;
+	pthread_mutex_t	*left_m;
+	int				*right_fork;
+	pthread_mutex_t	*right_m;
+	t_condition		*info;
+	e_pstat			pstate;
+	pthread_mutex_t	*pstate_m;
+	int				philo_idx;
+	int				eat_cnt;
+	int				start_eat;
 }	t_philo;
 
 typedef struct s_pinfo
 {
 	pthread_mutex_t	*fork;
+	int				*fork_stat;
+	pthread_mutex_t	*pstat_m;
 	t_philo			*philo;
 	pthread_t		*pthread;
-	int				*fork_stat;
 	t_condition		info;
 }	t_pinfo;
 
