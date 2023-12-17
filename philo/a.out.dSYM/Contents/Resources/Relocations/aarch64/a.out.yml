@@ -1,0 +1,22 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     a.out
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _ft_atoi, symObjAddr: 0x0, symBinAddr: 0x1000008A8, symSize: 0x4BC }
+  - { offsetInCU: 0x3B, offset: 0x3B, size: 0x8, addend: 0x0, symName: _.str, symObjAddr: 0x3100, symBinAddr: 0x100003AE0, symSize: 0x0 }
+  - { offsetInCU: 0x66, offset: 0x66, size: 0x8, addend: 0x0, symName: _.str.1, symObjAddr: 0x3140, symBinAddr: 0x100003B20, symSize: 0x0 }
+  - { offsetInCU: 0x2E7, offset: 0x2E7, size: 0x8, addend: 0x0, symName: _ft_atoi, symObjAddr: 0x0, symBinAddr: 0x1000008A8, symSize: 0x4BC }
+  - { offsetInCU: 0x32B, offset: 0x32B, size: 0x8, addend: 0x0, symName: _condition_set, symObjAddr: 0x4BC, symBinAddr: 0x100000D64, symSize: 0x6B0 }
+  - { offsetInCU: 0x36F, offset: 0x36F, size: 0x8, addend: 0x0, symName: _init_pinfo, symObjAddr: 0xB6C, symBinAddr: 0x100001414, symSize: 0x2C }
+  - { offsetInCU: 0x393, offset: 0x393, size: 0x8, addend: 0x0, symName: _clean_pinfo, symObjAddr: 0xB98, symBinAddr: 0x100001440, symSize: 0x394 }
+  - { offsetInCU: 0x3C5, offset: 0x3C5, size: 0x8, addend: 0x0, symName: _create_pinfo, symObjAddr: 0xF2C, symBinAddr: 0x1000017D4, symSize: 0x460 }
+  - { offsetInCU: 0x409, offset: 0x409, size: 0x8, addend: 0x0, symName: _set_philo, symObjAddr: 0x138C, symBinAddr: 0x100001C34, symSize: 0x57C }
+  - { offsetInCU: 0x457, offset: 0x457, size: 0x8, addend: 0x0, symName: _philo_stat_change, symObjAddr: 0x1908, symBinAddr: 0x1000021B0, symSize: 0x3F0 }
+  - { offsetInCU: 0x49D, offset: 0x49D, size: 0x8, addend: 0x0, symName: _philo_think_even, symObjAddr: 0x1CF8, symBinAddr: 0x1000025A0, symSize: 0x410 }
+  - { offsetInCU: 0x4C1, offset: 0x4C1, size: 0x8, addend: 0x0, symName: _philo_think_odd, symObjAddr: 0x2108, symBinAddr: 0x1000029B0, symSize: 0x410 }
+  - { offsetInCU: 0x4E5, offset: 0x4E5, size: 0x8, addend: 0x0, symName: _philo_eat, symObjAddr: 0x2518, symBinAddr: 0x100002DC0, symSize: 0x170 }
+  - { offsetInCU: 0x509, offset: 0x509, size: 0x8, addend: 0x0, symName: _philo_sleep, symObjAddr: 0x2688, symBinAddr: 0x100002F30, symSize: 0xE8 }
+  - { offsetInCU: 0x52D, offset: 0x52D, size: 0x8, addend: 0x0, symName: _start_philo, symObjAddr: 0x2770, symBinAddr: 0x100003018, symSize: 0x174 }
+  - { offsetInCU: 0x563, offset: 0x563, size: 0x8, addend: 0x0, symName: _create_philo, symObjAddr: 0x28E4, symBinAddr: 0x10000318C, symSize: 0x37C }
+  - { offsetInCU: 0x5A9, offset: 0x5A9, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x2C60, symBinAddr: 0x100003508, symSize: 0x400 }
+...

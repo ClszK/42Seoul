@@ -6,7 +6,7 @@
 /*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:46:20 by ljh               #+#    #+#             */
-/*   Updated: 2023/12/15 05:58:48 by ljh              ###   ########.fr       */
+/*   Updated: 2023/12/16 13:36:03 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define PHILO_H
 
 # define EBUSY 16
+# define DIE 1
+# define ALIVE 0
 
 # include <string.h>
 # include <stdio.h>
@@ -57,20 +59,24 @@ typedef struct s_philo
 	pthread_mutex_t	*right_m;
 	t_condition		*info;
 	e_pstat			pstate;
-	pthread_mutex_t	*pstate_m;
+	pthread_mutex_t alive_m;
+	int				alive;
 	int				philo_idx;
 	int				eat_cnt;
-	int				start_eat;
+	long long		start;
+	long long		start_eat;
+	pthread_mutex_t start_eat_m;
+	pthread_mutex_t	*print_m;
 }	t_philo;
 
 typedef struct s_pinfo
 {
 	pthread_mutex_t	*fork;
 	int				*fork_stat;
-	pthread_mutex_t	*pstat_m;
 	t_philo			*philo;
 	pthread_t		*pthread;
 	t_condition		info;
+	pthread_mutex_t	print_m;
 }	t_pinfo;
 
 #endif
