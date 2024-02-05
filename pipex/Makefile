@@ -23,7 +23,7 @@ HEADER = $(P_HEADER)
 LIBFT_DIR = ./libft
 
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 
 ifdef BONUS_FLAG
 	COM_OBJS	=	$(OBJS) $(B_OBJS)

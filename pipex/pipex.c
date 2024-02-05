@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 02:54:20 by jeholee           #+#    #+#             */
-/*   Updated: 2023/11/29 21:48:03 by jeholee          ###   ########.fr       */
+/*   Updated: 2024/01/11 12:25:07 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 
 void	check_leak(void)
 {
-	char	*test = "leaks --list ";
-	char	*test2;
-	char 	*test3 = ft_itoa(getpid());
-
-	test2 = ft_strjoin(test, test3);
-	ft_putstr_fd(test2, 2);
-	free(test3);
-	system(test2);
-	free(test2);	
+	system("leaks pipex");
 }
 
 int	main(int argc, char *argv[], char *envp[])

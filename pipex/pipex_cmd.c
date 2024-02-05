@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:55:27 by ljh               #+#    #+#             */
-/*   Updated: 2023/11/27 10:03:41 by jeholee          ###   ########.fr       */
+/*   Updated: 2023/12/02 15:44:18 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,9 @@ char	*collect_path(char *progname, char **path, char *cmd)
 
 char	*cmd_location(char *progname, char **path, char *cmdline)
 {
-	int		i;
 	char	*cmd_path;
 	char	*cmd;
 
-	i = -1;
 	cmd = ft_substr(cmdline, 0, (size_t)(ft_strchr(cmdline, ' ') - cmdline));
 	free(cmdline);
 	if (cmd == NULL)

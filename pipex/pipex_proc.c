@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_proc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 23:38:42 by jeholee           #+#    #+#             */
-/*   Updated: 2023/11/29 21:30:40 by jeholee          ###   ########.fr       */
+/*   Updated: 2024/01/11 12:31:32 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	child_process(t_pinfo *info, int i, char *argv[], char *envp[])
 	if (file == NULL)
 		exit(0);
 	errno = 0;
-	execve(file, exec_cmd, envp);
+	// execve(file, exec_cmd, envp);
 	exit(EXIT_FAILURE);
 }
 
