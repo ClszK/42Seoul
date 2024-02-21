@@ -14,15 +14,13 @@ private:
 
 public:
 	Contact();
-	Contact(const Contact &c);
-	Contact& operator=(const Contact &c);
 	~Contact();
 
-	std::string getFirstName();
-	std::string getLastName();
-	std::string getNickName();
-	std::string getPhoneNumber();
-	std::string getDarkestSecret();
+	std::string getFirstName() const;
+	std::string getLastName() const;
+	std::string getNickName() const;
+	std::string getPhoneNumber() const;
+	std::string getDarkestSecret() const;
 
 	void setFirstrName(std::string firstName);
 	void setLastName(std::string lastName);

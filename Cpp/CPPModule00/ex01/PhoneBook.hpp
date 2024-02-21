@@ -3,7 +3,7 @@
 
 # include <iostream>
 # include <iomanip>
-# include <string>
+# include <sstream>
 # include "Contact.hpp"
 
 class PhoneBook
@@ -15,12 +15,16 @@ private:
 
 public:
 	PhoneBook();
-	PhoneBook(const PhoneBook& p);
-	PhoneBook& operator=(const PhoneBook& p);
 	~PhoneBook();
 
 	void addContact();
 	void searchContact();
 };
+
+std::string	getline_valid(const std::string &prompt);
+int 		getInteger(int save_contact);
+std::string	formatText(const std::string &text);
+void		printColumn(const std::string &str);
+std::string	numberToString(int number);
 
 #endif

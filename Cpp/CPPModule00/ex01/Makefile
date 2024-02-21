@@ -1,14 +1,19 @@
 NAME	= 	test
-SRCS	= 	test.cpp
+SRCS	= 	main.cpp\
+			Contact.cpp\
+			PhoneBook.cpp
 			
 OBJS	=	$(SRCS:.cpp=.o)
 
-CC		=	clang++
-CFLAGS 	=	-Wall -Wextra -Werror -std=c++98 -fsanitize=address -g
+HEADERS	=	Contact.hpp\
+			PhoneBook.hpp
+
+CC		=	c++
+CFLAGS 	=	-Wall -Wextra -Werror -std=c++98 
 
 all:	$(NAME)
 
-$(NAME)	: $(OBJS)
+$(NAME)	: $(OBJS) $(HEADERS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o	:	%.cpp
