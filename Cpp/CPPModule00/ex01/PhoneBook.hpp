@@ -6,6 +6,7 @@
 # include <sstream>
 # include <cstdio>
 # include <stdlib.h>
+# include <limits>
 # include "Contact.hpp"
 
 class PhoneBook
