@@ -3,21 +3,25 @@
 int main()
 {
 	PhoneBook pb;
-	std::string cmd;
+	std::string str;
 
 	while (true)
 	{
-		std::cout << "Select command in [ADD / SEARCH / EXIT] : ";
-		std::getline(std::cin, cmd);
+		std::cout << "Select command in (ADD , SEARCH , EXIT) : ";
+		std::getline(std::cin, str);
 
-		if (cmd == "EXIT")
+		if (str == "EXIT")
 			exit(0);
-		else if (cmd == "ADD")
+		else if (str == "ADD")
 			pb.addContact();
-		else if (cmd == "SEARCH")
+		else if (str == "SEARCH")
 			pb.searchContact();
 		else
+		{
+			if (std::cin.eof())
+				std::cout << std::endl;
 			std::cout << "Error: Invalid command" << std::endl;
+		}
 		if (std::cin.eof())
 		{
 			clearerr(stdin);
