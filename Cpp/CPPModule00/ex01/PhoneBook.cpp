@@ -20,7 +20,6 @@ std::string getline_valid(const std::string &prompt)
 		{
 			clearerr(stdin);
 			std::cin.clear();
-			// std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "EOF detected. Please enter valid input." << std::endl;
 		}
 		else if (input.empty())
@@ -29,7 +28,6 @@ std::string getline_valid(const std::string &prompt)
 			return input;
 	}
 }
-
 	
 int getInteger(int save_contact)
 {
@@ -54,15 +52,7 @@ int getInteger(int save_contact)
 			return printIndex;
 	}
 	else
-	{
-		if (std::cin.eof())
-		{
-			clearerr(stdin);
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
 		std::cout << "That's not an integer." << std::endl;
-	}
 	return -1;
 }
 
