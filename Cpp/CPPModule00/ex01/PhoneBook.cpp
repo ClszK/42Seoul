@@ -24,6 +24,8 @@ std::string getline_valid(const std::string &prompt)
 		}
 		else if (input.empty())
 			std::cout << "Nothing Input. Retry Input." << std::endl;
+		else if (input.find_first_not_of(" \t\n\v\f\r") == std::string::npos)
+            std::cout << "Only whitespace input. Retry input." << std::endl;
 		else
 			return input;
 	}
