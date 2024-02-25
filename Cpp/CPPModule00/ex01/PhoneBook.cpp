@@ -11,7 +11,6 @@ PhoneBook::~PhoneBook() {}
 std::string getline_valid(const std::string &prompt)
 {
 	std::string input;
-
 	while (true)
 	{
 		std::cout << prompt << std::endl;
@@ -21,7 +20,7 @@ std::string getline_valid(const std::string &prompt)
 		{
 			clearerr(stdin);
 			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			// std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "EOF detected. Please enter valid input." << std::endl;
 		}
 		else if (input.empty())
@@ -31,6 +30,7 @@ std::string getline_valid(const std::string &prompt)
 	}
 }
 
+	
 int getInteger(int save_contact)
 {
 	std::string input;
@@ -52,10 +52,17 @@ int getInteger(int save_contact)
 		}
 		else
 			return printIndex;
-		std::cin.clear();
 	}
 	else
+	{
+		if (std::cin.eof())
+		{
+			clearerr(stdin);
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
 		std::cout << "That's not an integer." << std::endl;
+	}
 	return -1;
 }
 

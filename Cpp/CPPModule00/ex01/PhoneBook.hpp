@@ -5,7 +5,7 @@
 # include <iomanip>
 # include <sstream>
 # include <cstdio>
-# include <stdlib.h>
+# include <cstdlib>
 # include <limits>
 # include "Contact.hpp"
 
