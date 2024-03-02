@@ -1,14 +1,12 @@
 NAME		= 	a.out
 SRCS		= 	main.cpp\
-				HumanA.cpp\
-				HumanB.cpp\
-				Weapon.cpp
-			
+				FileManager.cpp\
+				ReplaceString.cpp
+
 OBJS		=	$(SRCS:.cpp=.o)
 
-HEADER		=	HumanA.hpp\
-				HumanB.hpp\
-				Weapon.hpp
+HEADER		=	FileManager.hpp\
+				ReplaceString.hpp
 
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 
