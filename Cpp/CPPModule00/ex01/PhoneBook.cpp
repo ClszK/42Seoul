@@ -113,8 +113,7 @@ void PhoneBook::searchContact()
 		std::cout << "Contact does not exist" << std::endl;
 		return;
 	}
-	std::cout << std::endl
-			  << std::right;
+	std::cout << std::endl;
 	printColumn("Index");
 	printColumn("FirstName");
 	printColumn("LastName");

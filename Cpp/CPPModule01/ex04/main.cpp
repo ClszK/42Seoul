@@ -9,8 +9,16 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  FileManager fm(argv[1]);
-  ReplaceString rs(argv[2], argv[3]);
+  std::string filename = argv[1];
+  std::string before_str = argv[2];
+  std::string after_str = argv[3];
+
+  if (before_str.length() == 0) {
+    std::cout << "Empty before str" << std::endl;
+    return 0;
+  }
+
+  FileManager fm(filename, before_str, after_str);
 
   if (!fm.OpenAndCreateFile()) {
     std::cerr << "Fail Open File" << std::endl;
@@ -19,11 +27,15 @@ int main(int argc, char* argv[]) {
 
   std::string rline;
 
-  while (fm.GetlineInFile(rline)) {
-    rs.Replace(rline);
-    std::cout << rline << std::endl;
+  while (fm.ioState() == std::ios_base::goodbit) {
+    fm.GetlineInFile(rline);
     fm.WriteLineInFile(rline);
   }
 
-  return 0;
+  if (fm.ioState() & std::ios_base::eofbit)
+    return 0;
+  else {
+    std::cerr << "Error I/O System." << std::endl;
+    return 1;
+  }
 }
