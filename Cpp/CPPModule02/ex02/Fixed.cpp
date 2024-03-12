@@ -82,12 +82,15 @@ bool Fixed::operator!=(const Fixed& ref) const {
 }
 
 Fixed Fixed::operator+(const Fixed& ref) const {
-  Fixed temp(fixed_point_num_ + ref.fixed_point_num_);
+  Fixed temp;
+
+  temp.fixed_point_num_ = (fixed_point_num_ + ref.fixed_point_num_);
   return temp;
 }
 
 Fixed Fixed::operator-(const Fixed& ref) const {
-  Fixed temp(fixed_point_num_ - ref.fixed_point_num_);
+  Fixed temp;
+  temp.fixed_point_num_ = (fixed_point_num_ - ref.fixed_point_num_);
   return temp;
 }
 
