@@ -52,14 +52,17 @@ void Harl::complain(std::string level) {
       std::cout << "[ DEBUG ]" << std::endl;
       (this->*func_arr_ptr_[DEBUG])();
       std::cout << std::endl;
+      //fallthrough
     case INFO:
       std::cout << "[ INFO ]" << std::endl;
       (this->*func_arr_ptr_[INFO])();
       std::cout << std::endl;
+      //fallthrough
     case WARNING:
       std::cout << "[ WARNING ]" << std::endl;
       (this->*func_arr_ptr_[WARNING])();
       std::cout << std::endl;
+      //fallthrough
     case ERROR:
       std::cout << "[ ERROR ]" << std::endl;
       (this->*func_arr_ptr_[ERROR])();
