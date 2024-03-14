@@ -16,9 +16,9 @@ FileManager::~FileManager() {
 std::ios_base::iostate FileManager::ioState() const { return io_state_; }
 
 bool FileManager::OpenAndCreateFile() {
-  in_file_.open(original_filename_);
+  in_file_.open(original_filename_.c_str());
   if (!in_file_.is_open()) return false;
-  out_file_.open(new_filename_);
+  out_file_.open(new_filename_.c_str());
   if (!out_file_.is_open()) return false;
   return true;
 }
