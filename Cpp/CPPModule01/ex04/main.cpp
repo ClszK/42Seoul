@@ -1,7 +1,4 @@
-#include <iostream>
-
 #include "FileManager.hpp"
-#include "ReplaceString.hpp"
 
 int main(int argc, char* argv[]) {
   if (argc != 4) {

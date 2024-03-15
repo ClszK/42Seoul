@@ -18,8 +18,10 @@ std::ios_base::iostate FileManager::ioState() const { return io_state_; }
 bool FileManager::OpenAndCreateFile() {
   in_file_.open(original_filename_.c_str());
   if (!in_file_.is_open()) return false;
+
   out_file_.open(new_filename_.c_str());
   if (!out_file_.is_open()) return false;
+
   return true;
 }
 
@@ -32,6 +34,7 @@ void FileManager::WriteLineInFile(std::string& line) {
   replace_obj_.Replace(line);
   out_file_ << line;
   if (in_file_.eof()) return;
+
   out_file_ << std::endl;
   io_state_ = out_file_.rdstate();
 }
