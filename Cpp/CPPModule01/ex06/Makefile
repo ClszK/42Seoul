@@ -6,7 +6,7 @@ OBJS		=	$(SRCS:.cpp=.o)
 
 HEADER		=	Harl.hpp
 
-CXX			=	c++
+CXX			=	clang++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 
 
 all:	$(NAME)
