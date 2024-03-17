@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 #include "Point.hpp"
@@ -34,9 +35,9 @@ int main(void) {
   {
     Point a(-1, -1), b(1, -1), c(0, 2), p(-0.5, 1);
     bsp(a, b, c, p);
-  }  // 내부
+  }  // 외부
   {
-    Point a(-1, -1), b(1, -1), c(0, 2), p(0.5, 1);
+    Point a(-1, -1), b(1, -1), c(0, 2), p(0.5, 0.5);
     bsp(a, b, c, p);
   }  // 내부
   {

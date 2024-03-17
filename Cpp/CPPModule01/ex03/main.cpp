@@ -22,5 +22,7 @@ int main() {
     HumanB jim("Jim");
     jim.attack();
   }
+  system("leaks a.out");
+
   return 0;
 }

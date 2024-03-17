@@ -13,8 +13,6 @@ class ClapTrap {
  public:
   ClapTrap();
   ClapTrap(const std::string& name);
-  ClapTrap(const std::string& name, unsigned int health, unsigned int energy,
-           unsigned int damage);
   ClapTrap(const ClapTrap& other);
   ClapTrap& operator=(const ClapTrap& other);
   ~ClapTrap();

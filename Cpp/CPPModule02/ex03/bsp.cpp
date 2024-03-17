@@ -19,6 +19,10 @@ bool bsp(Point const a, Point const b, Point const c, Point const point) {
   float bc_bp_inner = bp_vec.innerProduct(bc_norm);
   float ca_cp_inner = cp_vec.innerProduct(ca_norm);
 
+  //   std::cout << ab_ap_inner << std::endl;
+  //   std::cout << bc_bp_inner << std::endl;
+  //   std::cout << ca_cp_inner << std::endl;
+
   std::cout << std::endl << point << std::endl;
   if ((ab_ap_inner > 0 && bc_bp_inner > 0 && ca_cp_inner > 0) ||
       (ab_ap_inner < 0 && bc_bp_inner < 0 && ca_cp_inner < 0)) {

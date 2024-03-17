@@ -1,37 +1,34 @@
-#include "ScavTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main() {
-  ClapTrap aa;
+  ClapTrap clap("CLAP");
   std::cout << std::endl;
 
-  ScavTrap a;
+  DiamondTrap dia("DIA");
   std::cout << std::endl;
 
-  ScavTrap b("AA");
+  dia.whoAmI();
   std::cout << std::endl;
 
-  ScavTrap c(b);
+  dia.attack("CLAP");
+  clap.attack("CLAP");
   std::cout << std::endl;
 
-  aa.attack("AA");
-  b.attack("AA");
+  dia.takeDamage(dia.getDamage());
+  clap.takeDamage(dia.getDamage());
   std::cout << std::endl;
 
-  aa.takeDamage(a.getDamage());
-  b.takeDamage(a.getDamage());
+  dia.beReparied(10);
+  clap.beReparied(10);
   std::cout << std::endl;
 
-  aa.beReparied(5);
-  b.beReparied(5);
+  DiamondTrap a;
   std::cout << std::endl;
 
-  a.guardGate();
+  DiamondTrap b(a);
   std::cout << std::endl;
 
-  a = b;
-  a.guardGate();
-  std::cout << std::endl;
-
+  a = dia;
   std::cout << "Name : " << a.getName() << std::endl;
   std::cout << "Health: " << a.getHealth() << std::endl;
   std::cout << "Energy: " << a.getEnergy() << std::endl;

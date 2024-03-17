@@ -1,24 +1,12 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : name_("default"), health_(10), energy_(10), damage_(0) {
+ClapTrap::ClapTrap() : name_("DEFAULT"), health_(10), energy_(10), damage_(0) {
   std::cout << "ClapTrap Default Constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string& name)
     : name_(name), health_(10), energy_(10), damage_(0) {
-  std::cout << "ClapTrap Constructor called with " << name << "." << std::endl;
-  std::cout << "Health : " << health_ << std::endl
-            << "Energy : " << energy_ << std::endl
-            << "Damage : " << damage_ << std::endl;
-}
-
-ClapTrap::ClapTrap(const std::string& name, unsigned int health,
-                   unsigned int energy, unsigned int damage)
-    : name_(name), health_(health), energy_(energy), damage_(damage) {
-  std::cout << "ClapTrap Constructor called with " << name << ". " << std::endl;
-  std::cout << "Health : " << health_ << std::endl
-            << "Energy : " << energy_ << std::endl
-            << "Damage : " << damage_ << std::endl;
+  std::cout << "ClapTrap Constructor called." << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) {
@@ -27,7 +15,7 @@ ClapTrap::ClapTrap(const ClapTrap& other) {
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
-  std::cout << "ClapTrap Copy assignment operator called" << std::endl;
+  std::cout << "ClapTrap assignment operator called" << std::endl;
 
   if (this != &other) {
     name_ = other.name_;

@@ -1,35 +1,37 @@
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main() {
   ClapTrap aa;
   std::cout << std::endl;
 
-  ScavTrap a;
+  FragTrap a("AA");
   std::cout << std::endl;
 
-  ScavTrap b("AA");
+  FragTrap b;
   std::cout << std::endl;
 
-  ScavTrap c(b);
+  FragTrap c(a);
   std::cout << std::endl;
 
-  aa.attack("AA");
-  b.attack("AA");
+  b = a;
+  std::cout << std::endl;
+
+  aa.attack("TEST");
+  a.attack("TEST");
   std::cout << std::endl;
 
   aa.takeDamage(a.getDamage());
   b.takeDamage(a.getDamage());
   std::cout << std::endl;
 
-  aa.beReparied(5);
-  b.beReparied(5);
+  aa.beReparied(10);
+  b.beReparied(10);
   std::cout << std::endl;
 
-  a.guardGate();
+  c.highFivesGuys();
   std::cout << std::endl;
 
   a = b;
-  a.guardGate();
   std::cout << std::endl;
 
   std::cout << "Name : " << a.getName() << std::endl;
