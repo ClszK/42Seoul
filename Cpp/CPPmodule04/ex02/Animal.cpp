@@ -21,8 +21,4 @@ Animal &Animal::operator=(const Animal &other) {
   return *this;
 }
 
-void Animal::makeSound() const {
-  std::cout << "Don't have Animal Type!" << std::endl;
-}
-
 const std::string &Animal::getType() const { return type_; }

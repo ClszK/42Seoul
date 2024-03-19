@@ -17,6 +17,8 @@ int main() {
   {
     const Animal* arr[10];
     const Dog dog;
+    std::cout << std::endl;
+
     const Cat cat;
     std::cout << std::endl;
 
@@ -35,19 +37,27 @@ int main() {
 
   std::cout << std::endl;
   std::cout << std::endl;
+  {
+    Dog a;
+    std::cout << std::endl;
 
-  Dog a;
-  Dog b;
-  std::cout << std::endl;
-  std::cout << std::endl;
+    Dog b = a;
+    std::cout << std::endl;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
 
-  a = b;
+    Cat aa;
+    std::cout << std::endl;
 
-  Cat aa;
-  Cat bb;
-  aa = bb;
-  std::cout << std::endl;
-  std::cout << std::endl;
+    Cat bb;
+    std::cout << std::endl;
+
+    aa = bb;
+    std::cout << std::endl;
+    std::cout << std::endl;
+  }
 
   return 0;
 }

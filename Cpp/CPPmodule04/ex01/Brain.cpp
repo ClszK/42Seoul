@@ -26,7 +26,3 @@ Brain &Brain::operator=(const Brain &other) {
 }
 
 const std::string *Brain::getIdea() const { return ideas_; }
-
-void Brain::setIdea(const std::string type, size_t index) {
-  ideas_[index] = type;
-}

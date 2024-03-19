@@ -17,5 +17,6 @@ class Animal {
   Animal &operator=(const Animal &other);
 
   virtual void makeSound() const;
+
   const std::string &getType() const;
 };
