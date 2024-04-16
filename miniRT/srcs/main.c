@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeholee <jeholee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ljh <ljh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 17:54:01 by jeholee           #+#    #+#             */
-/*   Updated: 2024/04/14 23:36:13 by jeholee          ###   ########.fr       */
+/*   Updated: 2024/04/15 02:31:59 by ljh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include <stdio.h>
+
+t_bool hit_sphere(const t_point3 *center, double radius, const t_ray *r) {
+    t_vec3	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+
+	oc = vec3_sub(center, &r->orig);
+    a = vec3_dot(&r->dir, &r->dir);
+    b = -2.0 * vec3_dot(&r->dir, &oc);
+    c = vec3_dot(&oc, &oc) - radius * radius;
+    discriminant = b * b - 4 * a * c;
+    return (discriminant >= 0);
+}
 
 t_color	ray_color(const t_ray *r)
 {
@@ -19,7 +34,14 @@ t_color	ray_color(const t_ray *r)
 	double	t;
 	t_color	color1;
 	t_color	color2;
+	t_point3 center;
 
+	vec3_init(&center, 0, 0, -1);
+	if (hit_sphere(&center, 0.5, r))
+	{
+		color_init(&color1, 1, 0, 0);
+        return color1;
+	}
 	unit_direction = vec3_unit_vec(&r->dir);
 	t = 0.5 * (unit_direction.y + 1.0);
 	color_init(&color1, 1.0, 1.0, 1.0);
@@ -94,8 +116,8 @@ int main()
 	pixel00_loc = vec3_add(&viewport_upper_left, &delta_mul_2);
 
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 500, 500, "Hellow World!");
-	image.img = mlx_new_image(vars.mlx, 500, 500); // 이미지 객체 생성
+	vars.win = mlx_new_window(vars.mlx, image_width, image_height, "Hellow World!");
+	image.img = mlx_new_image(vars.mlx, image_width, image_height); // 이미지 객체 생성
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian); // 이미지 주소 할당
 
 	t_vec3	pixel_center;
@@ -108,18 +130,17 @@ int main()
 	{
 		for (int j = 0 ; j < image_width; j++)
 		{
-			pixel_delta_u_mul = vec3_mul_scal(&pixel_delta_u, i);
-			pixel_delta_v_mul = vec3_mul_scal(&pixel_delta_v, j);
+			pixel_delta_u_mul = vec3_mul_scal(&pixel_delta_u, j);
+			pixel_delta_v_mul = vec3_mul_scal(&pixel_delta_v, i);
 			pixel_center = pixel00_loc;
-			pixel_center = vec3_add(&pixel00_loc, &pixel_delta_u_mul);
-			pixel_center = vec3_add(&pixel00_loc, &pixel_delta_v_mul);
+			pixel_center = vec3_add(&pixel_center, &pixel_delta_u_mul);
+			pixel_center = vec3_add(&pixel_center, &pixel_delta_v_mul);
 			ray_direction = vec3_sub(&pixel_center, &camera_center);
 			ray_init(&ray, &camera_center, &ray_direction);
 
 			color = ray_color(&ray);
-			my_mlx_pixel_put(&image, i, j, rgb_to_int(0, &color)); 
+			my_mlx_pixel_put(&image, j, i, rgb_to_int(0, &color)); 
 		}	
-		printf("%f \n", color.y);
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars); // esc key press event
