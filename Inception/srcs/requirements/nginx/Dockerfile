@@ -11,14 +11,14 @@ ENV		SSL_CERT_PATH = ${SSL_CERT_PATH}
 ENV		SSL_SUBJ = ${SSL_SUBJ}
 
 RUN		apk update && apk --no-cache add nginx openssl
-RUN		mkdir -p /etc/nginx/conf.d $SSL_KEY_DIR
+RUN		mkdir -p /etc/nginx/conf.d ${SSL_KEY_DIR}
 
 COPY	./conf/nginx.conf /etc/nginx/nginx.conf
 COPY	./conf/default.conf /etc/nginx/conf.d/default.conf
 
 RUN		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-		-keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt \
-		-subj 
+		-keyout ${SSL_KEY_PATH} -out ${SSL_CERT_PATH} \
+		-subj ${SSL_SUBJ}
 
 EXPOSE 443
 
