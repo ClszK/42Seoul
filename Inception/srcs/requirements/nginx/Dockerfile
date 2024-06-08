@@ -13,17 +13,18 @@ ENV		SSL_CERT_PATH=${SSL_CERT_PATH}
 
 RUN		apk update && apk --no-cache add nginx openssl gettext
 RUN		mkdir -p /etc/nginx/conf.d ${SSL_KEY_DIR}
+RUN mkdir -p /usr/local/bin && chmod 755 /usr/local/bin
 
 COPY	./conf/nginx.conf /etc/nginx/nginx.conf
 COPY	./conf/default.conf.template /etc/nginx/conf.d/default.conf.template
-COPY	./tools/docker-entrypoint.sh /docker-entrypoint.sh
+COPY	./tools/docker-entrypoint.sh /usr/local/bin/
 
-RUN		chmod +x /docker-entrypoint.sh
+RUN		chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 		-keyout ${SSL_KEY_PATH} -out ${SSL_CERT_PATH} \
 		-subj "$SSL_SUBJ"
 
 EXPOSE	443
 
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 CMD		["nginx", "-g", "daemon off;"]
