@@ -1,37 +1,43 @@
-FROM	alpine:3.19
+FROM alpine:3.19
 
-RUN		addgroup -S www-data && adduser -S -G www-data www-data
+# Install required packages and PHP extensions
+RUN apk update && apk add --no-cache \
+        php82 \
+        php82-fpm \
+        php82-mysqli \
+        php82-json \
+        php82-opcache \
+        php82-gd \
+        php82-zlib \
+        php82-xml \
+        php82-phar \
+        php82-mbstring \
+        php82-curl \
+        php82-session \
+        php82-zip \
+        mariadb-client \
+        curl \
+        bash
 
-RUN		apk update && apk add --no-cache \
-		php7 \
-		php7-fpm \
-		php7-mysqli \
-		php7-json \
-		php7-curl \
-		php7-xml \
-		php7-mbstring \
-		php7-dom \
-		php7-session \
-		php7-zlib \
-		php7-opcache \
-		php7-gd \
-		php7-zip \
-		curl \
-		tar \
-		mariadb-client \
-		&& rm -rf /var/cache/apk/*
+# Install WordPress CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
 
-COPY	./conf/php-fpm.conf /etc/php7/php-fpm.d/www.conf
+# Set up the document root
+WORKDIR /var/www/html
 
-RUN		curl -O https://wordpress.org/latest.tar.gz && \
-		tar -zxvf latest.tar.gz && \
-		mv wordpress /var/www/html && \
-		chown -R www-data:www-data /var/www/html && \
-		rm latest.tar.gz
+# Copy PHP-FPM configuration file
+COPY ./conf/php-fpm.conf /etc/php82/php-fpm.d/www.conf
+COPY ./tools/docker-entrypoint.sh /usr/local/bin
 
-COPY	./tools/wp-init.sh /usr/local/bin/wp-init.sh
-RUN		chmod +x /usr/local/bin/wp-init.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-EXPOSE	9000
+# Set permissions
+RUN chown -R nobody:nobody /var/www/html
 
-CMD		["sh", "-c", "/usr/local/bin/wp-init.sh && php-fpm7 -F"]
+EXPOSE 9000
+
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
+
+CMD [ "php-fpm82", "-F" ]
