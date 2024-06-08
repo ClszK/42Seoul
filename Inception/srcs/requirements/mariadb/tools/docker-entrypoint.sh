@@ -2,7 +2,7 @@
 
 set -e
 
-if [ ! -f /var/lib/mysql/.initialized ]; then
+if [ ! -f /var/lib/mysql/initialized ]; then
     echo 'Initializing database...'
     mysql_install_db --user=root --datadir=/var/lib/mysql
     chown -R mysql:mysql /var/lib/mysql
@@ -47,7 +47,7 @@ EOSQL
 	
     sleep 5
 
-    touch /var/lib/mysql/.initialized
+    touch /var/lib/mysql/initialized
     echo 'MariaDB init process done. Ready for start up.'
 fi
 
