@@ -9,6 +9,7 @@ services:
         SSL_CERT_PATH: ${SSL_CERT_PATH} 
         SSL_SUBJ: ${SSL_SUBJ} 
         SSL_KEY_PATH: ${SSL_KEY_PATH} 
+    image: nginx
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
       SSL_KEY_PATH: ${SSL_KEY_PATH} 
@@ -26,6 +27,7 @@ services:
   
   mariadb:
     build: ./requirements/mariadb
+    image: mariadb
     restart: always
     container_name: mariadb
     environment:
@@ -42,6 +44,7 @@ services:
   
   wordpress:
     build: ./requirements/wordpress
+    image: wordpress
     restart: always
     container_name: wordpress
     volumes:
