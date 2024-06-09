@@ -17,7 +17,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - /home/${USER}/wordpress:/var/www/html
+      - /home/${USER}/data/wordpress:/var/www/html
     depends_on:
       - wordpress
     networks:
