@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
+DOCKER_COMPOSE = docker compose -f srcs/docker-compose.yml
 DOCKER_EXEC = docker exec -it
 DOCKER_PS = docker ps
 
