@@ -1,19 +1,13 @@
 DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
-DOCKER_BUILD = docker build
-DOCKER_RUN = docker run
-DOCKER_EXEC = docker exec
-DOCKER_RM = docker rm
-DOCKER_RMI = docker rmi
+DOCKER_EXEC = docker exec -it
 DOCKER_PS = docker ps
-
-.PHONY: all build up down clean fclean re
 
 all: build up
 
 build:
 	mkdir -p /home/${USER}/data/mariadb
 	mkdir -p /home/${USER}/data/wordpress
-	$(DOCKER_COMPOSE) build
+	$(DOCKER_COMPOSE) build --parallel
 
 up:
 	$(DOCKER_COMPOSE) up
@@ -29,26 +23,28 @@ fclean: clean
 
 re: fclean all 
 
-build-mariadb:
-	$(DOCKER_BUILD) -t custom-mariadb srcs/requirements/mariadb
-
-build-nginx:
-	$(DOCKER_BUILD) -t custom-nginx srcs/requirements/nginx
-
-build-wordpress:
-	$(DOCKER_BUILD) -t custom-wordpress srcs/requirements/wordpress
-
 run-mariadb:
-	$(DOCKER_RUN) -d --name mariadb custom-mariadb
+	$(DOCKER_COMPOSE) up mariadb
 
 run-nginx:
-	$(DOCKER_RUN) -d --name nginx custom-nginx
+	$(DOCKER_COMPOSE) up nginx
 
 run-wordpress:
-	$(DOCKER_RUN) -d --name wordpress custom-wordpress
+	$(DOCKER_COMPOSE) up wordpress
+
+exec-mariadb:
+	$(DOCKER_EXEC) mariadb /bin/sh
+
+exec-nginx:
+	$(DOCKER_EXEC) nginx /bin/sh
+
+exec-wordpress:
+	$(DOCKER_EXEC) wordpress /bin/sh
 
 logs:
 	$(DOCKER_COMPOSE) logs -f
 
 ps:
 	$(DOCKER_PS)
+
+.PHONY: all build up down clean fclean re
