@@ -30,7 +30,8 @@ if [ ! -f wp-config.php ]; then
     --dbname="$WORDPRESS_DB_NAME" \
     --dbuser="$WORDPRESS_DB_USER" \
     --dbpass="$WORDPRESS_DB_PASSWORD" \
-    --dbhost="$WORDPRESS_DB_HOST" --allow-root 
+    --dbhost="$WORDPRESS_DB_HOST" \
+    --allow-root 
 fi
 
 # Check if WordPress is installed, if not install it
@@ -42,7 +43,16 @@ if ! wp core is-installed --allow-root; then
     --admin_user="$WORDPRESS_ADMIN_USER" \
     --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
     --admin_email="$WORDPRESS_ADMIN_EMAIL" \
-    --skip-email --allow-root
+    --skip-email \
+    --allow-root
+  wp user create jehoon dlwpgns0@gmail.com \
+	  --user_pass=1234 \
+	  --role=author \
+	  --allow-root
+  wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL \
+	  --user_pass= $WORDPRESS_USER_PASSWORD \
+	  --role=author \
+	
 fi
 
 echo "Start php-fpm82"
