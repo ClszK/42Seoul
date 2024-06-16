@@ -27,9 +27,9 @@ fi
 if [ ! -f wp-config.php ]; then
   echo "Creating wp-config.php..."
   wp config create \
-    --dbname="$WORDPRESS_DB_NAME" \
-    --dbuser="$WORDPRESS_DB_USER" \
-    --dbpass="$WORDPRESS_DB_PASSWORD" \
+    --dbname="$MYSQL_DATABASE" \
+    --dbuser="$MYSQL_USER" \
+    --dbpass="$MYSQL_PASSWORD" \
     --dbhost="$WORDPRESS_DB_HOST" \
     --allow-root 
 fi
@@ -44,27 +44,12 @@ if ! wp core is-installed --allow-root; then
     --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
     --admin_email="$WORDPRESS_ADMIN_EMAIL" \
     --skip-email \
-<<<<<<< HEAD
     --allow-root
-  wp user create jehoon dlwpgns0@gmail.com \
-	  --user_pass=1234 \
-	  --role=author \
-	  --allow-root
-  wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL \
-	  --user_pass= $WORDPRESS_USER_PASSWORD \
-	  --role=author \
-	
-=======
-	--allow-root
 
   wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL \
-	--user_pass=$WORDPRESS_USER_PASSWORD \
-	--role=author \
-	--allow-root
->>>>>>> refs/remotes/origin/main
-fi
-
-
+    --user_pass= $WORDPRESS_USER_PASSWORD \
+    --role=author \
+    --allow-root
 
 echo "Start php-fpm82"
 # Keep the container running
