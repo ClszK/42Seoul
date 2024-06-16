@@ -6,14 +6,11 @@ ARG		SSL_KEY_PATH
 ARG		SSL_CERT_PATH
 ARG		SSL_SUBJ
 
-# 환경 변수
-ENV		DOMAIN_NAME=${DOMAIN_NAME}
-ENV		SSL_KEY_PATH=${SSL_KEY_PATH}
-ENV		SSL_CERT_PATH=${SSL_CERT_PATH}
-
-RUN		apk update && apk --no-cache add nginx openssl gettext
-RUN		mkdir -p /etc/nginx/conf.d ${SSL_KEY_DIR}
-RUN mkdir -p /usr/local/bin && chmod 755 /usr/local/bin
+RUN		apk update && apk --no-cache add nginx \
+										 openssl \
+										 gettext
+RUN		mkdir -p /etc/nginx/conf.d ${SSL_KEY_DIR} /usr/local/bin
+RUN		chmod 755 /usr/local/bin
 
 COPY	./conf/nginx.conf /etc/nginx/nginx.conf
 COPY	./conf/default.conf.template /etc/nginx/conf.d/default.conf.template
