@@ -1,6 +1,14 @@
 #!/bin/sh
 set -e
 
+# Change to the WordPress directory
+cd /var/www/html
+
+if [ ! -f wp-load.php ]; then
+    echo "Downloading WordPress..."
+    wp core download --allow-root
+fi
+
 for i in {30..0}; do
   if timeout 10s mysqladmin ping -h "$WORDPRESS_DB_HOST" --silent; then
     break
@@ -12,15 +20,6 @@ done
 if [ "$i" = 0 ]; then
   echo >&2 'MySQL not available after 30 attempts, exiting.'
   exit 1
-fi
-
-# Change to the WordPress directory
-cd /var/www/html
-
-
-if [ ! -f wp-load.php ]; then
-    echo "Downloading WordPress..."
-    wp core download --allow-root
 fi
 
 # Check if wp-config.php exists, if not create it
@@ -50,8 +49,8 @@ if ! wp core is-installed --allow-root; then
     --user_pass="$WORDPRESS_USER_PASSWORD" \
     --role=author \
     --allow-root
+fi
 
 echo "Start php-fpm82"
 # Keep the container running
 exec "$@"
-
