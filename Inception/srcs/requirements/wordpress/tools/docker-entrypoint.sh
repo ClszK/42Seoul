@@ -47,10 +47,11 @@ if ! wp core is-installed --allow-root; then
     --allow-root
 
   wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL \
-    --user_pass= $WORDPRESS_USER_PASSWORD \
+    --user_pass="$WORDPRESS_USER_PASSWORD" \
     --role=author \
     --allow-root
 
 echo "Start php-fpm82"
 # Keep the container running
 exec "$@"
+
