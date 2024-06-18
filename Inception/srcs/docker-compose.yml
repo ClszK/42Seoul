@@ -35,8 +35,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - /home/${USER}/data/mariadb:/var/lib/mysql
-    ports:
-      - "3306:3306"
+    expose:
+      - '3306'
     networks: 
       - webnet
   
@@ -60,8 +60,8 @@ services:
       WORDPRESS_USER: ${WORDPRESS_USER}
       WORDPRESS_USER_EMAIL: ${WORDPRESS_USER_EMAIL}
       WORDPRESS_USER_PASSWORD: ${WORDPRESS_USER_PASSWORD}
-    ports:
-      - "9000:9000"
+    expose:
+      - '9000'
     depends_on:
       - mariadb
     networks:
