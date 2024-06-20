@@ -19,7 +19,9 @@ clean:
 	$(DOCKER_COMPOSE) down --rmi all
 
 fclean: clean
-	rm -rf /home/${USER}/data/*
+	rm -rf /home/${USER}/data/mariadb
+	rm -rf /home/${USER}/data/wordpress
+	docker volume rm web_data db_data
 
 re: fclean all 
 
