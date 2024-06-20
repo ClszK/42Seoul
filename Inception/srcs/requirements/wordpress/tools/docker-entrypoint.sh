@@ -1,6 +1,14 @@
 #!/bin/sh
 set -e
 
+# Change to the WordPress directory
+cd /var/www/html
+
+if [ ! -f wp-load.php ]; then
+    echo "Downloading WordPress..."
+    wp core download --allow-root
+fi
+
 for i in {30..0}; do
   if timeout 10s mysqladmin ping -h "$WORDPRESS_DB_HOST" --silent; then
     break
@@ -14,23 +22,15 @@ if [ "$i" = 0 ]; then
   exit 1
 fi
 
-# Change to the WordPress directory
-cd /var/www/html
-
-
-if [ ! -f wp-load.php ]; then
-    echo "Downloading WordPress..."
-    wp core download --allow-root
-fi
-
 # Check if wp-config.php exists, if not create it
 if [ ! -f wp-config.php ]; then
   echo "Creating wp-config.php..."
   wp config create \
-    --dbname="$WORDPRESS_DB_NAME" \
-    --dbuser="$WORDPRESS_DB_USER" \
-    --dbpass="$WORDPRESS_DB_PASSWORD" \
-    --dbhost="$WORDPRESS_DB_HOST" --allow-root 
+    --dbname="$MYSQL_DATABASE" \
+    --dbuser="$MYSQL_USER" \
+    --dbpass="$MYSQL_PASSWORD" \
+    --dbhost="$WORDPRESS_DB_HOST" \
+    --allow-root 
 fi
 
 # Check if WordPress is installed, if not install it
