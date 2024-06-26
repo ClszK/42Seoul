@@ -49,7 +49,5 @@ int main() {
   std::cout << std::endl;
   std::cout << std::endl;
 
-  Animal a;
-
   return 0;
 }
