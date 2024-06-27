@@ -1,0 +1,45 @@
+\doxysection{Bureaucrat.\+hpp}
+\hypertarget{_bureaucrat_8hpp_source}{}\label{_bureaucrat_8hpp_source}\mbox{\hyperlink{_bureaucrat_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_a_form_8hpp}{AForm.hpp}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_my_exception_8hpp}{MyException.hpp}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_form}{AForm}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\ \{}
+\DoxyCodeLine{00012\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_bureaucrat_1_1_grade_too_high_exception}{GradeTooHighException}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_grade_too_high_exception}{::GradeTooHighException}}\ \{}
+\DoxyCodeLine{00014\ \ \ \};}
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_bureaucrat_1_1_grade_too_low_exception}{GradeTooLowException}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_grade_too_low_exception}{::GradeTooLowException}}\ \{\};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{class_bureaucrat_a598c2cc3ea22f7c73c5a94c6b1c14317}{Bureaucrat}}();}
+\DoxyCodeLine{00018\ \ \ \mbox{\hyperlink{class_bureaucrat_a598c2cc3ea22f7c73c5a94c6b1c14317}{Bureaucrat}}(\textcolor{keyword}{const}\ std::string*\ name,\ \textcolor{keywordtype}{int}\ grade);}
+\DoxyCodeLine{00019\ \ \ \mbox{\hyperlink{class_bureaucrat_a598c2cc3ea22f7c73c5a94c6b1c14317}{Bureaucrat}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{int}\ grade);}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{class_bureaucrat_a598c2cc3ea22f7c73c5a94c6b1c14317}{Bureaucrat}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\&\ other);}
+\DoxyCodeLine{00021\ \ \ \mbox{\hyperlink{class_bureaucrat_a96bc9c71f9eeb813d03043f33b8c34a0}{\string~Bureaucrat}}();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ std::string\ \mbox{\hyperlink{class_bureaucrat_a931c3ca6b6f696ea65a2fc4237f8bf43}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_bureaucrat_a71bd26b16a52d3e414d8e443d5015fc2}{getGrade}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bureaucrat_a3b7c8ce775203d516fc9fbdd6c2c4f98}{incrementGrade}}();}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bureaucrat_a3d1d5cfcac452d8204d4a14821e81971}{decrementGrade}}();}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bureaucrat_a60a58d3bfdcbf2af4687425066a7b543}{validateGrade}}(\textcolor{keywordtype}{int}\ grade);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bureaucrat_a93d3fa241693bdaf88971b1d376ab4e5}{signForm}}(\mbox{\hyperlink{class_a_form}{AForm}}\&\ form)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bureaucrat_a92b683b6b595b6d540ca61f98178ce31}{executeForm}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_form}{AForm}}\&\ form);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{const}\ std::string\ mName;}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{int}\ mGrade;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\&\ other);}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ std::ostream\&\ \mbox{\hyperlink{_bureaucrat_8hpp_a267244b2dd99943656bfe014f0f75a19}{operator<<}}(std::ostream\&\ os,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\&\ brc);}
+
+\end{DoxyCode}

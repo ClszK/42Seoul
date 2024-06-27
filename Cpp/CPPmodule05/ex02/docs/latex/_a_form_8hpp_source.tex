@@ -1,0 +1,52 @@
+\doxysection{AForm.\+hpp}
+\hypertarget{_a_form_8hpp_source}{}\label{_a_form_8hpp_source}\mbox{\hyperlink{_a_form_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_bureaucrat_8hpp}{Bureaucrat.hpp}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_my_exception_8hpp}{MyException.hpp}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_bureaucrat}{Bureaucrat}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_form}{AForm}}\ \{}
+\DoxyCodeLine{00012\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_form_1_1_grade_too_high_exception}{GradeTooHighException}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_grade_too_high_exception}{::GradeTooHighException}}\ \{}
+\DoxyCodeLine{00014\ \ \ \};}
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_form_1_1_grade_too_low_exception}{GradeTooLowException}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_grade_too_low_exception}{::GradeTooLowException}}\ \{\};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{class_a_form_a890ed819f08cc1578096b07d784508b3}{AForm}}();}
+\DoxyCodeLine{00018\ \ \ \mbox{\hyperlink{class_a_form_a890ed819f08cc1578096b07d784508b3}{AForm}}(\textcolor{keyword}{const}\ std::string*\ name,\ \textcolor{keywordtype}{int}\ requiredGrade,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ executedGrade);}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{class_a_form_a890ed819f08cc1578096b07d784508b3}{AForm}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{int}\ requiredGrade,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ executedGrade);}
+\DoxyCodeLine{00022\ \ \ \mbox{\hyperlink{class_a_form_a890ed819f08cc1578096b07d784508b3}{AForm}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_form}{AForm}}\&\ other);}
+\DoxyCodeLine{00023\ \ \ \mbox{\hyperlink{class_a_form_a3e4c066bf196c81fe54d536fd3d73f86}{\string~AForm}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ std::string\ \mbox{\hyperlink{class_a_form_a54ee5d90a3ed1081c8f99ea094cb8cf0}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_form_a46c4c847ba0727507f015a5b52cf8c0f}{getBeSigned}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_a_form_a4b6cc8bf1d73fba074c82846f5612e03}{getRequiredGrade}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_a_form_a634bf3bff7fd57abb8ad3408afebcd49}{getExecutedGrade}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_form_a96393ca39157e80875f39b92b0186184}{beSigned}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\&\ brc);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_form_ac392915ab53bee9d1224d129991b067f}{validateGradeAForm}}(\textcolor{keywordtype}{int}\ requiredGrade,\ \textcolor{keywordtype}{int}\ executedGrade);}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_form_a5d0b2bc359b04f594e6fd2e1925100ee}{execute}}(\mbox{\hyperlink{class_bureaucrat}{Bureaucrat}}\ \textcolor{keyword}{const}\&\ executor)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{const}\ std::string\ mName;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{bool}\ mBeSigned;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ mRequiredGrade;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ mExecutedGrade;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{class_a_form}{AForm}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_form}{AForm}}\&\ other);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_form_abb358754af3b846ba1293c31b23cd586}{executeFormAction}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ std::ostream\&\ \mbox{\hyperlink{_a_form_8hpp_a925c6b12610d8bfee1ad9f4ea37e225b}{operator<<}}(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_form}{AForm}}\&\ form);}
+\DoxyCodeLine{00047\ }
+
+\end{DoxyCode}

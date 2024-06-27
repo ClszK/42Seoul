@@ -4,7 +4,6 @@ int main() {
   Bureaucrat a("test", 1);
   Bureaucrat b(a);
   Bureaucrat c;
-  c = a;
 
   std::cout << "---------------------" << std::endl;
   std::cout << a << std::endl;

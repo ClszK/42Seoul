@@ -4,38 +4,24 @@ Bureaucrat::Bureaucrat() : mName("default"), mGrade(50) {
   std::cout << mName << " Constructor call." << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const std::string* name, int grade) {
-  (void)name;
-  (void)grade;
-  throw std::invalid_argument("Invalid name!");
+Bureaucrat::Bureaucrat(const std::string* name, int grade)
+    : mName("default"), mGrade(grade) {
+  if (name == NULL) throw std::invalid_argument("Name is NULL.");
+  throw std::invalid_argument("Name Invalid!");
 }
 
-Bureaucrat::Bureaucrat(const std::string& name, int grade) : mName(name) {
+Bureaucrat::Bureaucrat(const std::string& name, int grade)
+    : mName(name), mGrade(grade) {
   std::cout << mName << "'s Constructor call." << std::endl;
 
-  validateGrade(grade);
-  mGrade = grade;
+  validateGrade(mGrade);
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& other) : mName(other.getName()) {
+Bureaucrat::Bureaucrat(const Bureaucrat& other)
+    : mName(other.mName), mGrade(other.mGrade) {
   std::cout << mName << "'s Copy Constructor call." << std::endl;
 
-  int grade = other.getGrade();
-
-  validateGrade(grade);
-  mGrade = grade;
-}
-
-Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
-  std::cout << other.getName() << "'s Assign Constructor call." << std::endl;
-
-  if (this == &other) return *this;
-
-  Bureaucrat temp(other);
-
-  const_cast<std::string&>(mName) = temp.getName();
-  mGrade = temp.getGrade();
-  return *this;
+  validateGrade(mGrade);
 }
 
 Bureaucrat::~Bureaucrat() {
@@ -76,4 +62,20 @@ void Bureaucrat::validateGrade(int grade) {
     std::cerr << mName << "'s ";
     throw GradeTooLowException();
   }
+}
+
+void Bureaucrat::signForm(Form& form) const {
+  try {
+    form.beSigned(*this);
+    std::cout << mName << " signed " << form.getName() << std::endl;
+  } catch (const std::exception& e) {
+    std::cout << mName << " couldn't sign " << form.getName() << " because "
+              << e.what() << std::endl;
+  }
+}
+
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
+  std::cout << other.mName << "'s Copy Assignment Constructor call."
+            << std::endl;
+  return *this;
 }

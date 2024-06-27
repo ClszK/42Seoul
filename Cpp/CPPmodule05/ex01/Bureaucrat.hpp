@@ -3,7 +3,10 @@
 #include <iostream>
 #include <string>
 
+#include "Form.hpp"
 #include "MyException.hpp"
+
+class Form;
 
 class Bureaucrat {
  public:
@@ -14,7 +17,6 @@ class Bureaucrat {
   Bureaucrat(const std::string* name, int grade);
   Bureaucrat(const std::string& name, int grade);
   Bureaucrat(const Bureaucrat& other);
-  Bureaucrat& operator=(const Bureaucrat& other);
   ~Bureaucrat();
 
   std::string getName() const;
@@ -23,9 +25,13 @@ class Bureaucrat {
   void decrementGrade();
   void validateGrade(int grade);
 
+  void signForm(Form& form) const;
+
  private:
   const std::string mName;
   int mGrade;
+
+  Bureaucrat& operator=(const Bureaucrat& other);
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& brc);

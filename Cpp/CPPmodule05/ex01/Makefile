@@ -1,7 +1,8 @@
 NAME        = a.out
 SRCS        = main.cpp\
               Bureaucrat.cpp\
-              MyException.cpp
+              MyException.cpp\
+			  Form.cpp
 
 OBJDIR      = build
 OBJS        = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRCS))

@@ -1,0 +1,149 @@
+\doxysection{AForm Class Reference}
+\hypertarget{class_a_form}{}\label{class_a_form}\index{AForm@{AForm}}
+
+
+{\ttfamily \#include $<$AForm.\+hpp$>$}
+
+
+
+Inheritance diagram for AForm\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_form__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_a_form_1_1_grade_too_high_exception}{Grade\+Too\+High\+Exception}}
+\item 
+class \mbox{\hyperlink{class_a_form_1_1_grade_too_low_exception}{Grade\+Too\+Low\+Exception}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_a_form_a890ed819f08cc1578096b07d784508b3}{AForm}} ()
+\item 
+\mbox{\hyperlink{class_a_form_a24394c7f1e1fe2304d5e1ab065a13075}{AForm}} (const std\+::string \texorpdfstring{$\ast$}{*}name, int required\+Grade, int executed\+Grade)
+\item 
+\mbox{\hyperlink{class_a_form_a412138e9f8be2481c71d3fe45aef4cee}{AForm}} (const std\+::string \&name, int required\+Grade, int executed\+Grade)
+\item 
+\mbox{\hyperlink{class_a_form_a4720ec29121a3885cf9b97e6d1e6d5b8}{AForm}} (const \mbox{\hyperlink{class_a_form}{AForm}} \&other)
+\item 
+\mbox{\hyperlink{class_a_form_a3e4c066bf196c81fe54d536fd3d73f86}{\texorpdfstring{$\sim$}{\string~}\+AForm}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_a_form_a54ee5d90a3ed1081c8f99ea094cb8cf0}{get\+Name}} () const
+\item 
+bool \mbox{\hyperlink{class_a_form_a46c4c847ba0727507f015a5b52cf8c0f}{get\+Be\+Signed}} () const
+\item 
+int \mbox{\hyperlink{class_a_form_a4b6cc8bf1d73fba074c82846f5612e03}{get\+Required\+Grade}} () const
+\item 
+int \mbox{\hyperlink{class_a_form_a634bf3bff7fd57abb8ad3408afebcd49}{get\+Executed\+Grade}} () const
+\item 
+void \mbox{\hyperlink{class_a_form_a96393ca39157e80875f39b92b0186184}{be\+Signed}} (const \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}} \&brc)
+\item 
+void \mbox{\hyperlink{class_a_form_ac392915ab53bee9d1224d129991b067f}{validate\+Grade\+AForm}} (int required\+Grade, int executed\+Grade)
+\item 
+void \mbox{\hyperlink{class_a_form_a5d0b2bc359b04f594e6fd2e1925100ee}{execute}} (\mbox{\hyperlink{class_bureaucrat}{Bureaucrat}} const \&executor) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_a_form_abb358754af3b846ba1293c31b23cd586}{execute\+Form\+Action}} () const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_a_form_a890ed819f08cc1578096b07d784508b3}\index{AForm@{AForm}!AForm@{AForm}}
+\index{AForm@{AForm}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{AForm()}{AForm()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_a_form_a890ed819f08cc1578096b07d784508b3} 
+AForm\+::\+AForm (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_a_form_a24394c7f1e1fe2304d5e1ab065a13075}\index{AForm@{AForm}!AForm@{AForm}}
+\index{AForm@{AForm}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{AForm()}{AForm()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_a_form_a24394c7f1e1fe2304d5e1ab065a13075} 
+AForm\+::\+AForm (\begin{DoxyParamCaption}\item[{const std\+::string \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{int}]{required\+Grade}{, }\item[{int}]{executed\+Grade}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_a_form_a412138e9f8be2481c71d3fe45aef4cee}\index{AForm@{AForm}!AForm@{AForm}}
+\index{AForm@{AForm}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{AForm()}{AForm()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_a_form_a412138e9f8be2481c71d3fe45aef4cee} 
+AForm\+::\+AForm (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{int}]{required\+Grade}{, }\item[{int}]{executed\+Grade}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_a_form_a4720ec29121a3885cf9b97e6d1e6d5b8}\index{AForm@{AForm}!AForm@{AForm}}
+\index{AForm@{AForm}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{AForm()}{AForm()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_a_form_a4720ec29121a3885cf9b97e6d1e6d5b8} 
+AForm\+::\+AForm (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_a_form}{AForm}} \&}]{other}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_a_form_a3e4c066bf196c81fe54d536fd3d73f86}\index{AForm@{AForm}!````~AForm@{\texorpdfstring{$\sim$}{\string~}AForm}}
+\index{````~AForm@{\texorpdfstring{$\sim$}{\string~}AForm}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}AForm()}{\string~AForm()}}
+{\footnotesize\ttfamily \label{class_a_form_a3e4c066bf196c81fe54d536fd3d73f86} 
+AForm\+::\texorpdfstring{$\sim$}{\string~}\+AForm (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_a_form_a96393ca39157e80875f39b92b0186184}\index{AForm@{AForm}!beSigned@{beSigned}}
+\index{beSigned@{beSigned}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{beSigned()}{beSigned()}}
+{\footnotesize\ttfamily \label{class_a_form_a96393ca39157e80875f39b92b0186184} 
+void AForm\+::be\+Signed (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_bureaucrat}{Bureaucrat}} \&}]{brc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_a_form_a5d0b2bc359b04f594e6fd2e1925100ee}\index{AForm@{AForm}!execute@{execute}}
+\index{execute@{execute}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_a_form_a5d0b2bc359b04f594e6fd2e1925100ee} 
+void AForm\+::execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bureaucrat}{Bureaucrat}} const \&}]{executor}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_a_form_abb358754af3b846ba1293c31b23cd586}\index{AForm@{AForm}!executeFormAction@{executeFormAction}}
+\index{executeFormAction@{executeFormAction}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{executeFormAction()}{executeFormAction()}}
+{\footnotesize\ttfamily \label{class_a_form_abb358754af3b846ba1293c31b23cd586} 
+virtual void AForm\+::execute\+Form\+Action (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_presidential_pardon_form_a52692343710bc08c935652aae27b6b1a}{Presidential\+Pardon\+Form}}, \mbox{\hyperlink{class_robotomy_request_form_a03e2328aea8d46f9a98f8952badca107}{Robotomy\+Request\+Form}}, and \mbox{\hyperlink{class_shrubbery_creation_form_aab90ea5d3056d8b19b6b52fe66314113}{Shrubbery\+Creation\+Form}}.
+
+\Hypertarget{class_a_form_a46c4c847ba0727507f015a5b52cf8c0f}\index{AForm@{AForm}!getBeSigned@{getBeSigned}}
+\index{getBeSigned@{getBeSigned}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{getBeSigned()}{getBeSigned()}}
+{\footnotesize\ttfamily \label{class_a_form_a46c4c847ba0727507f015a5b52cf8c0f} 
+bool AForm\+::get\+Be\+Signed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_a_form_a634bf3bff7fd57abb8ad3408afebcd49}\index{AForm@{AForm}!getExecutedGrade@{getExecutedGrade}}
+\index{getExecutedGrade@{getExecutedGrade}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{getExecutedGrade()}{getExecutedGrade()}}
+{\footnotesize\ttfamily \label{class_a_form_a634bf3bff7fd57abb8ad3408afebcd49} 
+int AForm\+::get\+Executed\+Grade (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_a_form_a54ee5d90a3ed1081c8f99ea094cb8cf0}\index{AForm@{AForm}!getName@{getName}}
+\index{getName@{getName}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily \label{class_a_form_a54ee5d90a3ed1081c8f99ea094cb8cf0} 
+std\+::string AForm\+::get\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_a_form_a4b6cc8bf1d73fba074c82846f5612e03}\index{AForm@{AForm}!getRequiredGrade@{getRequiredGrade}}
+\index{getRequiredGrade@{getRequiredGrade}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{getRequiredGrade()}{getRequiredGrade()}}
+{\footnotesize\ttfamily \label{class_a_form_a4b6cc8bf1d73fba074c82846f5612e03} 
+int AForm\+::get\+Required\+Grade (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_a_form_ac392915ab53bee9d1224d129991b067f}\index{AForm@{AForm}!validateGradeAForm@{validateGradeAForm}}
+\index{validateGradeAForm@{validateGradeAForm}!AForm@{AForm}}
+\doxysubsubsection{\texorpdfstring{validateGradeAForm()}{validateGradeAForm()}}
+{\footnotesize\ttfamily \label{class_a_form_ac392915ab53bee9d1224d129991b067f} 
+void AForm\+::validate\+Grade\+AForm (\begin{DoxyParamCaption}\item[{int}]{required\+Grade}{, }\item[{int}]{executed\+Grade}{}\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_a_form_8hpp}{AForm.\+hpp}}\item 
+\mbox{\hyperlink{_a_form_8cpp}{AForm.\+cpp}}\end{DoxyCompactItemize}

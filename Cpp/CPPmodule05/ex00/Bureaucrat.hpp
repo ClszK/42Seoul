@@ -14,7 +14,6 @@ class Bureaucrat {
   Bureaucrat(const std::string* name, int grade);
   Bureaucrat(const std::string& name, int grade);
   Bureaucrat(const Bureaucrat& other);
-  Bureaucrat& operator=(const Bureaucrat& other);
   ~Bureaucrat();
 
   std::string getName() const;
@@ -26,6 +25,8 @@ class Bureaucrat {
  private:
   const std::string mName;
   int mGrade;
+
+  Bureaucrat& operator=(const Bureaucrat& other);
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& brc);
