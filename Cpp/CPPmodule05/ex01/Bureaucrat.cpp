@@ -1,9 +1,5 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat() : mName("default"), mGrade(50) {
-  std::cout << mName << " Constructor call." << std::endl;
-}
-
 Bureaucrat::Bureaucrat(const std::string* name, int grade)
     : mName("default"), mGrade(grade) {
   if (name == NULL) throw std::invalid_argument("Name is NULL.");
@@ -72,6 +68,10 @@ void Bureaucrat::signForm(Form& form) const {
     std::cout << mName << " couldn't sign " << form.getName() << " because "
               << e.what() << std::endl;
   }
+}
+
+Bureaucrat::Bureaucrat() : mName("default"), mGrade(50) {
+  std::cout << mName << " Constructor call." << std::endl;
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {

@@ -1,26 +1,15 @@
 #include "Form.hpp"
 
-Form::Form()
-    : mName("Default"),
-      mBeSigned(false),
-      mRequiredGrade(50),
-      mExecutedGrade(50) {
-  std::cout << mName << " Constructor call." << std::endl;
-}
-
-Form::Form(const std::string* name, int requiredGrade,
-           int executedGrade)
+Form::Form(const std::string* name, int requiredGrade, int executedGrade)
     : mName("Default"),
       mBeSigned(false),
       mRequiredGrade(requiredGrade),
       mExecutedGrade(executedGrade) {
-  if (name == NULL)
-    throw std::invalid_argument("Name is NULL.");
+  if (name == NULL) throw std::invalid_argument("Name is NULL.");
   throw std::invalid_argument("Invalid name!");
 }
 
-Form::Form(const std::string& name, int requiredGrade,
-           int executedGrade)
+Form::Form(const std::string& name, int requiredGrade, int executedGrade)
     : mName(name),
       mBeSigned(false),
       mRequiredGrade(requiredGrade),
@@ -40,21 +29,15 @@ Form::Form(const Form& other)
   validateGradeForm(mRequiredGrade, mExecutedGrade);
 }
 
-Form::~Form() {
-  std::cout << mName << "'s Destructor call." << std::endl;
-}
+Form::~Form() { std::cout << mName << "'s Destructor call." << std::endl; }
 
 std::string Form::getName() const { return mName; }
 
 bool Form::getBeSigned() const { return mBeSigned; }
 
-int Form::getRequiredGrade() const {
-  return mRequiredGrade;
-}
+int Form::getRequiredGrade() const { return mRequiredGrade; }
 
-int Form::getExecutedGrade() const {
-  return mExecutedGrade;
-}
+int Form::getExecutedGrade() const { return mExecutedGrade; }
 
 void Form::beSigned(const Bureaucrat& brc) {
   if (brc.getGrade() <= mRequiredGrade)
@@ -63,8 +46,7 @@ void Form::beSigned(const Bureaucrat& brc) {
     throw GradeTooLowException();
 }
 
-void Form::validateGradeForm(int requiredGrade,
-                             int executedGrade) {
+void Form::validateGradeForm(int requiredGrade, int executedGrade) {
   if (requiredGrade < 1 || executedGrade < 1) {
     std::cerr << mName << "'s ";
     throw GradeTooHighException();
@@ -75,18 +57,22 @@ void Form::validateGradeForm(int requiredGrade,
   }
 }
 
-std::ostream& operator<<(std::ostream& os,
-                         const Form& form) {
+std::ostream& operator<<(std::ostream& os, const Form& form) {
   os << form.getName() << ", form signed " << std::boolalpha
-     << form.getBeSigned() << ", required grade "
-     << form.getRequiredGrade() << ", executed grade "
-     << form.getExecutedGrade();
+     << form.getBeSigned() << ", required grade " << form.getRequiredGrade()
+     << ", executed grade " << form.getExecutedGrade();
   return os;
 }
 
+/* Not use */
+Form::Form()
+    : mName("Default"),
+      mBeSigned(false),
+      mRequiredGrade(50),
+      mExecutedGrade(50) {}
+
 Form& Form::operator=(const Form& other) {
-  std::cout << other.mName
-            << "'s Copy Assignment Constructor call."
+  std::cout << other.mName << "'s Copy Assignment Constructor call."
             << std::endl;
   return *this;
 }

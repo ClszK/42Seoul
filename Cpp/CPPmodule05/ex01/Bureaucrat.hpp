@@ -13,7 +13,6 @@ class Bureaucrat {
   class GradeTooHighException : public ::GradeTooHighException {};
   class GradeTooLowException : public ::GradeTooLowException {};
 
-  Bureaucrat();
   Bureaucrat(const std::string* name, int grade);
   Bureaucrat(const std::string& name, int grade);
   Bureaucrat(const Bureaucrat& other);
@@ -31,6 +30,8 @@ class Bureaucrat {
   const std::string mName;
   int mGrade;
 
+  /* Not use */
+  Bureaucrat();
   Bureaucrat& operator=(const Bureaucrat& other);
 };
 
