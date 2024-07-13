@@ -1,10 +1,5 @@
 NAME        = a.out
-SRCS        = main.cpp\
-				Base.cpp\
-				A.cpp\
-				B.cpp\
-				C.cpp\
-				Dynamic.cpp
+SRCS        = main.cpp
 
 OBJDIR      = build
 OBJS        = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRCS))
