@@ -1,9 +1,10 @@
 #pragma once
 
+#include <algorithm>
+#include <exception>
 #include <iostream>
-#include <al
 
 template <typename T>
-void easyfind(T& container, int find) {
-	for (typename T::iterator it = container.begin())
+typename T::iterator easyfind(T& container, int find) {
+    return std::find(container.begin(), container.end(), find);
 }

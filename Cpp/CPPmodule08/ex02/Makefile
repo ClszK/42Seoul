@@ -1,5 +1,5 @@
 NAME        = a.out
-SRCS        = main.cpp
+SRCS        = main.cpp 
 
 OBJDIR      = build
 OBJS        = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRCS))

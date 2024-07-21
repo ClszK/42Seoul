@@ -1,5 +1,6 @@
-NAME        = a.out
-SRCS        = main.cpp
+NAME        = btc
+SRCS        = main.cpp \
+				BitcoinExchange.cpp
 
 OBJDIR      = build
 OBJS        = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRCS))
