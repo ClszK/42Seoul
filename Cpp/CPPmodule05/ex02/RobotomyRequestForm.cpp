@@ -2,7 +2,7 @@
 
 RobotomyRequestForm::RobotomyRequestForm(
     const std::string& target)
-    : AForm("ShrubberyCreation", 72, 45), mTarget(target) {}
+    : AForm("RobotomyRequest", 72, 45), mTarget(target) {}
 
 RobotomyRequestForm::RobotomyRequestForm(
     const RobotomyRequestForm& other)

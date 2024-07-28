@@ -44,12 +44,3 @@ class AForm {
 };
 
 std::ostream& operator<<(std::ostream& os, const AForm& form);
-
-/**
- *  해야 할 것. 복사 연산자를 어떻게 처리할 것인가.
- * 	1. private으로 이동.
- * 	2. const_cast로 변환.
- *
- * 	내일 1.번으로 진행해야겠다.
- * 	빠이!!
- * */
