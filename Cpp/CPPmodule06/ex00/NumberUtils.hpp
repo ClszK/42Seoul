@@ -7,6 +7,7 @@
 #include <limits>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 
 class NumberUtils {
  private:

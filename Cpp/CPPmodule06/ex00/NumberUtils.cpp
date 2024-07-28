@@ -15,7 +15,7 @@ bool NumberUtils::isChar(const std::string& str) {
 }
 
 bool NumberUtils::isFloat(const std::string& str) {
-  if (str.back() != 'f') return false;
+  if (str[str.size() - 1] != 'f') return false;
   std::string floatStr = str.substr(0, str.length() - 1);
 
   return (NumberUtils::isDouble(floatStr));
