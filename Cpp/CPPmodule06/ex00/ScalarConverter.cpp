@@ -23,8 +23,6 @@ void ScalarConverter::convert(const std::string& str) {
     return;
   }
 
-  std::cout << impossible << std::endl;
-
   NumberUtils::printChar(value);
   NumberUtils::printInt(value);
   NumberUtils::printFloat(value);
