@@ -1,0 +1,6 @@
+services:
+  cpp_app:
+    build: .
+    volumes:
+      - ./CPPmodule06/ex02:/app
+    command: sh -c "make && echo && ./a.out && echo"
