@@ -31,16 +31,14 @@ int main() {
 
   // double 배열 테스트
   double doubleArray[] = {1.1, 2.2, 3.3, 4.4, 5.5};
-  size_t doubleArrayLength =
-      sizeof(doubleArray) / sizeof(doubleArray[0]);
+  size_t doubleArrayLength = sizeof(doubleArray) / sizeof(doubleArray[0]);
   std::cout << "Double array: ";
   ::iter(doubleArray, doubleArrayLength, printDouble);
   std::cout << std::endl;
 
   // string 배열 테스트
   std::string stringArray[] = {"Hello", "World", "!"};
-  size_t stringArrayLength =
-      sizeof(stringArray) / sizeof(stringArray[0]);
+  size_t stringArrayLength = sizeof(stringArray) / sizeof(stringArray[0]);
   std::cout << "String array: ";
   ::iter(stringArray, stringArrayLength, printString);
   std::cout << std::endl;
@@ -55,16 +53,16 @@ int main() {
   std::cout << std::endl;
 
   std::cout << "String array with template function: ";
-  ::iter(stringArray, stringArrayLength,
-         printElement<std::string>);
+  ::iter(stringArray, stringArrayLength, printElement<std::string>);
   std::cout << std::endl;
 
   const int intArr2[] = {1, 2, 3, 4, 5};
   ::iter(intArr2, 5, printElement<int>);
   std::cout << std::endl;
 
-  ::iter(intArr2, 5, printTemp<int>);
+  ::iter(intArr2, 5, printTemp<const int>);
   std::cout << std::endl;
 
+  ::iter(intArr2, 5, [](const int x) { std::cout << x << " "; });
   return 0;
 }

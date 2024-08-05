@@ -4,13 +4,11 @@
 int main() {
   // 기본 생성자 테스트
   Array<int> emptyArray;
-  std::cout << "Empty array size: " << emptyArray.size()
-            << std::endl;
+  std::cout << "Empty array size: " << emptyArray.size() << std::endl;
 
   // 크기를 지정한 생성자 테스트
   Array<int> intArray(5);
-  std::cout << "Integer array size: " << intArray.size()
-            << std::endl;
+  std::cout << "Integer array size: " << intArray.size() << std::endl;
   for (unsigned int i = 0; i < intArray.size(); ++i) {
     std::cout << intArray[i] << " ";
   }
@@ -77,59 +75,54 @@ int main() {
 
   Array<double> doubleArray(5);
   for (unsigned int i = 0; i < doubleArray.size(); ++i) {
-      doubleArray[i] = i * 0.1;
+    doubleArray[i] = i * 0.1;
   }
-  std::cout << "Double array size: " << doubleArray.size()
-            << std::endl;
+  std::cout << "Double array size: " << doubleArray.size() << std::endl;
   for (unsigned int i = 0; i < doubleArray.size(); ++i) {
     std::cout << doubleArray[i] << " ";
   }
   std::cout << std::endl;
 
   Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
+  int* mirror = new int[MAX_VAL];
+  srand(time(NULL));
+  for (int i = 0; i < MAX_VAL; i++) {
+    const int value = rand();
+    numbers[i] = value;
+    mirror[i] = value;
+  }
+  // SCOPE
+  {
+    Array<int> tmp = numbers;
+    Array<int> test(tmp);
+  }
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
+  for (int i = 0; i < MAX_VAL; i++) {
+    if (mirror[i] != numbers[i]) {
+      std::cerr << "didn't save the same value!!" << std::endl;
+      return 1;
     }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+  }
+  try {
+    std::cout << "minus index ";
+    numbers[-2] = 0;
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+  }
+  try {
+    numbers[MAX_VAL] = 0;
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+  }
+
+  try {
+    for (int i = 0; i < MAX_VAL; i++) {
+      numbers[i] = rand();
     }
-    delete [] mirror;
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+  }
+  delete[] mirror;
   return 0;
 }
