@@ -34,13 +34,11 @@ double NumberUtils::convertToChar(const std::string& str) {
   return static_cast<double>(static_cast<char>(str[0]));
 }
 
-double NumberUtils::convertToInt(const std::string& str,
-                                 bool& impossible) {
+double NumberUtils::convertToInt(const std::string& str, bool& impossible) {
   errno = 0;
   long intValue = std::strtol(str.c_str(), NULL, 10);
 
-  if (errno == ERANGE ||
-      intValue < std::numeric_limits<int>::min() ||
+  if (errno == ERANGE || intValue < std::numeric_limits<int>::min() ||
       intValue > std::numeric_limits<int>::max()) {
     impossible = true;
     return 0.0;
@@ -56,7 +54,7 @@ double NumberUtils::convertToFloat(const std::string& str) {
 
   iss >> value;
 
-  return static_cast<double>(value);
+  return static_cast<double>(static_cast<float>(value));
 }
 
 double NumberUtils::convertToDouble(const std::string& str) {
