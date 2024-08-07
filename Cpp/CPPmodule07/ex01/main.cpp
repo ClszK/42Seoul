@@ -60,9 +60,8 @@ int main() {
   ::iter(intArr2, 5, printElement<int>);
   std::cout << std::endl;
 
-  ::iter(intArr2, 5, printTemp<const int>);
+  ::iter(intArr2, 5, printTemp<int>);
   std::cout << std::endl;
 
-  ::iter(intArr2, 5, [](const int x) { std::cout << x << " "; });
   return 0;
 }

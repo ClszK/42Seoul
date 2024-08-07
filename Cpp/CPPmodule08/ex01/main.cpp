@@ -20,8 +20,7 @@ int main() {
   }
 
   // Span 클래스의 기능 테스트
-  std::cout << "Shortest span: " << sp.shortestSpan()
-            << std::endl;
+  std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
   std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 
   std::cout << "------------------------------" << std::endl;
@@ -37,10 +36,8 @@ int main() {
 
   vecTest = test.getIntVec();
 
-  std::cout << "Shortest span: " << test.shortestSpan()
-            << std::endl;
-  std::cout << "Longest span: " << test.longestSpan()
-            << std::endl;
+  std::cout << "Shortest span: " << test.shortestSpan() << std::endl;
+  std::cout << "Longest span: " << test.longestSpan() << std::endl;
 
   for (int i = 0; i < 5; ++i) std::cout << vecTest[i] << " ";
   std::cout << std::endl;
@@ -57,9 +54,18 @@ int main() {
   }
 
   vecTest2 = test2.getIntVec();
-  for (std::vector<int>::iterator it = vecTest2.begin();
-       it != vecTest2.end(); ++it)
+  for (std::vector<int>::iterator it = vecTest2.begin(); it != vecTest2.end();
+       ++it)
     std::cout << *it << " ";
   std::cout << std::endl;
+
+  Span sp1 = Span(5);
+  sp1.addNumber(6);
+  sp1.addNumber(3);
+  sp1.addNumber(17);
+  sp1.addNumber(9);
+  sp1.addNumber(11);
+  std::cout << sp1.shortestSpan() << std::endl;
+  std::cout << sp1.longestSpan() << std::endl;
   return 0;
 }

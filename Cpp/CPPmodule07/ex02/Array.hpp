@@ -13,7 +13,7 @@ class Array {
  public:
   Array();
   Array(unsigned int n);
-  Array(const Array& ref);
+  Array(const Array<T>& ref);
   ~Array();
   Array<T>& operator=(const Array<T>& other);
   T& operator[](unsigned int index);
