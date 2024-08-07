@@ -67,5 +67,12 @@ int main() {
   sp1.addNumber(11);
   std::cout << sp1.shortestSpan() << std::endl;
   std::cout << sp1.longestSpan() << std::endl;
+
+  Span sp2 = Span(2);
+  try {
+    std::cout << sp2.longestSpan() << std::endl;
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
+  }
   return 0;
 }
