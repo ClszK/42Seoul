@@ -17,7 +17,8 @@ class FileManage {
   FileManage(const std::string& fileName);
   virtual ~FileManage();
 
+  const std::string& validateDate(const std::string& str);
+  float validateNum(const std::string& str);
+
   std::map<std::string, float> getLineInFile(char sep);
-  bool validateFirst();
-  bool validateSecond();
 };
