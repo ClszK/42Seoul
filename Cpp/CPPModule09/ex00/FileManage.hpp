@@ -1,5 +1,6 @@
 #pragma once
 
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -17,8 +18,9 @@ class FileManage {
   FileManage(const std::string& fileName);
   virtual ~FileManage();
 
-  const std::string& validateDate(const std::string& str);
-  float validateNum(const std::string& str);
+  int validateDate(const std::string& str);
+  virtual float validateNum(const std::string& str);
+  std::string splitDateStr(std::istringstream& iss, size_t maxSize);
 
-  std::map<std::string, float> getLineInFile(char sep);
+  std::map<int, float> getLineInFile(char sep);
 };
