@@ -6,7 +6,7 @@ class ICharacter;
 
 class AMateria {
  protected:
-  std::string type_;
+  std::string mType;
 
  public:
   AMateria();

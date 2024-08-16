@@ -1,26 +1,34 @@
-NAME		= 	a.out
-SRCS		= 	main.cpp\
-				AMateria.cpp\
-				ICharacter.cpp
+NAME        = a.out
+SRCS        = main.cpp \
+			AMateria.cpp \
+			Character.cpp \
+			Cure.cpp \
+			Ice.cpp \
+			MateriaSource.cpp
 			
-OBJS		=	$(SRCS:.cpp=.o)
 
-HEADERS		=	AMateria.hpp\
-				ICharacter.hpp
+OBJDIR      = build
+OBJS        = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRCS))
+DEPS        = $(patsubst %.cpp, $(OBJDIR)/%.d, $(SRCS))
 
-CXX			=	c++
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 
+CXX         = c++
+CXXFLAGS    = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g -MMD -MP
 
-all:	$(NAME)
+all:    $(NAME)
 
-$(NAME)	: $(OBJS) $(HEADERS)
+$(NAME) : $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o:	%.cpp
+-include $(DEPS)
+
+$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -rf $(NAME)

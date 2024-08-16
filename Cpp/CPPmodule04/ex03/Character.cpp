@@ -1,53 +1,72 @@
 #include "Character.hpp"
 
-Character::Character() {
-  for (int i = 0; i < 4; i++) inventory_[i] = NULL;
+Character::Character() : s_node_(NULL) {
+  for (int i = 0; i < 4; i++) mInventory[i] = NULL;
 }
 
-Character::Character(const std::string& name) : name_(name) {
-  for (int i = 0; i < 4; i++) inventory_[i] = NULL;
+Character::Character(const std::string& name) : mName(name), s_node_(NULL) {
+  for (int i = 0; i < 4; i++) mInventory[i] = NULL;
 }
 
-Character::Character(const Character& other) : name_(other.name_) {
+Character::Character(const Character& other)
+    : mName(other.mName), s_node_(other.s_node_) {
   for (int i = 0; i < 4; i++) {
-    if (other.inventory_[i]) {
-      AMateria* tmp = other.inventory_[i]->clone();
-      inventory_[i] = tmp;
+    if (other.mInventory[i]) {
+      AMateria* tmp = other.mInventory[i]->clone();
+      mInventory[i] = tmp;
     } else
-      inventory_[i] = NULL;
+      mInventory[i] = NULL;
   }
 }
 
 Character::~Character() {
   for (int i = 0; i < 4; i++)
-    if (inventory_[i]) delete inventory_[i];
+    if (mInventory[i]) delete mInventory[i];
+
+  SNode* current = s_node_;
+  while (current != NULL) {
+    SNode* next = current->next;
+    delete next->material;
+    delete current;
+    current = next;
+  }
 }
 
 Character& Character::operator=(const Character& other) {
   if (this != &other) {
-    name_ = other.name_;
+    mName = other.mName;
 
     for (int i = 0; i < 4; i++) {
       AMateria* tmp = NULL;
 
-      if (inventory_[i]) delete inventory_[i];
+      if (mInventory[i]) delete mInventory[i];
 
-      if (other.inventory_[i]) tmp = other.inventory_[i]->clone();
+      if (other.mInventory[i]) tmp = other.mInventory[i]->clone();
 
-      inventory_[i] = tmp;
+      mInventory[i] = tmp;
     }
+    SNode* current = s_node_;
+
+    while (current != NULL) {
+      SNode* next = current->next;
+      delete next->material;
+      delete current;
+      current = next;
+    }
+
+    s_node_ = other.s_node_;
   }
   return *this;
 }
 
-std::string const& Character::getName() const { return name_; }
+std::string const& Character::getName() const { return mName; }
 
 void Character::equip(AMateria* m) {
   if (!m) return;
 
   for (int i = 0; i < 4; i++) {
-    if (inventory_[i] == NULL) {
-      inventory_[i] = m;
+    if (mInventory[i] == NULL) {
+      mInventory[i] = m;
       return;
     }
   }
@@ -55,12 +74,27 @@ void Character::equip(AMateria* m) {
 
 void Character::unequip(int idx) {
   if (idx < 0 || idx > 3) return;
-  if (!inventory_[idx]) return;
-  inventory_[idx] = NULL;
+  if (!mInventory[idx]) return;
+  pushBack(mInventory[idx]);
+  mInventory[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target) {
   if (idx < 0 || idx > 3) return;
-  if (!inventory_[idx]) return;
-  inventory_[idx]->use(target);
+  if (!mInventory[idx]) return;
+  mInventory[idx]->use(target);
+}
+
+void Character::pushBack(AMateria* m) {
+  if (s_node_ == NULL) {
+    s_node_ = new SNode;
+    s_node_->material = m;
+    s_node_->next = NULL;
+  } else {
+    SNode* tmp = s_node_;
+    while (tmp->next != NULL) tmp = tmp->next;
+    tmp->next = new SNode;
+    tmp->next->material = m;
+    tmp->next->next = NULL;
+  }
 }
