@@ -12,7 +12,7 @@ OBJS        = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRCS))
 DEPS        = $(patsubst %.cpp, $(OBJDIR)/%.d, $(SRCS))
 
 CXX         = c++
-CXXFLAGS    = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g -MMD -MP
+CXXFLAGS    = -Wall -Wextra -Werror -std=c++98 -MMD -MP -g
 
 all:    $(NAME)
 
