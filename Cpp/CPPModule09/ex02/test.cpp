@@ -27,6 +27,7 @@ void testPrint(std::vector<std::pair<int, int> >& vec,
 class IsEqual {
  public:
   int value;
+
   IsEqual(int v) : value(v) {}
   bool operator()(const std::pair<int, int>& p) const {
     return p.second == value;
@@ -40,36 +41,41 @@ bool comparePairs(const std::pair<int, int>& a, const std::pair<int, int>& b) {
 void insert(std::vector<std::pair<int, int> >& mainChain,
             std::vector<int>& pendingChain) {
   std::vector<int> jacobsthal = jacobsthalVec(pendingChain.size());
-  int prevIdx = 1;
+  int prevIdx = 0, pendingSize = mainChain.size() * 2;
   bool existOdd = mainChain.size() != pendingChain.size();
 
-  // for (int i = 0; i < mainChain.size(); ++i) {
-  //   if (mainChain[i].second != i) {
-  //     std::vector<std::pair<int, int> >::iterator it =
-  //         std::find_if(mainChain.begin() + i, mainChain.end(), IsEqual(i));
-  //     std::swap(*it, mainChain[i]);
-  //   }
-  // }
+  for (int mainIdx = 0; mainIdx < mainChain.size(); ++mainIdx) {
+    if (mainChain[mainIdx].second != mainIdx) {
+      for (int pendingPos = mainIdx; pendingPos < pendingChain.size();
+           pendingPos += mainChain.size())
+        std::swap(pendingChain[pendingPos],
+                  pendingChain[mainChain[pendingPos].second]);
+    }
+  }
 
-  mainChain.insert(mainChain.begin(), std::make_pair(pendingChain[0], 0));
+  // mainChain.insert(mainChain.begin(), std::make_pair(pendingChain[0], 0));
+  // for (int i = 1; i < mainChain.size(); ++i)
+  //   ++mainChain[i].second;
 
-  for (int i = 1; i < jacobsthal.size(); ++i) {
+  for (int i = 0; i < jacobsthal.size(); ++i) {
     int index =
-        (pendingChain.size() <= jacobsthal[i] ? pendingChain.size() - existOdd
-                                              : jacobsthal[i]);
+        (pendingSize <= jacobsthal[i] ? pendingSize - existOdd : jacobsthal[i]);
 
     for (int j = index - 1; j >= prevIdx; --j) {
-      // std::cout << "j : " << j << std::endl;
       std::vector<std::pair<int, int> >::iterator it =
           std::find_if(mainChain.begin(), mainChain.end(), IsEqual(j));
+      std::cout << "it : " << it->first << std::endl;
       it = (it == mainChain.begin() ? it : it - 1);
-      std::pair<int, int> temp = std::make_pair(pendingChain[j], j);
+      std::pair<int, int> temp =
+          std::make_pair(pendingChain[j], it - mainChain.begin());
+      for (; it != mainChain.end(); ++it) ++it->second;
 
       mainChain.insert(
           std::lower_bound(mainChain.begin(), it, temp, comparePairs) + 1,
           temp);
     }
     prevIdx = index + 1;
+    testPrint(mainChain, pendingChain);
   }
   if (existOdd) {
     std::vector<std::pair<int, int> >::iterator it =
@@ -122,7 +128,6 @@ int main(int argc, char* argv[]) {
   for (int i = 1; i < argc; ++i) vec[i - 1] = std::stoi(argv[i]);
 
   sort(vec);
-  for (auto a : vec) std::cout << a << " ";
 
   return 0;
 }

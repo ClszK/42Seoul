@@ -8,13 +8,13 @@ class AMateria {
  protected:
   std::string mType;
 
+  AMateria(const AMateria& other);
+  AMateria& operator=(const AMateria& other);
+
  public:
   AMateria();
   AMateria(std::string const& type);
-  AMateria(const AMateria& other);
   virtual ~AMateria();
-
-  AMateria& operator=(const AMateria& other);
 
   std::string const& getType() const;  // Returns the materia type
 

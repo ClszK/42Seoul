@@ -13,12 +13,13 @@ class Character : public ICharacter {
   AMateria* mInventory[4];
   SNode* s_node_;
 
+  Character(const Character& other);
+  Character& operator=(const Character& other);
+
  public:
   Character(/* args */);
   Character(const std::string& name);
-  Character(const Character& other);
   ~Character();
-  Character& operator=(const Character& other);
 
   virtual std::string const& getName() const;
   virtual void equip(AMateria* m);

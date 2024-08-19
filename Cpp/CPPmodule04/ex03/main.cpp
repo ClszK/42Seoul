@@ -21,10 +21,16 @@ int main() {
 
   me->use(0, *bob);
   me->use(1, *bob);
-  std::cout << "Testing additional scenarios..." << std::endl;
+
+  /* 추가적인 테스트 */
 
   IMateriaSource* newSrc = new MateriaSource();
+
   newSrc->learnMateria(new Ice());
+  newSrc->learnMateria(new Cure());
+  newSrc->learnMateria(new Cure());
+  newSrc->learnMateria(new Cure());
+  newSrc->learnMateria(new Cure());
   newSrc->learnMateria(new Cure());
 
   ICharacter* alice = new Character("alice");
@@ -34,10 +40,34 @@ int main() {
   alice->equip(newTmp);
   newTmp = newSrc->createMateria("cure");
   alice->equip(newTmp);
+  alice->equip(newSrc->createMateria("ice"));
+  alice->equip(newSrc->createMateria("ice"));
+  alice->equip(newSrc->createMateria("ice"));
+  alice->equip(newSrc->createMateria("ice"));
+
+  alice->unequip(0);
+  alice->unequip(0);
+  alice->unequip(0);
+  alice->unequip(0);
+  alice->unequip(0);
+  alice->unequip(1);
+  alice->unequip(2);
+  alice->unequip(3);
+  alice->unequip(0);
+  alice->equip(newSrc->createMateria("ice"));
+  alice->unequip(0);
+  alice->equip(newSrc->createMateria("ice"));
+  alice->unequip(0);
+  alice->equip(newSrc->createMateria("ice"));
+  alice->unequip(0);
+  alice->equip(newSrc->createMateria("ice"));
 
   // Materia 사용 테스트
   alice->use(0, *bob);
   alice->use(1, *bob);
+  alice->use(-10, *bob);
+  alice->use(3, *bob);
+  alice->use(4, *bob);
 
   // 메모리 해제
   delete alice;

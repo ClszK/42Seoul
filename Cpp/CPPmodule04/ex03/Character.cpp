@@ -9,7 +9,7 @@ Character::Character(const std::string& name) : mName(name), s_node_(NULL) {
 }
 
 Character::Character(const Character& other)
-    : mName(other.mName), s_node_(other.s_node_) {
+    : mName(other.mName), s_node_(NULL) {
   for (int i = 0; i < 4; i++) {
     if (other.mInventory[i]) {
       AMateria* tmp = other.mInventory[i]->clone();
@@ -26,7 +26,7 @@ Character::~Character() {
   SNode* current = s_node_;
   while (current != NULL) {
     SNode* next = current->next;
-    delete next->material;
+    delete current->material;
     delete current;
     current = next;
   }
@@ -40,11 +40,11 @@ Character& Character::operator=(const Character& other) {
       AMateria* tmp = NULL;
 
       if (mInventory[i]) delete mInventory[i];
-
       if (other.mInventory[i]) tmp = other.mInventory[i]->clone();
 
       mInventory[i] = tmp;
     }
+
     SNode* current = s_node_;
 
     while (current != NULL) {
@@ -70,6 +70,7 @@ void Character::equip(AMateria* m) {
       return;
     }
   }
+  delete m;
 }
 
 void Character::unequip(int idx) {
