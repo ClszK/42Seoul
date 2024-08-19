@@ -43,7 +43,6 @@ void insert(std::vector<std::pair<int, int> >& mainChain,
   int prevIdx = 1;
   bool existOdd = mainChain.size() != pendingChain.size();
 
-  testPrint(mainChain, pendingChain);
   // for (int i = 0; i < mainChain.size(); ++i) {
   //   if (mainChain[i].second != i) {
   //     std::vector<std::pair<int, int> >::iterator it =
@@ -101,6 +100,7 @@ void merge(std::vector<std::pair<int, int> >& vec, int size) {
 
   // vec.erase(vec.begin() + vec.size() / 2, vec.end());
 
+  testPrint(mainChain, pendingChain);
   merge(mainChain, size);
   insert(mainChain, pendingChain);
   vec = mainChain;
