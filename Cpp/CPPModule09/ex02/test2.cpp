@@ -51,14 +51,24 @@ size_t binarySearch(std::deque<size_t>& deq,
   mainChainIdx.insert(mainChainIdx.begin() + left,
                       std::make_pair(insertPos, false));
 
+  std::cout << "InsertPos : " << insertPos << std::endl;
+  std::cout << "subChainIdx[subChainPos] : " << subChainIdx[subChainPos]
+            << std::endl;
+  std::cout << "pairSize : " << pairSize << std::endl;
+  std::cout << deq[subChainIdx[subChainPos]] << std::endl;
   deq.insert(deq.begin() + insertPos, deq.begin() + subChainIdx[subChainPos],
              deq.begin() + subChainIdx[subChainPos] + pairSize / 2);
   deq.erase(deq.begin() + subChainIdx[subChainPos] + pairSize / 2,
             deq.begin() + subChainIdx[subChainPos] + pairSize);
+  //   if (mainChainIdx.size() == deq.size()) return 1;
   for (size_t k = left; k < i + 1; ++k) {
     mainChainIdx[k + 1].first += pairSize / 2;
   }
+  std::cout << " subChainPos : " << subChainPos << std::endl;
   for (int k = 0; k < subChainPos; ++k) {
+    std::cout << "subChainIdx[k] : " << subChainIdx[k]
+              << " mainChainIdx[left].first : " << mainChainIdx[left].first
+              << std::endl;
     if (subChainIdx[k] >= mainChainIdx[left].first)
       subChainIdx[k] += pairSize / 2;
   }
