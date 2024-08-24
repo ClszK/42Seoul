@@ -1,5 +1,13 @@
 #include "FileManage.hpp"
 
+FileManage::FileManage() : mFile("data.csv") {
+  if (!mFile.is_open()) throw std::runtime_error("Error: Can't open data.csv");
+
+  if (mFile.peek() == std::ifstream::traits_type::eof()) {
+    throw std::runtime_error("Error: File is empty data.csv");
+  }
+}
+
 FileManage::FileManage(const std::string& fileName) : mFile(fileName) {
   if (!mFile.is_open())
     throw std::runtime_error("Error: Can't open " + fileName);
@@ -15,83 +23,94 @@ FileManage::~FileManage() {
   }
 }
 
-std::string FileManage::splitDateStr(std::istringstream& iss, size_t maxSize) {
+std::string FileManage::splitDateStr(std::istringstream& iss, size_t maxSize,
+                                     char seq = '-') {
   std::string str;
-  if (!std::getline(iss, str, '-') || str.size() != maxSize) {
-    throw std::runtime_error("Error: Invalid date string format or size => " +
-                             str);
+
+  if (!std::getline(iss, str, seq) || str.size() != maxSize) {
+    throw std::runtime_error("Error: Invalid date string format or size => ");
   }
+
+  for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
+    if (!std::isdigit(*it)) {
+      throw std::runtime_error("Error: Invalid date string format => ");
+    }
+  }
+
   return str;
+}
+
+int stringToInt(const std::string& str) {
+  std::stringstream ss(str);
+  int result;
+  if (!(ss >> result)) {
+    throw std::runtime_error("Error: Invalid integer string format => " + str);
+  }
+  return result;
 }
 
 int FileManage::validateDate(const std::string& str) {
   int year, month, daily;
   std::istringstream iss(str);
-  std::string yearStr, monthStr, dailyStr;
+  std::string yearStr, monthStr, dailyStr, tempStr;
   int monthlyDate[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
   try {
     yearStr = splitDateStr(iss, 4);
     monthStr = splitDateStr(iss, 2);
-    dailyStr = splitDateStr(iss, 2);
-    year = std::stol(yearStr);
-    month = std::stol(monthStr);
-    daily = std::stol(dailyStr);
-  } catch (const std::invalid_argument& e) {
-    std::cerr << "Error: invalid argument in date conversion" << std::endl;
-    return 0;
-  } catch (const std::runtime_error& re) {
-    std::cerr << re.what() << std::endl;
+    dailyStr = splitDateStr(iss, 2, ' ');
+  } catch (const std::runtime_error& e) {
+    throw std::runtime_error(e.what() + str);
   }
 
-  if (month < 1 || month > 12) {
-    std::cerr << "Error: bad date month => " << str << std::endl;
-    return 0;
+  if (!iss.eof()) {
+    iss >> tempStr;
+    for (std::string::const_iterator it = tempStr.begin(); it != tempStr.end();
+         ++it) {
+      if (*it != ' ')
+        throw std::runtime_error("Error: Invalid date string format => " + str);
+    }
   }
 
-  if (year % 4 == 0 && year % 100 != 0 && year % 400 == 0) monthlyDate[1] = 29;
+  year = stringToInt(yearStr);
+  month = stringToInt(monthStr);
+  daily = stringToInt(dailyStr);
 
-  if (daily < 1 || daily > monthlyDate[month - 1]) {
-    std::cerr << "Error: bad date daily => " << str << std::endl;
-    return 0;
-  }
+  if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+    monthlyDate[1] = 29;
+
+  if (month < 1 || month > 12)
+    throw std::runtime_error("Error: bad date month.");
+
+  if (daily < 1 || daily > monthlyDate[month - 1])
+    throw std::runtime_error("Error: bad date daily.");
+
   return year * 10000 + month * 100 + daily;
 }
 
-float FileManage::validateNum(const std::string& str) {
-  std::istringstream convert(str);
-  float exchangeRate;
-
-  if (!(convert >> exchangeRate && convert.eof()) ||
-      (exchangeRate < 0.0 || exchangeRate > 1000.0))
-    return -1.0;
-  return exchangeRate;
-}
-
-std::map<int, float> FileManage::getLineInFile(char sep) {
-  std::map<int, float> result;
-  std::string line;
+std::pair<int, float> FileManage::getLineInFile(char sep) {
+  std::string line, keyStr, valStr;
 
   while (std::getline(mFile, line)) {
-    std::istringstream iss(line);
-    std::string keyStr;
-    std::string valStr;
-    float value;
-    int date;
-
-    if (!std::getline(iss, keyStr, sep) || !std::getline(iss, valStr) ||
-        !iss.eof()) {
-      std::cerr << "Error: bad input => " << line << std::endl;
-      continue;
-    }
-    date = validateDate(keyStr);
-    value = validateNum(valStr);
-    if (date != 0 && value != -1.0) result[date] = value;
+    if (line.size()) break;
   }
-  return result;
+  if (line.empty() && mFile.eof()) return std::make_pair(0, 0);
+
+  std::istringstream iss(line);
+  float value;
+  int date;
+
+  if (!std::getline(iss, keyStr, sep) ||
+      !(std::getline(iss, valStr) && iss.eof())) {
+    throw std::runtime_error("Error: bad input => " + line);
+  }
+
+  date = validateDate(keyStr);
+  value = validateNum(valStr);
+  return std::make_pair(date, value);
 }
 
-FileManage::FileManage() {}
+/* private */
 
 FileManage::FileManage(const FileManage& rhs) { (void)rhs; }
 

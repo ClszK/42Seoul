@@ -1,13 +1,20 @@
 #include <iostream>
 
-#include "FileManage.hpp"
+#include "BitcoinExchange.hpp"
 
-int main() {
-  FileManage test("data.csv");
-  std::map<int, float> returnTest = test.getLineInFile(',');
-
-  for (auto& elem : returnTest) {
-    std::cout << elem.first << " " << elem.second << std::endl;
+int main(int argc, char* argv[]) {
+  if (argc != 2) {
+    std::cout << "Error: Invalid input" << std::endl;
+    return 1;
   }
+
+  try {
+    BitcoinExchange bitcoin(argv[1]);
+    bitcoin.printValidateValue();
+
+  } catch (const std::exception& e) {
+    std::cout << e.what() << std::endl;
+  }
+
   return 0;
 }

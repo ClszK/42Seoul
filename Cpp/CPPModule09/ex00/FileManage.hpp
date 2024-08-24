@@ -7,20 +7,21 @@
 #include <sstream>
 
 class FileManage {
- private:
+ protected:
   std::ifstream mFile;
 
-  FileManage();
+ private:
   FileManage(const FileManage& rhs);
   FileManage& operator=(const FileManage& other);
 
  public:
+  FileManage();
   FileManage(const std::string& fileName);
   virtual ~FileManage();
 
   int validateDate(const std::string& str);
-  virtual float validateNum(const std::string& str);
-  std::string splitDateStr(std::istringstream& iss, size_t maxSize);
+  virtual float validateNum(const std::string& str) = 0;
+  std::string splitDateStr(std::istringstream& iss, size_t maxSize, char seq);
 
-  std::map<int, float> getLineInFile(char sep);
+  std::pair<int, float> getLineInFile(char sep);
 };

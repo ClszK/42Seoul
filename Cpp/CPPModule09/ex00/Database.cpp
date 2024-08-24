@@ -17,7 +17,7 @@ void Database::createDatabase() {
   while (!mFile.eof()) {
     try {
       temp = getLineInFile(',');
-      if (temp.first == 0 && temp.second) continue;
+      if (temp.first == 0 && temp.second == 0) continue;
       mDatabase.insert(getLineInFile(','));
     } catch (const std::exception& e) {
       std::cout << e.what() << std::endl;
@@ -38,10 +38,12 @@ float Database::findValue(int date) {
   std::map<int, float>::iterator pos = mDatabase.lower_bound(date);
 
   if (pos == mDatabase.end() || pos->first != date) {
-    if (pos == mDatabase.begin())
+    if (pos == mDatabase.begin()) {
       throw std::runtime_error("Error: Not Found Date.");
+    }
     --pos;
   }
+  std::cout << "date : " << date << std::endl;
   return pos->second;
 }
 

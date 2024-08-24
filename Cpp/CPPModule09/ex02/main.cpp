@@ -5,7 +5,7 @@ int main(int argc, char* argv[]) {
   clock_t vecTime, deqTime;
 
   if (argc == 1 || !pmerge.createNotSortedVec(argc, argv)) {
-    std::cerr << "Invalid input" << std::endl;
+    std::cout << "Invalid input" << std::endl;
     return 1;
   }
 
