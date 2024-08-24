@@ -21,8 +21,7 @@ void BitcoinExchange::printValidateValue() {
       currentDate = temp.first;
       currentRate = mDatabase.findValue(currentDate);
       printDate(currentDate);
-      std::cout << value << " " << currentRate << " = " << value * currentRate
-                << std::endl;
+      std::cout << value << " = " << value * currentRate << std::endl;
     } catch (const std::exception& e) {
       std::cout << e.what() << std::endl;
     }

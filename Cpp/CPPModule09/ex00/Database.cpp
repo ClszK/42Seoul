@@ -18,7 +18,7 @@ void Database::createDatabase() {
     try {
       temp = getLineInFile(',');
       if (temp.first == 0 && temp.second == 0) continue;
-      mDatabase.insert(getLineInFile(','));
+      mDatabase.insert(temp);
     } catch (const std::exception& e) {
       std::cout << e.what() << std::endl;
     }
@@ -43,7 +43,6 @@ float Database::findValue(int date) {
     }
     --pos;
   }
-  std::cout << "date : " << date << std::endl;
   return pos->second;
 }
 
