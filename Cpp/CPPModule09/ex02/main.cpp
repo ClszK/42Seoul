@@ -29,10 +29,10 @@ int main(int argc, char* argv[]) {
 
   std::cout << "Time to process a range of\t" << pmerge.getVector().size()
             << " elements with  std::vector : \t"
-            << (vecTime * 1000000.0) / CLOCKS_PER_SEC << " us" << std::endl;
+            << (vecTime * 1000.0) / CLOCKS_PER_SEC << " ms" << std::endl;
   std::cout << "Time to process a range of\t" << pmerge.getVector().size()
             << " elements with  std::deque : \t"
-            << (deqTime * 1000000.0) / CLOCKS_PER_SEC << " us" << std::endl;
+            << (deqTime * 1000.0) / CLOCKS_PER_SEC << " ms" << std::endl;
 
   //   std::vector<int> testVec = pmerge.getNotSortedVec();
   //   std::deque<int> testDeq;
