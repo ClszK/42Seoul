@@ -48,7 +48,7 @@ float Database::findValue(int date) {
 
 /* private */
 
-Database::Database(const Database& rhs) { (void)rhs; }
+Database::Database(const Database& rhs) : FileManage(rhs) { (void)rhs; }
 
 Database& Database::operator=(const Database& other) {
   (void)other;

@@ -8,7 +8,7 @@ FileManage::FileManage() : mFile("data.csv") {
   }
 }
 
-FileManage::FileManage(const std::string& fileName) : mFile(fileName) {
+FileManage::FileManage(const std::string& fileName) : mFile(fileName.c_str()) {
   if (!mFile.is_open())
     throw std::runtime_error("Error: Can't open " + fileName);
 

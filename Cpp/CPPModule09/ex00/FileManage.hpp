@@ -10,8 +10,9 @@ class FileManage {
  protected:
   std::ifstream mFile;
 
- private:
   FileManage(const FileManage& rhs);
+
+ private:
   FileManage& operator=(const FileManage& other);
 
  public:

@@ -59,7 +59,7 @@ BitcoinExchange::BitcoinExchange(const std::string& name)
 
 BitcoinExchange::~BitcoinExchange() {}
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& rhs) { (void)rhs; }
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& rhs) : FileManage(rhs) { (void)rhs; }
 
 BitcoinExchange::BitcoinExchange() : FileManage("input.txt"), mDatabase() {}
 
