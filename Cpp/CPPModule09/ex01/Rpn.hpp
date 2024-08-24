@@ -4,6 +4,9 @@
 #include <iostream>
 #include <sstream>
 #include <stack>
+#include <limits>
+#include <cctype>
+#include <cstdlib>
 
 class Rpn {
  private:

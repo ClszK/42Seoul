@@ -7,8 +7,7 @@ void Rpn::rpn(std::string str) {
 
   while (std::getline(iss, temp, ' ')) {
     if (isLong(temp)) {
-      num = std::stod(temp);
-      if (num >= 10 || num <= 0) throw std::runtime_error("Error");
+      num = temp[0] - '0';
       stk.push(num);
     } else if (isOperator(temp))
       calc(temp);
@@ -44,14 +43,11 @@ void Rpn::calc(const std::string& op) {
 }
 
 bool Rpn::isLong(const std::string& str) {
-  try {
-    size_t pos;
-    std::stol(str, &pos);
-    return pos == str.size();
-  } catch (const std::exception& e) {
-    return false;
-  }
+  if (str.size() == 1 && std::isdigit(str[0]))
+    return true;
+  return false;
 }
+
 
 bool Rpn::isOperator(const std::string& str) {
   return (str == "+" || str == "-" || str == "*" || str == "/");
